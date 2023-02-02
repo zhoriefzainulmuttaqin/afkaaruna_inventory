@@ -9,6 +9,8 @@ class Kategori extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $table = 'kategori';
     protected $fillable = ['kategori'];
 }
