@@ -8,6 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Perbaikan extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
+
     protected $table = 'perbaikan';
-    protected $fillable = ['tgl_mulai', 'tgl_selesai', 'biaya', 'id_barang', 'keterangan'];
+    protected $fillable = [
+        'tgl_mulai',
+        'tgl_selesai',
+        'biaya',
+        'id_barang',
+        'keterangan'
+    ];
+
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class);
+    }
 }

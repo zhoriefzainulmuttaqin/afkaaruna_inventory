@@ -9,6 +9,13 @@ class Lokasi extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $table = 'lokasi';
     protected $fillable = ['lokasi', 'id_area'];
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
+    }
 }
