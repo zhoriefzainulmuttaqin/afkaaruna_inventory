@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-    <title>Sidebar 05</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -23,22 +22,23 @@
                 </button>
             </div>
             <div class="p-4">
-                <h1><a href="/" class="logo">Afkaaruna <span>Inventory</span></a></h1>
+                <h1><a href="/admin" class="logo">Afkaaruna <span>Inventory</span></a></h1>
                 <ul class="list-unstyled components mb-5">
                     <li class="active">
-                        <a href="/"><span class="fa fa-home mr-3"></span> Home</a>
+                        <a href="/admin"><span class="fa fa-home mr-3"></span> Home</a>
                     </li>
                     <li>
                         <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                             <span class="fa fa-folder mr-3"></span> Data Master</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu2">
-                            <li><a href="#"><span class="fa fa-folder mr-2"></span> Kategori</a></li>
-                            <li><a href="#"><span class="fa fa-map-marker mr-2"></span> Location</a></li>
-                            <li><a href="#"><span class="fa fa-map-marker mr-2"></span> Area</a></li>
+                            <li><a href="#"><span class="fa fa-caret-right mr-2"></span> Users</a></li>
+                            <li><a href="#"><span class="fa fa-caret-right mr-2"></span> Kategori</a></li>
+                            <li><a href="#"><span class="fa fa-caret-right mr-2"></span> Location</a></li>
+                            <li><a href="#"><span class="fa fa-caret-right  mr-2"></span> Area</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><span class="fa fa-folder mr-3"></span> Peminjaman</a>
+                        <a href="/admin"><span class="fa fa-folder mr-3"></span> Peminjaman</a>
                     </li>
                     <li>
                         <a href="#"><span class="fa fa-folder mr-3"></span> Perbaikan</a>
@@ -70,13 +70,13 @@
                             document.write(new Date().getFullYear());
                         </script>
                         <a href="https://www.jagatgenius.com/" target="_blank"
-                            style="color: rgba(255, 255, 255, 0.6); text-decoration: none;"> PT.JAVA
+                            style="color: rgba(255, 255, 255, 0.6); text-decoration: none;"> PT. JAVA
                             GENIUS ALL TECHNOLOGY</a>
                     </p>
                 </div>
-
             </div>
         </nav>
+
 
         <!-- Page Content  -->
         <div id="content" class="p-4 p-md-5 pt-5">
