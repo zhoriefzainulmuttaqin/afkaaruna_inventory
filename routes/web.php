@@ -39,3 +39,7 @@ Route::get('/barang', function () {
 Route::get('/perbaikan', function () {
     return view('pages/perbaikan');
 });
+
+Route::get('/kategori', function () {
+    return view('pages/kategori');
+});
