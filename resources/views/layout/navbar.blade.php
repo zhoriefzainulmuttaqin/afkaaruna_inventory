@@ -38,13 +38,13 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="/admin"><span class="fa fa-folder mr-3"></span> Peminjaman</a>
+                        <a href="/peminjaman"><span class="fa fa-folder mr-3"></span> Peminjaman</a>
                     </li>
                     <li>
                         <a href="#"><span class="fa fa-folder mr-3"></span> Perbaikan</a>
                     </li>
                     <li>
-                        <a href="#"><span class="fa fa-folder mr-3"></span> Barang</a>
+                        <a href="/barang"><span class="fa fa-folder mr-3"></span> Barang</a>
                     </li>
                     <li class="active">
                         <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
