@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,13 +15,8 @@ use Illuminate\Support\Facades\Route;
  */
 
 //  Login Routes
-Route::get('/login', function () {
-    return view('login/login');
-});
-
-Route::get('/signup', function () {
-    return view('login/signup');
-});
+Route::get('/login',[LoginController::class, 'login'])->name('login');
+Route::post('/loginproses',[LoginController::class, 'loginproses'])->name('loginproses');
 
 // Pages Routes
 
