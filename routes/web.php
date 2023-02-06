@@ -35,3 +35,7 @@ Route::get('/peminjaman', function () {
 Route::get('/barang', function () {
     return view('pages/barang');
 });
+
+Route::get('/perbaikan', function () {
+    return view('pages/perbaikan');
+});

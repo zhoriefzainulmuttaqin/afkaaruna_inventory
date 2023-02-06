@@ -41,7 +41,7 @@
                         <a href="/peminjaman"><span class="fa fa-folder mr-3"></span> Peminjaman</a>
                     </li>
                     <li>
-                        <a href="#"><span class="fa fa-folder mr-3"></span> Perbaikan</a>
+                        <a href="/perbaikan"><span class="fa fa-folder mr-3"></span> Perbaikan</a>
                     </li>
                     <li>
                         <a href="/barang"><span class="fa fa-folder mr-3"></span> Barang</a>
