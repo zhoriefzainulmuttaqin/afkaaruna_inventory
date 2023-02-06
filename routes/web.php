@@ -15,27 +15,28 @@ use Illuminate\Support\Facades\Route;
  */
 
 //  Login Routes
-Route::get('/login',[LoginController::class, 'login'])->name('login');
-Route::post('/loginproses',[LoginController::class, 'loginproses'])->name('loginproses');
+Route::get('/', [LoginController::class, 'FormLogin']);
+Route::post('/login', [LoginController::class, 'login']);
 
 // Pages Routes
+Route::middleware('auth')->group(function () {
+    Route::get('/admin', function () {
+        return view('home');
+    });
 
-Route::get('/admin', function () {
-    return view('home');
-});
+    Route::get('/peminjaman', function () {
+        return view('home');
+    });
 
-Route::get('/peminjaman', function () {
-    return view('home');
-});
+    Route::get('/barang', function () {
+        return view('pages/barang');
+    });
 
-Route::get('/barang', function () {
-    return view('pages/barang');
-});
+    Route::get('/perbaikan', function () {
+        return view('pages/perbaikan');
+    });
 
-Route::get('/perbaikan', function () {
-    return view('pages/perbaikan');
-});
-
-Route::get('/kategori', function () {
-    return view('pages/kategori');
+    Route::get('/kategori', function () {
+        return view('pages/kategori');
+    });
 });

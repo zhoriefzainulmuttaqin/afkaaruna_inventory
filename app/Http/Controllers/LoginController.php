@@ -8,15 +8,21 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function login(){
+    public function formLogin()
+    {
         return view('login/login');
     }
 
-    public function loginproses(Request $request){
-        if(Auth::attempt($request->only('username','password'))){
+    public function login(Request $request)
+    {
+        $request = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        if (Auth::attempt($request)) {
             return redirect('admin');
         }
-        
-        return redirect('login');
+        return redirect()->back()->with('error', 'Username or Password Are Wrong.');
     }
 }
