@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Lokasi;
 use Illuminate\Http\Request;
 
-class locationController extends Controller
+class LocationController extends Controller
 {
     public function index()
     {

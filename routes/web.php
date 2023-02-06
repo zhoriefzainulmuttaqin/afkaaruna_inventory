@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,7 +37,8 @@ Route::middleware('auth')->group(function () {
         return view('pages/perbaikan');
     });
 
-    Route::get('/kategori', function () {
-        return view('pages/kategori');
-    });
+    Route::get('/kategori', [KategoriController::class, 'index']);
+    Route::post('/add-kategori', [KategoriController::class, 'store']);
+    Route::put('/edit-kategori', [KategoriController::class, 'edit']);
+    Route::get('/delete-kategori/{id}', [KategoriController::class, 'delete']);
 });

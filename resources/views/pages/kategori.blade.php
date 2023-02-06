@@ -49,62 +49,39 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="media align-items-left">
-                                                        <div class="media-body">
-                                                            <span class="mb-0 text-sm">1</span>
+                                            @foreach ($kategori as $item)
+                                                <tr>
+                                                    <td scope="row">
+                                                        <div class="media align-items-left">
+                                                            <div class="media-body">
+                                                                <span class="mb-0 text-sm">{{ $loop->iteration }}</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </th>
-                                                <td class="text-center">
-                                                    Elektronik
-                                                </td>
-                                                <td class="text-right">
-                                                    <div class="dropdown">
-                                                        <a class="btn btn-sm btn-icon-only text-light" href="#"
-                                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="fa fa-ellipsis-v"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                                data-target="#formModalEdit">
-                                                                Edit
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{ $item->kategori }}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <div class="dropdown">
+                                                            <a class="btn btn-sm btn-icon-only text-light" href="#"
+                                                                role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                                <i class="fa fa-ellipsis-v"></i>
                                                             </a>
-                                                            <a class="dropdown-item" href="#">Hapus</a>
+                                                            <div
+                                                                class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                                                    data-target="#formModalEdit{{ $item->id }}">
+                                                                    Edit
+                                                                </a>
+                                                                <a class="dropdown-item"
+                                                                    href="{{ asset('delete-kategori/' . $item->id) }}">Hapus</a>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="media align-items-left">
-                                                        <div class="media-body">
-                                                            <span class="mb-0 text-sm">2</span>
-                                                        </div>
-                                                    </div>
-                                                </th>
-                                                <td class="text-center">
-                                                    Elektronik
-                                                </td>
-                                                <td class="text-right">
-                                                    <div class="dropdown">
-                                                        <a class="btn btn-sm btn-icon-only text-light" href="#"
-                                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="fa fa-ellipsis-v"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                                data-target="#formModalEdit">
-                                                                Edit
-                                                            </a>
-                                                            <a class="dropdown-item" href="#">Hapus</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -142,61 +119,72 @@
 
 
                     {{-- Modal Tambah Data --}}
+                    <form action="/add-kategori" method="POST">
+                        @csrf
+                        <div class="modal fade" id="formModal" tabindex="-1" role="dialog"
+                            aria-labelledby="formModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
 
-                    <div class="modal fade" id="formModal" tabindex="-1" role="dialog"
-                        aria-labelledby="formModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
                                         <div class="form-group">
                                             <label for="kategori">Nama Kategori</label>
-                                            <input type="text" class="form-control" id="kategori">
+                                            <input type="text" class="form-control" id="kategori" name="kategori">
                                         </div>
-                                    </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="button" class="btn btn-primary">Simpan</button>
-                                </div>
+
                             </div>
                         </div>
-                    </div>
+                    </form>
                     {{-- End Modal Tambah Data --}}
 
                     {{-- Modal Edut Data --}}
-
-                    <div class="modal fade" id="formModalEdit" tabindex="-1" role="dialog"
-                        aria-labelledby="formModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="formModalLabel">Edit Data</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="kategori">Nama Kategori</label>
-                                            <input type="text" class="form-control" id="kategori">
+                    @foreach ($kategori as $item)
+                        <form action="edit-kategori" method="PUT">
+                            @csrf
+                            <div class="modal fade" id="formModalEdit{{ $item->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="formModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="formModalLabel">Edit Data</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="button" class="btn btn-primary">Simpan</button>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" id="id" name="id"
+                                                    value="{{ $item->id }}">
+                                                <label for="kategori">Nama Kategori</label>
+                                                <input type="text" class="form-control" id="kategori"
+                                                    name="kategori" value="{{ $item->kategori }}">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Tutup</button>
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </form>
+                    @endforeach
+
                     {{-- End Modal Edit Data --}}
 
         </body>
