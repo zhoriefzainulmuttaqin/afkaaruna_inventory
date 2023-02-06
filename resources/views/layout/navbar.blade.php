@@ -33,7 +33,7 @@
                         <ul class="collapse list-unstyled" id="pageSubmenu2">
                             <li><a href="#"><span class="fa fa-caret-right mr-2"></span> Users</a></li>
                             <li><a href="/kategori"><span class="fa fa-caret-right mr-2"></span> Kategori</a></li>
-                            <li><a href="#"><span class="fa fa-caret-right mr-2"></span> Location</a></li>
+                            <li><a href="/lokasi"><span class="fa fa-caret-right mr-2"></span> Location</a></li>
                             <li><a href="#"><span class="fa fa-caret-right  mr-2"></span> Area</a></li>
                         </ul>
                     </li>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LokasiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,9 +38,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/perbaikan', function () {
         return view('pages/perbaikan');
     });
-
+    // Kategori
     Route::get('/kategori', [KategoriController::class, 'index']);
     Route::post('/add-kategori', [KategoriController::class, 'store']);
     Route::post('/edit-kategori', [KategoriController::class, 'edit']);
     Route::get('/delete-kategori/{id}', [KategoriController::class, 'delete']);
+
+    // Lokasi
+    Route::get('/lokasi', [LokasiController::class, 'index']);
+    Route::post('/add-lokasi', [LokasiController::class, 'store']);
+    Route::post('/edit-lokasi', [LokasiController::class, 'edit']);
+    Route::get('/delete-lokasi/{id}', [LokasiController::class, 'delete']);
 });

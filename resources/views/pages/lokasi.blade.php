@@ -54,12 +54,13 @@
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">No</th>
-                                                <th scope="col" class="text-center">Kategori</th>
+                                                <th scope="col" class="text-center">Lokasi</th>
+                                                <th scope="col" class="text-center">Area</th>
                                                 <th scope="col" class="text-right">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($kategori as $item)
+                                            @foreach ($lokasi as $item)
                                                 <tr>
                                                     <td scope="row">
                                                         <div class="media align-items-left">
@@ -69,7 +70,10 @@
                                                         </div>
                                                     </td>
                                                     <td class="text-center">
-                                                        {{ $item->kategori }}
+                                                        {{ $item->lokasi }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{ $item->id_area }}
                                                     </td>
                                                     <td class="text-right">
                                                         <div class="dropdown">
@@ -85,7 +89,7 @@
                                                                     Edit
                                                                 </a>
                                                                 <a class="dropdown-item"
-                                                                    href="{{ asset('delete-kategori/' . $item->id) }}">Hapus</a>
+                                                                    href="{{ asset('delete-lokasi/' . $item->id) }}">Hapus</a>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -129,7 +133,7 @@
 
 
                     {{-- Modal Tambah Data --}}
-                    <form action="/add-kategori" method="POST">
+                    <form action="/add-lokasi" method="POST">
                         @csrf
                         <div class="modal fade" id="formModal" tabindex="-1" role="dialog"
                             aria-labelledby="formModalLabel" aria-hidden="true">
@@ -144,8 +148,18 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <label for="kategori">Nama Kategori</label>
-                                            <input type="text" class="form-control" id="kategori" name="kategori">
+                                            <label for="lokasi">Lokasi</label>
+                                            <input type="text" class="form-control" id="lokasi" name="lokasi">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="id_area">Area</label>
+                                            <select class="form-control" id="id_area" name="id_area">
+                                                <option>1111</option>
+                                                <option>2222</option>
+                                                <option>3333</option>
+                                                <option>4444</option>
+                                                <option>5555</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -161,8 +175,8 @@
                     {{-- End Modal Tambah Data --}}
 
                     {{-- Modal Edit Data --}}
-                    @foreach ($kategori as $item)
-                        <form action="edit-kategori" method="POST">
+                    @foreach ($lokasi as $item)
+                        <form action="edit-lokasi" method="POST">
                             @csrf
                             <div class="modal fade" id="formModalEdit{{ $item->id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="formModalLabel" aria-hidden="true">
@@ -179,9 +193,20 @@
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" id="id" name="id"
                                                     value="{{ $item->id }}">
-                                                <label for="kategori">Nama Kategori</label>
-                                                <input type="text" class="form-control" id="kategori"
-                                                    name="kategori" value="{{ $item->kategori }}">
+                                                <label for="lokasi">Lokasi</label>
+                                                <input type="text" class="form-control" id="lokasi" name="lokasi"
+                                                    value="{{ $item->lokasi }}">
+                                                <input type="hidden" class="form-control" id="id" name="id"
+                                                    value="{{ $item->id }}">
+                                                <label for="id_area">Area</label>
+                                                <select class="form-control" id="id_area" name="id_area"
+                                                    value="{{ $item->id_area }}">
+                                                    <option>1111</option>
+                                                    <option>2222</option>
+                                                    <option>3333</option>
+                                                    <option>4444</option>
+                                                    <option>5555</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
