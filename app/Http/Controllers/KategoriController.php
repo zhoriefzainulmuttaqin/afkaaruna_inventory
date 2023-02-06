@@ -26,7 +26,7 @@ class KategoriController extends Controller
         ]);
 
         if ($kategori) {
-            return redirect('kategori');
+            return redirect('kategori')->with('success', 'Kategori Berhasil Ditambahkan.');
         }
     }
 
@@ -41,7 +41,7 @@ class KategoriController extends Controller
         ]);
 
         if ($kategori) {
-            return redirect('kategori');
+            return redirect('kategori')->with('success', 'Kategori Berhasil Diedit.');
         }
     }
 
@@ -50,7 +50,7 @@ class KategoriController extends Controller
         $del = Kategori::where('id', $request->id)->delete();
 
         if ($del) {
-            return redirect('kategori');
+            return redirect('kategori')->with('success', 'Kategori Berhasil Dihapus.');
         }
     }
 }

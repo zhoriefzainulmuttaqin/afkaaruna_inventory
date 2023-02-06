@@ -25,4 +25,9 @@ class LoginController extends Controller
         }
         return redirect()->back()->with('error', 'Username or Password Are Wrong.');
     }
+
+    public function logout(){
+        Auth::logout();
+        return redirect('/');
+    }
 }

@@ -23,6 +23,16 @@
                     <!-- Table -->
                     <div class="row">
                         <div class="col">
+                            @if ($message = Session::get('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ $message }}
+                </div>
+                @endif
+                @if ($message = Session::get('error'))
+                <div class="alert alert-error" role="alert">
+                    {{ $message }}
+                </div>
+                @endif
                             <div class="card-header border-0">
                                 <nav aria-label="...">
                                     <ul class="pagination mb-0">
@@ -152,7 +162,7 @@
 
                     {{-- Modal Edut Data --}}
                     @foreach ($kategori as $item)
-                        <form action="edit-kategori" method="PUT">
+                        <form action="edit-kategori" method="POST">
                             @csrf
                             <div class="modal fade" id="formModalEdit{{ $item->id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="formModalLabel" aria-hidden="true">

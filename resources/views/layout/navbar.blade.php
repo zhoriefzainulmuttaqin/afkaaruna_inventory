@@ -56,7 +56,7 @@
                                 <a></a>
                             </li>
                             <li>
-                                <a href="/login"><span class="fa fa-sign-out mr-2"></span> Logout</a>
+                                <a href="/logout"><span class="fa fa-sign-out mr-2"></span> Logout</a>
                             </li>
                         </ul>
                     </li>

@@ -46,6 +46,11 @@
                                 </button>
 
                                 <hr class="my-4" />
+                                @if ($message = Session::get('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ $message }}
+                </div>
+                @endif
                             </form>
                         </div>
                     </div>

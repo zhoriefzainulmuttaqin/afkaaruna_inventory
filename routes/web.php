@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 //  Login Routes
 Route::get('/', [LoginController::class, 'FormLogin']);
 Route::post('/login', [LoginController::class, 'login']);
+Route::get('/logout', [LoginController::class, 'logout']);
 
 // Pages Routes
 Route::middleware('auth')->group(function () {
@@ -39,6 +40,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/kategori', [KategoriController::class, 'index']);
     Route::post('/add-kategori', [KategoriController::class, 'store']);
-    Route::put('/edit-kategori', [KategoriController::class, 'edit']);
+    Route::post('/edit-kategori', [KategoriController::class, 'edit']);
     Route::get('/delete-kategori/{id}', [KategoriController::class, 'delete']);
 });
