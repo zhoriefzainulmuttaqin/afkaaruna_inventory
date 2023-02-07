@@ -11,9 +11,7 @@ class AreaController extends Controller
     {
         $area = Area::orderBy('id', 'ASC')->get();
 
-        // return response()->json(['data' => $lokasi]);
         return view('pages.area', compact('area'));
-
     }
 
     public function store(Request $request)

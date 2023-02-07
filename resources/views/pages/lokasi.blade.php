@@ -73,7 +73,7 @@
                                                         {{ $item->lokasi }}
                                                     </td>
                                                     <td class="text-center">
-                                                        {{ $item->id_area }}
+                                                        {{ $item->area->area }}
                                                     </td>
                                                     <td class="text-right">
                                                         <div class="dropdown">
@@ -151,11 +151,10 @@
                                         <div class="form-group">
                                             <label for="id_area">Area</label>
                                             <select class="form-control" id="id_area" name="id_area">
-                                                <option>1111</option>
-                                                <option>2222</option>
-                                                <option>3333</option>
-                                                <option>4444</option>
-                                                <option>5555</option>
+                                                <option value="">Pilih Area</option>
+                                                @foreach ($area as $items)
+                                                    <option value="{{ $items->id }}">{{ $items->area }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -196,14 +195,14 @@
                                                 <input type="hidden" class="form-control" id="id" name="id"
                                                     value="{{ $item->id }}">
                                                 <label for="id_area">Area</label>
-                                                <select class="form-control" id="id_area" name="id_area"
-                                                    value="{{ $item->id_area }}">
-                                                    <option>1111</option>
-                                                    <option>2222</option>
-                                                    <option>3333</option>
-                                                    <option>4444</option>
-                                                    <option>5555</option>
-                                                </select>
+                                                <select class="form-control" id="id_area" name="id_area">
+                                                    <option value="{{ $item->id_area }}">{{ $item->area->area }}
+                                                    </option>
+                                                    @foreach ($area as $items)
+                                                        <option value="{{ $items->id }}">
+                                                            {{ $items->area }}
+                                                        </option>
+                                                    @endforeach
                                             </div>
                                         </div>
                                         <div class="modal-footer">

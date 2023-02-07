@@ -16,6 +16,6 @@ class Lokasi extends Model
 
     public function area()
     {
-        return $this->belongsTo(Area::class);
+        return $this->belongsTo(Area::class, 'id_area');
     }
 }

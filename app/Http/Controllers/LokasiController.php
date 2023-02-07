@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lokasi;
+use App\Models\Area;
 use Illuminate\Http\Request;
 
 class LokasiController extends Controller
@@ -10,10 +11,10 @@ class LokasiController extends Controller
     public function index()
     {
         $lokasi = Lokasi::orderBy('id', 'ASC')->get();
+        $area = Area::all();
 
         // return response()->json(['data' => $lokasi]);
-        return view('pages.lokasi', compact('lokasi'));
-
+        return view('pages.lokasi', compact('lokasi', 'area'));
     }
 
     public function store(Request $request)
