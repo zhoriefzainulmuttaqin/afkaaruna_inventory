@@ -47,19 +47,19 @@
                             </div>
                             <div class="card shadow">
                                 <div class="card-header border-0">
-                                    <h3 class="mb-0">Kategori</h3>
+                                    <h3 class="mb-0">Area</h3>
                                 </div>
                                 <div class="table-responsive">
                                     <table class="table align-items-center table-flush">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th scope="col">No</th>
-                                                <th scope="col" class="text-center">Kategori</th>
+                                                <th scope="col" class="text-center">Area</th>
                                                 <th scope="col" class="text-right">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($kategori as $item)
+                                            @foreach ($area as $item)
                                                 <tr>
                                                     <td scope="row">
                                                         <div class="media align-items-left">
@@ -69,7 +69,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="text-center">
-                                                        {{ $item->kategori }}
+                                                        {{ $item->area }}
                                                     </td>
                                                     <td class="text-right">
                                                         <div class="dropdown">
@@ -85,7 +85,7 @@
                                                                     Edit
                                                                 </a>
                                                                 <a class="dropdown-item"
-                                                                    href="{{ asset('delete-kategori/' . $item->id) }}">Hapus</a>
+                                                                    href="{{ asset('delete-area/' . $item->id) }}">Hapus</a>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -126,7 +126,7 @@
                     </div>
 
                     {{-- Modal Tambah Data --}}
-                    <form action="/add-kategori" method="POST">
+                    <form action="/add-area" method="POST">
                         @csrf
                         <div class="modal fade" id="formModal" tabindex="-1" role="dialog"
                             aria-labelledby="formModalLabel" aria-hidden="true">
@@ -141,8 +141,8 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">
-                                            <label for="kategori">Nama Kategori</label>
-                                            <input type="text" class="form-control" id="kategori" name="kategori">
+                                            <label for="area">Area</label>
+                                            <input type="text" class="form-control" id="area" name="area">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -158,8 +158,8 @@
                     {{-- End Modal Tambah Data --}}
 
                     {{-- Modal Edit Data --}}
-                    @foreach ($kategori as $item)
-                        <form action="edit-kategori" method="POST">
+                    @foreach ($area as $item)
+                        <form action="edit-area" method="POST">
                             @csrf
                             <div class="modal fade" id="formModalEdit{{ $item->id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="formModalLabel" aria-hidden="true">
@@ -176,9 +176,9 @@
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" id="id" name="id"
                                                     value="{{ $item->id }}">
-                                                <label for="kategori">Nama Kategori</label>
-                                                <input type="text" class="form-control" id="kategori"
-                                                    name="kategori" value="{{ $item->kategori }}">
+                                                <label for="area">Area</label>
+                                                <input type="text" class="form-control" id="area" name="area"
+                                                    value="{{ $item->area }}">
                                             </div>
                                         </div>
                                         <div class="modal-footer">

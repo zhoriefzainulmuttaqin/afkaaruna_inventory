@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AreaController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LokasiController;
@@ -49,4 +50,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/add-lokasi', [LokasiController::class, 'store']);
     Route::post('/edit-lokasi', [LokasiController::class, 'edit']);
     Route::get('/delete-lokasi/{id}', [LokasiController::class, 'delete']);
+
+    // Lokasi
+    Route::get('/area', [AreaController::class, 'index']);
+    Route::post('/add-area', [AreaController::class, 'store']);
+    Route::post('/edit-area', [AreaController::class, 'edit']);
+    Route::get('/delete-area/{id}', [AreaController::class, 'delete']);
 });
