@@ -23,6 +23,16 @@
                     <!-- Table -->
                     <div class="row">
                         <div class="col">
+                            @if ($message = Session::get('success'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ $message }}
+                                </div>
+                            @endif
+                            @if ($message = Session::get('error'))
+                                <div class="alert alert-error" role="alert">
+                                    {{ $message }}
+                                </div>
+                            @endif
                             <div class="card-header border-0">
                                 <nav aria-label="...">
                                     <ul class="pagination mb-0">
@@ -54,108 +64,63 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="media align-items-center">
-                                                        <div class="media-body">
-                                                            <span class="mb-0 text-sm">1</span>
+                                            @foreach ($barang as $item)
+                                                <tr>
+                                                    <th scope="row">
+                                                        <div class="media align-items-center">
+                                                            <div class="media-body">
+                                                                <span class="mb-0 text-sm">{{ $loop->iteration }}</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    Laptop
-                                                </td>
-                                                <td>
-                                                    Elektronik
-                                                </td>
-                                                <td>
-                                                    Lorem ipsum
-                                                </td>
-                                                <td>
-                                                    Lorem ipsum
-                                                </td>
-                                                <td>
-                                                    <span class="badge badge-dot mr-4">
-                                                        <i class="bg-success"></i> Tersedia
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    Lorem ipsum
-                                                </td>
+                                                    </th>
+                                                    <td>
+                                                        {{ $item->nama }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $item->kategori->kategori }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $item->kepemilikan }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $item->tgl_masuk }}
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge badge-dot mr-4">
+                                                            <i class="bg-success"></i> {{ $item->status->status }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        {{ $item->keterangan }}
+                                                    </td>
 
-                                                <td class="text-right">
-                                                    <div class="dropdown">
-                                                        <a class="btn btn-sm btn-icon-only text-light" href="#"
-                                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="fa fa-ellipsis-v"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                                data-target="#formModalDetail">
-                                                                Detail
+                                                    <td class="text-right">
+                                                        <div class="dropdown">
+                                                            <a class="btn btn-sm btn-icon-only text-light" href="#"
+                                                                role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                                <i class="fa fa-ellipsis-v"></i>
                                                             </a>
-                                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                                data-target="#formModalEdit">
-                                                                Edit
-                                                            </a>
-                                                            <a class="dropdown-item" href="#">Hapus</a>
+                                                            <div
+                                                                class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                                                    data-target="#formModalDetail">
+                                                                    Detail
+                                                                </a>
+                                                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                                                    data-target="#formModalEdit{{ $item->id }}">
+                                                                    Edit
+                                                                </a>
+                                                                <a class="dropdown-item"
+                                                                    href="{{ asset('delete-barang/' . $item->id) }}">Hapus</a>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="media align-items-center">
-                                                        <div class="media-body">
-                                                            <span class="mb-0 text-sm">1</span>
-                                                        </div>
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    Laptop
-                                                </td>
-                                                <td>
-                                                    Elektronik
-                                                </td>
-                                                <td>
-                                                    Lorem ipsum
-                                                </td>
-                                                <td>
-                                                    Lorem ipsum
-                                                </td>
-                                                <td>
-                                                    <span class="badge badge-dot mr-4">
-                                                        <i class="bg-success"></i> Tersedia
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    Lorem ipsum
-                                                </td>
-
-                                                <td class="text-right">
-                                                    <div class="dropdown">
-                                                        <a class="btn btn-sm btn-icon-only text-light" href="#"
-                                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="fa fa-ellipsis-v"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                                data-target="#formModalDetail">
-                                                                Detail
-                                                            </a>
-                                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                                data-target="#formModalEdit">
-                                                                Edit
-                                                            </a>
-                                                            <a class="dropdown-item" href="#">Hapus</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
+
                                 </div>
                                 <div class="card-footer py-4">
                                     <nav aria-label="...">
@@ -187,153 +152,200 @@
                         </div>
                     </div>
 
-
-
-
                     {{-- Modal Tambah Data --}}
+                    <form action="/add-barang" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal fade" id="formModal" tabindex="-1" role="dialog"
+                            aria-labelledby="formModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
 
-                    <div class="modal fade" id="formModal" tabindex="-1" role="dialog"
-                        aria-labelledby="formModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="namabrg">Nama Barang</label>
-                                            <input type="text" class="form-control" id="namabrg"
-                                                placeholder="Nama Barang">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="namabrg">Kode Barang</label>
-                                            <input type="text" class="form-control" id="namabrg"
-                                                placeholder="0000">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="namabrg">Kategori</label>
-                                            <select class="form-control" id="namabrg">
-                                                <option>Elektronik</option>
-                                                <option>Rumah Tangga</option>
-                                                <option>F&B</option>
-                                                <option>Alat</option>
-                                                <option>Cetak</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="namabrg">Kepemilikan</label>
-                                            <input type="text" class="form-control" id="namabrg"
-                                                placeholder="Zhorief">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputMessage">Lokasi</label>
-                                            <textarea class="form-control" id="keterangan" rows="3"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="tglpengembalian">Tanggal Masuk</label>
-                                            <input type="date" class="form-control" id="tglpengembalian">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="namabrg">Status</label>
-                                            <select class="form-control" id="namabrg">
-                                                <option>Tersedia</option>
-                                                <option>Tidak Terseedia</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputMessage">Keterangan</label>
-                                            <textarea class="form-control" id="keterangan" rows="3"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputMessage">Foto Barang</label>
-                                            <input type="file" class="form-control" id="exampleFormControlFile1">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="button" class="btn btn-primary">Simpan</button>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="nama">Nama Barang</label>
+                                                <input type="text" class="form-control" id="nama" name="nama"
+                                                    placeholder="Nama Barang">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="code">Kode Barang</label>
+                                                <input type="text" class="form-control" id="code" name="code"
+                                                    placeholder="123">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="kategori">Kategori</label>
+                                                <select class="form-control" id="kategori" name="id_kategori">
+                                                    <option value="">Pilih Kategori</option>
+                                                    @foreach ($kategori as $items)
+                                                        <option value="{{ $items->id }}">{{ $items->kategori }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="kepemilikan">Kepemilikan</label>
+                                                <input type="text" class="form-control" id="kepemilikan"
+                                                    name="kepemilikan" placeholder="Zhorief">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lokasi">Lokasi</label>
+                                                <select class="form-control" id="lokasi" name="id_lokasi">
+                                                    <option value="">Pilih Lokasi</option>
+                                                    @foreach ($lokasi as $items)
+                                                        <option value="{{ $items->id }}">{{ $items->lokasi }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tgl_masuk">Tanggal Masuk</label>
+                                                <input type="date" class="form-control" id="tgl_masuk"
+                                                    name="tgl_masuk">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="status">Status</label>
+                                                <select class="form-control" id="status" name="id_status">
+                                                    <option value="">Pilih Status</option>
+                                                    @foreach ($status as $items)
+                                                        <option value="{{ $items->id }}">{{ $items->status }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputMessage">Keterangan</label>
+                                                <textarea class="form-control" id="keterangan" rows="3" name="keterangan"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="foto">Foto Barang</label>
+                                                <input type="file" class="form-control" id="foto"
+                                                    name="foto">
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                     {{-- End Modal Tambah Data --}}
 
                     {{-- Modal Edit Data --}}
-
-                    <div class="modal fade" id="formModalEdit" tabindex="-1" role="dialog"
-                        aria-labelledby="formModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="formModalLabel">Edit Data</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="namabrg">Nama Barang</label>
-                                            <input type="text" class="form-control" id="namabrg"
-                                                placeholder="Nama Barang">
+                    @foreach ($barang as $item)
+                        <form action="edit-barang" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="modal fade" id="formModalEdit{{ $item->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="formModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="namabrg">Kode Barang</label>
-                                            <input type="text" class="form-control" id="namabrg"
-                                                placeholder="0000">
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <input type="hidden" class="form-control" id="id"
+                                                        name="id" value="{{ $item->id }}">
+                                                    <label for="nama">Nama Barang</label>
+                                                    <input type="text" class="form-control" id="nama"
+                                                        name="nama" placeholder="Nama Barang"
+                                                        value="{{ $item->nama }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="hidden" class="form-control" id="id"
+                                                        name="id" value="{{ $item->id }}">
+                                                    <label for="code">Kode Barang</label>
+                                                    <input type="text" class="form-control" id="code"
+                                                        name="code" placeholder="1" value="{{ $item->code }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="hidden" class="form-control" id="id"
+                                                        name="id" value="{{ $item->id }}">
+                                                    <label for="kategori">Kategori</label>
+                                                    <select class="form-control" id="kategori" name="kategori">
+                                                        <option value="{{ $item->id_kategori }}">
+                                                            {{ $item->kategori->kategori }}
+                                                        </option>
+                                                        @foreach ($kategori as $items)
+                                                            <option value="{{ $items->id }}">{{ $items->kategori }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="hidden" class="form-control" id="id"
+                                                        name="id" value="{{ $item->id }}">
+                                                    <label for="kepemilikan">Kepemilikan</label>
+                                                    <input type="text" class="form-control" id="kepemilikan"
+                                                        name="kepemilikan" placeholder="Zhorief"
+                                                        value="{{ $item->kepemilikan }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="hidden" class="form-control" id="id"
+                                                        name="id" value="{{ $item->id }}">
+                                                    <label for="lokasi">Lokasi</label>
+                                                    <select class="form-control" id="lokasi" name="lokasi">
+                                                        <option value="{{ $item->id_lokasi }}">
+                                                            {{ $item->lokasi->lokasi }}
+                                                        </option>
+                                                        @foreach ($lokasi as $items)
+                                                            <option value="{{ $items->id }}">{{ $items->lokasi }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="hidden" class="form-control" id="id"
+                                                        name="id" value="{{ $item->id }}">
+                                                    <label for="tgl_masuk">Tanggal Masuk</label>
+                                                    <input type="date" class="form-control" id="tgl_masuk"
+                                                        name="tgl_masuk" value="{{ $item->tgl_masuk }}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="status">Status</label>
+                                                    <select class="form-control" id="status" name="status">
+                                                        <option value="">Pilih Status</option>
+                                                        @foreach ($status as $items)
+                                                            <option value="{{ $items->id }}">{{ $items->status }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inputMessage">Keterangan</label>
+                                                    <textarea class="form-control" id="keterangan" rows="3"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="foto">Foto Barang</label>
+                                                    <input type="file" class="form-control" id="foto"
+                                                        name="foto">
+                                                </div>
+                                            </form>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="namabrg">Kategori</label>
-                                            <select class="form-control" id="namabrg">
-                                                <option>Elektronik</option>
-                                                <option>Rumah Tangga</option>
-                                                <option>F&B</option>
-                                                <option>Alat</option>
-                                                <option>Cetak</option>
-                                            </select>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Tutup</button>
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="namabrg">Kepemilikan</label>
-                                            <input type="text" class="form-control" id="namabrg"
-                                                placeholder="Zhorief">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputMessage">Lokasi</label>
-                                            <textarea class="form-control" id="keterangan" rows="3"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="tglpengembalian">Tanggal Masuk</label>
-                                            <input type="date" class="form-control" id="tglpengembalian">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="namabrg">Status</label>
-                                            <select class="form-control" id="namabrg">
-                                                <option>Tersedia</option>
-                                                <option>Tidak Terseedia</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputMessage">Keterangan</label>
-                                            <textarea class="form-control" id="keterangan" rows="3"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputMessage">Foto Barang</label>
-                                            <input type="file" class="form-control" id="exampleFormControlFile1">
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="button" class="btn btn-primary">Simpan</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                    @endforeach
+
                     {{-- End Modal Edit Data --}}
 
                     {{-- Modal Detail Barang --}}
@@ -377,10 +389,16 @@
                                                     </li>
                                                     <li class="list-group-item">
                                                         <h5 class="card-title">Lokasi</h5>
-                                                        <p class="card-text">Lorem ipsum, dolor sit amet consectetur
-                                                            adipisicing elit. Aut maxime veritatis quibusdam laborum veniam
-                                                            molestias repudiandae deserunt, error officia odit ad cum
-                                                            exercitationem consectetur totam dignissimos temporibus commodi
+                                                        <p class="card-text">Lorem ipsum, dolor sit amet
+                                                            consectetur
+                                                            adipisicing elit. Aut maxime veritatis quibusdam
+                                                            laborum
+                                                            veniam
+                                                            molestias repudiandae deserunt, error officia odit
+                                                            ad cum
+                                                            exercitationem consectetur totam dignissimos
+                                                            temporibus
+                                                            commodi
                                                             odio! Minus.</p>
                                                     </li>
                                                     <li class="list-group-item">
@@ -389,10 +407,16 @@
                                                     </li>
                                                     <li class="list-group-item">
                                                         <h5 class="card-title">Keterangan</h5>
-                                                        <p class="card-text">Lorem ipsum, dolor sit amet consectetur
-                                                            adipisicing elit. Aut maxime veritatis quibusdam laborum veniam
-                                                            molestias repudiandae deserunt, error officia odit ad cum
-                                                            exercitationem consectetur totam dignissimos temporibus commodi
+                                                        <p class="card-text">Lorem ipsum, dolor sit amet
+                                                            consectetur
+                                                            adipisicing elit. Aut maxime veritatis quibusdam
+                                                            laborum
+                                                            veniam
+                                                            molestias repudiandae deserunt, error officia odit
+                                                            ad cum
+                                                            exercitationem consectetur totam dignissimos
+                                                            temporibus
+                                                            commodi
                                                             odio! Minus.</p>
                                                     </li>
                                                 </ul>
