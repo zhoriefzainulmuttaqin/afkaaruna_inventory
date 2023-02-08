@@ -333,6 +333,8 @@
                                                     <label for="foto">Foto Barang</label>
                                                     <input type="file" class="form-control" id="foto"
                                                         name="foto">
+                                                    <input class=" form-control" type="hidden" name="gambarLama"
+                                                        value="{{ $barang->foto }}">
                                                 </div>
                                             </form>
                                         </div>
