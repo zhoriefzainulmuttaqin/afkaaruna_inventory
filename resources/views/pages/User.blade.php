@@ -73,15 +73,15 @@
                                                     </td>
                                                     <td class="text-left">
                                                         
-                                                        {{ $item->Name }}
+                                                        {{ $item->name }}
                                                     </td>
                                                     <td class="text-left">
                                                         
-                                                        {{ $item->Email }}
+                                                        {{ $item->email }}
                                                     </td>
                                                     <td class="text-left">
                                                         
-                                                        {{ $item->Username }}
+                                                        {{ $item->username }}
                                                     </td>
                                                     <td class="text-left">
                                                         
@@ -141,6 +141,7 @@
                         </div>
                     </div>
 
+                    
                     {{-- Modal Tambah Data --}}
                     <form action="/add-user" method="POST">
                         @csrf
@@ -159,24 +160,16 @@
                                         <div class="form-group">
                                             <label for="name">Name</label>
                                             <input type="text" class="form-control" id="name" name="name">
-                                        </div>
-                                        <div class="modal-body">
-                                        <div class="form-group">
+
                                             <label for="email">Email</label>
                                             <input type="text" class="form-control" id="email" name="email">
-                                        </div>
-                                        <div class="modal-body">
-                                        <div class="form-group">
+
                                             <label for="username">Username</label>
                                             <input type="text" class="form-control" id="username" name="username">
-                                        </div>
-                                        <div class="modal-body">
-                                        <div class="form-group">
+
                                             <label for="password">Password</label>
                                             <input type="text" class="form-control" id="password" name="password">
                                         </div>
-
-
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
@@ -209,9 +202,24 @@
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" id="id" name="id"
                                                     value="{{ $item->id }}">
-                                                <label for="user">User</label>
-                                                <input type="text" class="form-control" id="user" name="user"
-                                                    value="{{ $item->user }}">
+
+                                                    <label for="user">User</label>
+                                                <label for="name">Name</label>
+                                                <input type="text" class="form-control" id="name"
+                                                    name="name" value="{{ $item->name }}">
+
+                                                    <label for="email">Email</label>
+                                                <input type="text" class="form-control" id="email"
+                                                    name="email" value="{{ $item->email }}">
+
+                                                    <label for="username">Username</label>
+                                                <input type="text" class="form-control" id="username"
+                                                    name="username" value="{{ $item->username }}">
+
+                                                    <label for="password">Password</label>
+                                                <input type="text" class="form-control" id="password"
+                                                    name="password" value="{{ $item->password }}">
+                                                   
                                             </div>
                                         </div>
                                         <div class="modal-footer">
