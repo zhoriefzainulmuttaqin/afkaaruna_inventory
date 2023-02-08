@@ -6,6 +6,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PeminjamanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,10 +31,13 @@ Route::middleware('auth')->group(function () {
         return view('home');
     });
 
-    Route::get('/peminjaman', function () {
-        return view('home');
-    });
-
+    // Peminjaman
+    Route::get('/peminjaman', [PeminjamanController::class, 'index']);
+    Route::post('/add-peminjaman', [PeminjamanController::class, 'store']);
+    Route::post('/edit-peminjaman', [PeminjamanController::class, 'edit']);
+    Route::get('/delete-peminjaman/{id}', [PeminjamanController::class, 'delete']);
+    
+    // Perbaikan
     Route::get('/perbaikan', function () {
         return view('pages/perbaikan');
     });
