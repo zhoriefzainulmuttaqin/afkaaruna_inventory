@@ -1,5 +1,4 @@
 @extends('layout.navbar')
-{{-- @extends('layout.button') --}}
 
 @section('container')
     <!DOCTYPE html>
@@ -193,18 +192,22 @@
                                                 <label for="lokasi">Lokasi</label>
                                                 <input type="text" class="form-control" id="lokasi" name="lokasi"
                                                     value="{{ $item->lokasi }}">
+                                            </div>
+                                            <div class="form-group">
                                                 <input type="hidden" class="form-control" id="id" name="id"
                                                     value="{{ $item->id }}">
                                                     
                                                 <label for="id_area">Area</label>
                                                 <select class="form-control" id="id_area" name="id_area">
-                                                    <option value="{{ $item->id_area }}">{{ $item->area->area }}
+                                                    <option value="{{ $item->id_area }}">
+                                                        {{ $item->area->area }}
                                                     </option>
                                                     @foreach ($area as $items)
                                                         <option value="{{ $items->id }}">
                                                             {{ $items->area }}
                                                         </option>
                                                     @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="modal-footer">

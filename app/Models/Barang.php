@@ -21,21 +21,21 @@ class Barang extends Model
         'keterangan',
         'id_lokasi',
         'id_kategori',
-        'id_status'
+        'id_status',
     ];
 
     public function lokasi()
     {
-        return $this->belongsTo(Lokasi::class);
+        return $this->belongsTo(Lokasi::class, 'id_lokasi');
     }
 
     public function kategori()
     {
-        return $this->belongsTo(Kategori::class);
+        return $this->belongsTo(Kategori::class, 'id_kategori');
     }
 
     public function status()
     {
-        return $this->belongsTo(Status::class);
+        return $this->belongsTo(Status::class, 'id_status');
     }
 }

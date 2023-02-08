@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AreaController;
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LokasiController;
@@ -33,10 +34,6 @@ Route::middleware('auth')->group(function () {
         return view('home');
     });
 
-    Route::get('/barang', function () {
-        return view('pages/barang');
-    });
-
     Route::get('/perbaikan', function () {
         return view('pages/perbaikan');
     });
@@ -58,9 +55,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/edit-lokasi', [LokasiController::class, 'edit']);
     Route::get('/delete-lokasi/{id}', [LokasiController::class, 'delete']);
 
-    // Lokasi
+    // area
     Route::get('/area', [AreaController::class, 'index']);
     Route::post('/add-area', [AreaController::class, 'store']);
     Route::post('/edit-area', [AreaController::class, 'edit']);
     Route::get('/delete-area/{id}', [AreaController::class, 'delete']);
+
+    // barang
+    Route::get('/barang', [BarangController::class, 'index']);
+    Route::post('/add-barang', [BarangController::class, 'store']);
+    Route::post('/edit-barang', [BarangController::class, 'edit']);
+    Route::get('/delete-barang/{id}', [BarangController::class, 'delete']);
 });
