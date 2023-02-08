@@ -5038,7 +5038,10 @@ input[type="button"].btn-block {
 }
 
 .card-img-top {
-    width: 100%;
+    margin-left: 25%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 50%;
     border-top-left-radius: calc(0.25rem - 1px);
     border-top-right-radius: calc(0.25rem - 1px);
 }
