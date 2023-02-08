@@ -4,6 +4,7 @@ use App\Http\Controllers\AreaController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +40,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/perbaikan', function () {
         return view('pages/perbaikan');
     });
+    // User
+    Route::get('/user', [UserController::class, 'index']);
+    Route::post('/add-user', [UserController::class, 'store']);
+    Route::post('/edit-user', [UserController::class, 'edit']);
+    Route::get('/delete-user/{id}', [UserController::class, 'delete']);
+
     // Kategori
     Route::get('/kategori', [KategoriController::class, 'index']);
     Route::post('/add-kategori', [KategoriController::class, 'store']);
