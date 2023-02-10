@@ -86,9 +86,22 @@
                                                         {{ $item->tgl_masuk }}
                                                     </td>
                                                     <td>
-                                                        <span class="badge badge-dot mr-4">
-                                                            <i class="bg-success"></i> {{ $item->status->status }}
-                                                        </span>
+
+                                                        @if ($item->status->status == 'Tersedia')
+                                                            <span class="badge badge-dot mr-4">
+                                                                <i class="bg-success"></i> {{ $item->status->status }}
+                                                            </span>
+                                                        @elseif ($item->status->status == 'Dipinjam')
+                                                            <span class="badge badge-dot mr-4">
+                                                                <i class="bg-danger"></i> {{ $item->status->status }}
+                                                            </span>
+                                                        @elseif ($item->status->status == 'Diperbaiki')
+                                                            <span class="badge badge-dot mr-4">
+                                                                <i class="bg-danger"></i> {{ $item->status->status }}
+                                                            </span>
+                                                        @endif
+
+
                                                     </td>
                                                     <td>
                                                         {{ $item->keterangan }}

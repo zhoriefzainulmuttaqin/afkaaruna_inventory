@@ -5,8 +5,9 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LokasiController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\PerbaikanController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,9 +37,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/delete-peminjaman/{id}', [PeminjamanController::class, 'delete']);
 
     // Perbaikan
-    Route::get('/perbaikan', function () {
-        return view('pages/perbaikan');
-    });
+    Route::get('/perbaikan', [PerbaikanController::class, 'index']);
+    Route::post('/add-perbaikan', [PerbaikanController::class, 'store']);
+    Route::post('/edit-perbaikan', [PerbaikanController::class, 'edit']);
+    Route::get('/delete-perbaikan/{id}', [PerbaikanController::class, 'delete']);
+
     // User
     Route::get('/user', [UserController::class, 'index']);
     Route::post('/add-user', [UserController::class, 'store']);

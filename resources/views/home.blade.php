@@ -100,7 +100,7 @@
                                                                     data-target="#formModalEdit">
                                                                     Edit
                                                                 </a>
-                                                                <a class="dropdown-item" href="#">Hapus</a>
+                                                                <a class="dropdown-item" href="{{ asset('delete-peminjaman/' . $item->id) }}">Hapus</a>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -197,7 +197,7 @@
                     </form>
                     {{-- End Modal Tambah Data --}}
 
-                    {{-- Modal Edut Data --}}
+                    {{-- Modal Edit Data --}}
                     @foreach ($peminjaman as $item)
                         <div class="modal fade" id="formModalEdit" tabindex="-1" role="dialog"
                             aria-labelledby="formModalLabel" aria-hidden="true">

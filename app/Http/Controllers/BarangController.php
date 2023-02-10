@@ -61,7 +61,6 @@ class BarangController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'code' => 'required',
             'tgl_masuk' => 'required',
             'kepemilikan' => 'required',
             'keterangan' => 'required',
@@ -81,7 +80,6 @@ class BarangController extends Controller
 
         $barang = Barang::where('id', $request->id)->update([
             'nama' => $request->nama,
-            'code' => $request->code,
             'tgl_masuk' => $request->tgl_masuk,
             'kepemilikan' => $request->kepemilikan,
             'foto' => $imageName,

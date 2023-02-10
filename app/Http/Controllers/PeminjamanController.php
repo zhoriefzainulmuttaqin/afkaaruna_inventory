@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
-use App\Models\Kategori;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 
@@ -11,10 +10,10 @@ class PeminjamanController extends Controller
 {
     public function index()
     {
-        $peminjaman = Peminjaman::orderBy('id','ASC')->get();
-        $barang = Barang::all();
+        $peminjaman = Peminjaman::orderBy('id', 'ASC')->get();
+        $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
 
-        return view('home', compact('peminjaman','barang'));
+        return view('home', compact('peminjaman', 'barang'));
     }
 
     public function store(Request $request)
@@ -26,7 +25,7 @@ class PeminjamanController extends Controller
             'peminjam' => 'required',
             'keterangan' => 'required',
             'id_barang' => 'required',
-           
+
         ]);
 
         $peminjaman = Peminjaman::create([
@@ -35,10 +34,10 @@ class PeminjamanController extends Controller
             'peminjam' => $request->peminjam,
             'keterangan' => $request->keterangan,
             'id_barang' => $request->id_barang,
-            
+
         ]);
 
-        
+        Barang::where('id', $request->id_barang)->update(['id_status' => 2]);
 
         if ($peminjaman) {
             return redirect('peminjaman')->with('success', 'Data Berhasil Ditambahkan.');

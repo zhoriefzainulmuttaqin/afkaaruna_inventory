@@ -53,87 +53,63 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="media align-items-center">
-                                                        <div class="media-body">
-                                                            <span class="mb-0 text-sm">1</span>
+                                            @foreach ($perbaikan as $item)
+                                                <tr>
+                                                    <th scope="row">
+                                                        <div class="media align-items-center">
+                                                            <div class="media-body">
+                                                                <span class="mb-0 text-sm">{{ $loop->iteration }}</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    Laptop
-                                                </td>
-                                                <td>
-                                                    Rp.200.000
-                                                </td>
-                                                <td>
-                                                    01-01-2023
-                                                </td>
-                                                <td>
-                                                    12-01-2023
-                                                </td>
-                                                <td>
-                                                    Lorem ipsum
-                                                </td>
-                                                <td class="text-right">
-                                                    <div class="dropdown">
-                                                        <a class="btn btn-sm btn-icon-only text-light" href="#"
-                                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="fa fa-ellipsis-v"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                                data-target="#formModalEdit">
-                                                                Edit
+                                                    </th>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <input type="hidden" class="form-control" id="id"
+                                                                name="id" value="{{ $item->id }}">
+                                                            <label for="kategori">Kategori</label>
+                                                            <select class="form-control" id="kategori" name="id_kategori">
+                                                                <option value="{{ $item->id_kategori }}">
+                                                                    {{ $item->kategori->kategori }}
+                                                                </option>
+                                                                @foreach ($kategori as $items)
+                                                                    <option value="{{ $items->id }}">
+                                                                        {{ $items->kategori }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        {{ $item->biaya }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $item->tgl_mulai }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $item->tgl_selesai }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $item->keterangan }}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <div class="dropdown">
+                                                            <a class="btn btn-sm btn-icon-only text-light" href="#"
+                                                                role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                                <i class="fa fa-ellipsis-v"></i>
                                                             </a>
-                                                            <a class="dropdown-item" href="#">Hapus</a>
+                                                            <div
+                                                                class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                                                    data-target="#formModalEdit">
+                                                                    Edit
+                                                                </a>
+                                                                <a class="dropdown-item" href="#">Hapus</a>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="media align-items-center">
-                                                        <div class="media-body">
-                                                            <span class="mb-0 text-sm">2</span>
-                                                        </div>
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    Laptop
-                                                </td>
-                                                <td>
-                                                    Rp.300.000
-
-                                                </td>
-                                                <td>
-                                                    01-01-2023
-                                                </td>
-                                                <td>
-                                                    12-01-2023
-                                                </td>
-                                                <td>
-                                                    Lorem ipsum
-                                                </td>
-                                                <td class="text-right">
-                                                    <div class="dropdown">
-                                                        <a class="btn btn-sm btn-icon-only text-light" href="#"
-                                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="fa fa-ellipsis-v"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                                data-target="#formModalEdit">
-                                                                Edit
-                                                            </a>
-                                                            <a class="dropdown-item" href="#">Hapus</a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -172,8 +148,8 @@
 
                     {{-- Modal Tambah Data --}}
 
-                    <div class="modal fade" id="formModal" tabindex="-1" role="dialog"
-                        aria-labelledby="formModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel"
+                        aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">

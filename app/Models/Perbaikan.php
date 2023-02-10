@@ -17,11 +17,11 @@ class Perbaikan extends Model
         'tgl_selesai',
         'biaya',
         'id_barang',
-        'keterangan'
+        'keterangan',
     ];
 
     public function barang()
     {
-        return $this->belongsTo(Barang::class);
+        return $this->belongsTo(Barang::class, 'id_barang');
     }
 }
