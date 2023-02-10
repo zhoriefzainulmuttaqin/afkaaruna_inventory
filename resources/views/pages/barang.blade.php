@@ -174,11 +174,6 @@
                                                     placeholder="Nama Barang">
                                             </div>
                                             <div class="form-group">
-                                                <label for="code">Kode Barang</label>
-                                                <input type="text" class="form-control" id="code" name="code"
-                                                    placeholder="123">
-                                            </div>
-                                            <div class="form-group">
                                                 <label for="kategori">Kategori</label>
                                                 <select class="form-control" id="kategori" name="id_kategori">
                                                     <option value="">Pilih Kategori</option>
@@ -249,7 +244,7 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
+                                            <h5 class="modal-title" id="formModalLabel">Edit Data</h5>
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
@@ -264,11 +259,6 @@
                                                     <input type="text" class="form-control" id="nama"
                                                         name="nama" placeholder="Nama Barang"
                                                         value="{{ $item->nama }}">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="code">Kode Barang</label>
-                                                    <input type="text" class="form-control" id="code"
-                                                        name="code" placeholder="1" value="{{ $item->code }}">
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="hidden" class="form-control" id="id"
@@ -374,10 +364,6 @@
 
                                                             <h5 class="card-title">Nama Barang</h5>
                                                             <p class="card-text">{{ $item->nama }}</p>
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <h5 class="card-title">Kode Barang</h5>
-                                                            <p class="card-text">{{ $item->code }}</p>
                                                         </li>
                                                         <li class="list-group-item">
                                                             <h5 class="card-title">Tanggal Masuk</h5>

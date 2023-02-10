@@ -24,7 +24,6 @@ class BarangController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'code' => 'required',
             'tgl_masuk' => 'required',
             'kepemilikan' => 'required',
             'keterangan' => 'required',
@@ -35,13 +34,15 @@ class BarangController extends Controller
 
         ]);
 
+        $code = random_int(1000, 2000);
+
         $imageName = time() . '_' . $request->file('foto')->getClientOriginalName();
 
         $request->foto->move(public_path('images/'), $imageName);
 
         $barang = Barang::create([
             'nama' => $request->nama,
-            'code' => $request->code,
+            'code' => $code,
             'tgl_masuk' => $request->tgl_masuk,
             'kepemilikan' => $request->kepemilikan,
             'foto' => $imageName,

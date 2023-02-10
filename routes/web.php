@@ -27,16 +27,14 @@ Route::get('/logout', [LoginController::class, 'logout']);
 
 // Pages Routes
 Route::middleware('auth')->group(function () {
-    Route::get('/admin', function () {
-        return view('home');
-    });
+    Route::get('/admin', [PeminjamanController::class, 'index']);
 
     // Peminjaman
     Route::get('/peminjaman', [PeminjamanController::class, 'index']);
     Route::post('/add-peminjaman', [PeminjamanController::class, 'store']);
     Route::post('/edit-peminjaman', [PeminjamanController::class, 'edit']);
     Route::get('/delete-peminjaman/{id}', [PeminjamanController::class, 'delete']);
-    
+
     // Perbaikan
     Route::get('/perbaikan', function () {
         return view('pages/perbaikan');

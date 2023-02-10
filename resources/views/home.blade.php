@@ -23,7 +23,7 @@
                     <!-- Table -->
                     <div class="row">
                         <div class="col">
-                             @if ($message = Session::get('success'))
+                            @if ($message = Session::get('success'))
                                 <div class="alert alert-success" role="alert">
                                     {{ $message }}
                                 </div>
@@ -64,46 +64,47 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($peminjaman as $item)
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="media align-items-center">
-                                                        <div class="media-body">
-                                                            <span class="mb-0 text-sm">{{ $loop->iteration }}</span>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <div class="media align-items-center">
+                                                            <div class="media-body">
+                                                                <span class="mb-0 text-sm">{{ $loop->iteration }}</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    {{ $item->barang->nama }}
-                                                </td>
-                                                <td>
-                                                    {{ $item->peminjam }}
-                                                </td>
-                                                <td>
-                                                    {{ $item->tgl_peminjaman }}
-                                                </td>
-                                                <td>
-                                                    {{ $item->tgl_pengembalian }}
-                                                </td>
-                                                <td>
-                                                    {{ $item->keterangan }}
-                                                </td>
-                                                <td class="text-right">
-                                                    <div class="dropdown">
-                                                        <a class="btn btn-sm btn-icon-only text-light" href="#"
-                                                            role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false">
-                                                            <i class="fa fa-ellipsis-v"></i>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                                data-target="#formModalEdit">
-                                                                Edit
+                                                    </th>
+                                                    <td>
+                                                        {{ $item->barang->nama }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $item->peminjam }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $item->tgl_peminjaman }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $item->tgl_pengembalian }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $item->keterangan }}
+                                                    </td>
+                                                    <td class="text-right">
+                                                        <div class="dropdown">
+                                                            <a class="btn btn-sm btn-icon-only text-light" href="#"
+                                                                role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                                <i class="fa fa-ellipsis-v"></i>
                                                             </a>
-                                                            <a class="dropdown-item" href="#">Hapus</a>
+                                                            <div
+                                                                class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                                                    data-target="#formModalEdit">
+                                                                    Edit
+                                                                </a>
+                                                                <a class="dropdown-item" href="#">Hapus</a>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -142,28 +143,28 @@
 
 
                     {{-- Modal Tambah Data --}}
-            <form action="/add-peminjaman" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                    <div class="modal fade" id="formModal" tabindex="-1" role="dialog"
-                        aria-labelledby="formModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    
+                    <form action="/add-peminjaman" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal fade" id="formModal" tabindex="-1" role="dialog"
+                            aria-labelledby="formModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
                                         <div class="form-group">
                                             <label for="namabrg">Nama Barang</label>
                                             <select class="form-control" id="namabrg" name="id_barang">
-                                                <option value="">Pilih Kategori</option>
+                                                <option value="">Nama Barang</option>
                                                 @foreach ($barang as $items)
-                                                        <option value="{{ $items->id }}">{{ $items->nama }}
-                                                        </option>
-                                                    @endforeach
+                                                    <option value="{{ $items->id }}">{{ $items->nama }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -172,83 +173,87 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="tglpinjam">Tanggal Dipinjam</label>
-                                            <input type="date" class="form-control" id="tgl_peminjaman" name="tgl_peminjaman">
+                                            <input type="date" class="form-control" id="tgl_peminjaman"
+                                                name="tgl_peminjaman">
                                         </div>
                                         <div class="form-group">
                                             <label for="tglpengembalian">Tanggal Pengembalian</label>
-                                            <input type="date" class="form-control" id="tgl_pengembalian" name="tgl_pengembalian">
+                                            <input type="date" class="form-control" id="tgl_pengembalian"
+                                                name="tgl_pengembalian">
                                         </div>
                                         <div class="form-group">
                                             <label for="inputMessage">Keterangan</label>
                                             <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
                                         </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </form>
                     {{-- End Modal Tambah Data --}}
 
                     {{-- Modal Edut Data --}}
                     @foreach ($peminjaman as $item)
-                    <div class="modal fade" id="formModalEdit" tabindex="-1" role="dialog"
-                        aria-labelledby="formModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="namabrg">Nama Barang</label>
-                                            <select class="form-control" id="namabrg">
-                                                <option>a</option>
-                                                <option>b</option>
-                                                <option>c</option>
-                                                <option>d</option>
-                                                <option>e</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="nama">Nama Peminjam</label>
-                                            <select class="form-control" id="nama">
-                                                <option>Zhorief Zainul Muttaqin</option>
-                                                <option>Taufiq</option>
-                                                <option>Dedi</option>
-                                                <option>Ahmad</option>
-                                                <option>Joko</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="tglpinjam">Tanggal Dipinjam</label>
-                                            <input type="date" class="form-control" id="tglpinjam">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="tglpengembalian">Tanggal Pengembalian</label>
-                                            <input type="date" class="form-control" id="tglpengembalian">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputMessage">Keterangan</label>
-                                            <textarea class="form-control" id="keterangan" rows="3"></textarea>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="button" class="btn btn-primary">Simpan</button>
+                        <div class="modal fade" id="formModalEdit" tabindex="-1" role="dialog"
+                            aria-labelledby="formModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="namabrg">Nama Barang</label>
+                                                <select class="form-control" id="namabrg">
+                                                    <option>a</option>
+                                                    <option>b</option>
+                                                    <option>c</option>
+                                                    <option>d</option>
+                                                    <option>e</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nama">Nama Peminjam</label>
+                                                <select class="form-control" id="nama">
+                                                    <option>Zhorief Zainul Muttaqin</option>
+                                                    <option>Taufiq</option>
+                                                    <option>Dedi</option>
+                                                    <option>Ahmad</option>
+                                                    <option>Joko</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tglpinjam">Tanggal Dipinjam</label>
+                                                <input type="date" class="form-control" id="tglpinjam">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tglpengembalian">Tanggal Pengembalian</label>
+                                                <input type="date" class="form-control" id="tglpengembalian">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputMessage">Keterangan</label>
+                                                <textarea class="form-control" id="keterangan" rows="3"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Tutup</button>
+                                        <button type="button" class="btn btn-primary">Simpan</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                     {{-- End Modal Edit Data --}}
 
