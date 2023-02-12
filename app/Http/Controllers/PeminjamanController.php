@@ -21,7 +21,6 @@ class PeminjamanController extends Controller
         // dd($request);
         $request->validate([
             'tgl_peminjaman' => 'required',
-            'tgl_pengembalian' => 'required',
             'peminjam' => 'required',
             'keterangan' => 'required',
             'id_barang' => 'required',

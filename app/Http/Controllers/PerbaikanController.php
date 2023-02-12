@@ -11,7 +11,7 @@ class PerbaikanController extends Controller
     public function index()
     {
         $perbaikan = Perbaikan::orderBy('id', 'ASC')->get();
-        $barang = Barang::all();
+        $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
 
         return view('pages.perbaikan', compact('perbaikan', 'barang'));
     }
@@ -20,7 +20,6 @@ class PerbaikanController extends Controller
         // dd($request);
         $request->validate([
             'tgl_mulai	' => 'required',
-            'tgl_selesai' => 'required',
             'biaya' => 'required',
             'keterangan' => 'required',
             'id_barang' => 'required',
@@ -36,7 +35,7 @@ class PerbaikanController extends Controller
 
         ]);
 
-        // Perbaikan::where('id', $request->id_barang)->update(['id_status' => 2]);
+        Barang::where('id', $request->id_barang)->update(['id_status' => 2]);
 
         if ($perbaikan) {
             return redirect('perbaikan')->with('success', 'Data Berhasil Ditambahkan.');

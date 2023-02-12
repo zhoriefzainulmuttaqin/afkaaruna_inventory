@@ -15,8 +15,8 @@ class CreatePerbaikanTable extends Migration
     {
         Schema::create('perbaikan', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('tgl_mulai');
-            $table->dateTime('tgl_selesai');
+            $table->date('tgl_mulai');
+            $table->date('tgl_selesai');
             $table->bigInteger('biaya');
             $table->bigInteger('id_barang');
             $table->string('keterangan');
