@@ -23,6 +23,16 @@
                     <!-- Table -->
                     <div class="row">
                         <div class="col">
+                            @if ($message = Session::get('success'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ $message }}
+                                </div>
+                            @endif
+                            @if ($message = Session::get('error'))
+                                <div class="alert alert-error" role="alert">
+                                    {{ $message }}
+                                </div>
+                            @endif
                             <div class="card-header border-0">
                                 <nav aria-label="...">
                                     <ul class="pagination mb-0">
@@ -63,21 +73,7 @@
                                                         </div>
                                                     </th>
                                                     <td>
-                                                        <div class="form-group">
-                                                            <input type="hidden" class="form-control" id="id"
-                                                                name="id" value="{{ $item->id }}">
-                                                            <label for="kategori">Kategori</label>
-                                                            <select class="form-control" id="kategori" name="id_kategori">
-                                                                <option value="{{ $item->id_kategori }}">
-                                                                    {{ $item->kategori->kategori }}
-                                                                </option>
-                                                                @foreach ($kategori as $items)
-                                                                    <option value="{{ $items->id }}">
-                                                                        {{ $items->kategori }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
+                                                        {{ $item->barang->nama }}
                                                     </td>
                                                     <td>
                                                         {{ $item->biaya }}
@@ -91,7 +87,7 @@
                                                     <td>
                                                         {{ $item->keterangan }}
                                                     </td>
-                                                    <td class="text-right">
+                                                    <td class="text-center">
                                                         <div class="dropdown">
                                                             <a class="btn btn-sm btn-icon-only text-light" href="#"
                                                                 role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -101,10 +97,9 @@
                                                             <div
                                                                 class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                                 <a class="dropdown-item" href="#" data-toggle="modal"
-                                                                    data-target="#formModalEdit">
+                                                                    data-target="#formModalEdit{{ $item->id }}">
                                                                     Edit
                                                                 </a>
-                                                                <a class="dropdown-item" href="#">Hapus</a>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -147,107 +142,98 @@
 
 
                     {{-- Modal Tambah Data --}}
-
-                    <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="namabrg">Barang</label>
-                                            <select class="form-control" id="namabrg">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="nama">Biaya</label>
-                                            <input type="text" class="form-control" id="namabrg"
-                                                placeholder="Rp.10.000">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="tglpinjam">Tanggal Dipinjam</label>
-                                            <input type="date" class="form-control" id="tglpinjam">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="tglpengembalian">Tanggal Pengembalian</label>
-                                            <input type="date" class="form-control" id="tglpengembalian">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputMessage">Keterangan</label>
-                                            <textarea class="form-control" id="keterangan" rows="3"></textarea>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="button" class="btn btn-primary">Simpan</button>
+                    <form action="/add-perbaikan" method="POST">
+                        @csrf
+                        <div class="modal fade" id="formModal" tabindex="-1" role="dialog"
+                            aria-labelledby="formModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="id_barang">Barang</label>
+                                                <select class="form-control" id="id_barang" name="id_barang">
+                                                    @foreach ($barang as $items)
+                                                        <option value="{{ $items->id }}">{{ $items->nama }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="biaya">Biaya</label>
+                                                <input type="number" class="form-control" id="biaya" name="biaya"
+                                                    placeholder="Rp.10.000">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tgl_mulai">Tanggal Mulai</label>
+                                                <input type="date" class="form-control" id="tgl_mulai"
+                                                    name="tgl_mulai">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tgl_selesai">Tanggal Selesai</label>
+                                                <input type="date" class="form-control" id="tgl_selesai"
+                                                    name="tgl_selesai">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="keterangan">Keterangan</label>
+                                                <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                     {{-- End Modal Tambah Data --}}
 
-                    {{-- Modal Edut Data --}}
-
-                    <div class="modal fade" id="formModalEdit" tabindex="-1" role="dialog"
-                        aria-labelledby="formModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="formModalLabel">Edit Data</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form>
-                                        <div class="form-group">
-                                            <label for="namabrg">Barang</label>
-                                            <select class="form-control" id="namabrg">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
+                    {{-- Modal Edit Data --}}
+                    @foreach ($perbaikan as $item)
+                        <form action="edit-perbaikan" method="POST">
+                            @csrf
+                            <div class="modal fade" id="formModalEdit{{ $item->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="formModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="formModalLabel">Edit Data</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="nama">Biaya</label>
-                                            <input type="text" class="form-control" id="namabrg"
-                                                placeholder="Rp.10.000">
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <input type="hidden" class="form-control" id="id"
+                                                        name="id" value="{{ $item->id }}">
+                                                    <label for="tgl_selesai">Tanggal Selesai</label>
+                                                    <input type="date" class="form-control" id="tgl_selesai"
+                                                        name="tgl_selesai" value="{{ $item->tgl_selesai }}">
+                                                </div>
+                                            </form>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="tglpinjam">Tanggal Dipinjam</label>
-                                            <input type="date" class="form-control" id="tglpinjam">
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Tutup</button>
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="tglpengembalian">Tanggal Pengembalian</label>
-                                            <input type="date" class="form-control" id="tglpengembalian">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputMessage">Keterangan</label>
-                                            <textarea class="form-control" id="keterangan" rows="3"></textarea>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="button" class="btn btn-primary">Simpan</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </form>
+                    @endforeach
+
                     {{-- End Modal Edit Data --}}
 
         </body>

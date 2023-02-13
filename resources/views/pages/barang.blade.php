@@ -350,6 +350,7 @@
                                     </div>
                                 </div>
                             </div>
+                        </form>
                     @endforeach
 
                     {{-- End Modal Edit Data --}}

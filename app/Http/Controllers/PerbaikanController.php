@@ -18,13 +18,13 @@ class PerbaikanController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-        $request->validate([
-            'tgl_mulai	' => 'required',
-            'biaya' => 'required',
-            'keterangan' => 'required',
-            'id_barang' => 'required',
+        // $request->validate([
+        //     'tgl_mulai    ' => 'required',
+        //     'biaya' => 'required',
+        //     'keterangan' => 'required',
+        //     'id_barang' => 'required',
 
-        ]);
+        // ]);
 
         $perbaikan = Perbaikan::create([
             'tgl_mulai' => $request->tgl_mulai,
@@ -35,7 +35,7 @@ class PerbaikanController extends Controller
 
         ]);
 
-        Barang::where('id', $request->id_barang)->update(['id_status' => 2]);
+        Barang::where('id', $request->id_barang)->update(['id_status' => 3]);
 
         if ($perbaikan) {
             return redirect('perbaikan')->with('success', 'Data Berhasil Ditambahkan.');
@@ -45,24 +45,17 @@ class PerbaikanController extends Controller
     public function edit(Request $request)
     {
         $request->validate([
-            'tgl_mulai	' => 'required',
             'tgl_selesai' => 'required',
-            'biaya' => 'required',
-            'keterangan' => 'required',
-            'id_barang' => 'required',
         ]);
 
-        $perbaikan = Perbaikan::where('id', $request->id)->update([
-            'tgl_mulai' => $request->tgl_mulai,
+        Perbaikan::where('id', $request->id)->update([
             'tgl_selesai' => $request->tgl_selesai,
-            'biaya' => $request->biaya,
-            'keterangan' => $request->keterangan,
-            'id_barang' => $request->id_barang,
         ]);
 
-        if ($perbaikan) {
-            return redirect('perbaikan')->with('success', 'Data Berhasil Diedit.');
-        }
+        Barang::where('id', $request->id)->update(['id_status' => 1]);
+
+        return redirect('perbaikan')->with('success', 'Data Berhasil Diedit.');
+
     }
 
     public function delete(Request $request)
