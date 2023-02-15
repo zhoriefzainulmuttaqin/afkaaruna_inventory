@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 //  Login Routes
 Route::get('/', [LoginController::class, 'FormLogin']);
-Route::post('/login', [LoginController::class, 'login']);
+Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout']);
 
 // Pages Routes

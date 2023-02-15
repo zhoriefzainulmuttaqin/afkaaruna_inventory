@@ -10,7 +10,7 @@ class PerbaikanController extends Controller
 {
     public function index()
     {
-        $perbaikan = Perbaikan::orderBy('id', 'ASC')->get();
+        $perbaikan = Perbaikan::orderBy('id', 'ASC')->paginate(10);
         $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
 
         return view('pages.perbaikan', compact('perbaikan', 'barang'));
@@ -55,7 +55,6 @@ class PerbaikanController extends Controller
         Barang::where('id', $request->id)->update(['id_status' => 1]);
 
         return redirect('perbaikan')->with('success', 'Data Berhasil Diedit.');
-
     }
 
     public function delete(Request $request)

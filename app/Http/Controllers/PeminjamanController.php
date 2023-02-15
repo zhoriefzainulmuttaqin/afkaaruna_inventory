@@ -10,7 +10,7 @@ class PeminjamanController extends Controller
 {
     public function index()
     {
-        $peminjaman = Peminjaman::orderBy('id', 'ASC')->get();
+        $peminjaman = Peminjaman::orderBy('id', 'ASC')->paginate(10);
         $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
 
         return view('home', compact('peminjaman', 'barang'));

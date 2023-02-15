@@ -9,7 +9,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Document</title>
+        <title>Afkaaruna Inventory</title>
         <link rel="stylesheet" href="./css/table.css">
     </head>
 
@@ -72,19 +72,19 @@
                                                         </div>
                                                     </td>
                                                     <td class="text-left">
-                                                        
+
                                                         {{ $item->name }}
                                                     </td>
                                                     <td class="text-left">
-                                                        
+
                                                         {{ $item->email }}
                                                     </td>
                                                     <td class="text-left">
-                                                        
+
                                                         {{ $item->username }}
                                                     </td>
                                                     <td class="text-left">
-                                                        
+
                                                         {{ $item->Password }}
                                                     </td>
                                                     <td class="text-left">
@@ -114,26 +114,7 @@
                                 <div class="card-footer py-4">
                                     <nav aria-label="...">
                                         <ul class="pagination justify-content-end mb-0">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1">
-                                                    <i class="fa fa-angle-left"></i>
-                                                    <span class="sr-only">Previous</span>
-                                                </a>
-                                            </li>
-                                            <li class="page-item active">
-                                                <a class="page-link" href="#">1</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">2 <span
-                                                        class="sr-only">(current)</span></a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">
-                                                    <i class="fa fa-angle-right"></i>
-                                                    <span class="sr-only">Next</span>
-                                                </a>
-                                            </li>
+                                            {!! $user->links() !!}
                                         </ul>
                                     </nav>
                                 </div>
@@ -141,7 +122,7 @@
                         </div>
                     </div>
 
-                    
+
                     {{-- Modal Tambah Data --}}
                     <form action="/add-user" method="POST">
                         @csrf
@@ -203,23 +184,23 @@
                                                 <input type="hidden" class="form-control" id="id" name="id"
                                                     value="{{ $item->id }}">
 
-                                                    <label for="user">User</label>
+                                                <label for="user">User</label>
                                                 <label for="name">Name</label>
-                                                <input type="text" class="form-control" id="name"
-                                                    name="name" value="{{ $item->name }}">
+                                                <input type="text" class="form-control" id="name" name="name"
+                                                    value="{{ $item->name }}">
 
-                                                    <label for="email">Email</label>
-                                                <input type="text" class="form-control" id="email"
-                                                    name="email" value="{{ $item->email }}">
+                                                <label for="email">Email</label>
+                                                <input type="text" class="form-control" id="email" name="email"
+                                                    value="{{ $item->email }}">
 
-                                                    <label for="username">Username</label>
+                                                <label for="username">Username</label>
                                                 <input type="text" class="form-control" id="username"
                                                     name="username" value="{{ $item->username }}">
 
-                                                    <label for="password">Password</label>
+                                                <label for="password">Password</label>
                                                 <input type="text" class="form-control" id="password"
                                                     name="password" value="{{ $item->password }}">
-                                                   
+
                                             </div>
                                         </div>
                                         <div class="modal-footer">

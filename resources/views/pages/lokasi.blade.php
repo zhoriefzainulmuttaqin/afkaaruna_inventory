@@ -8,7 +8,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Document</title>
+        <title>Afkaaruna Inventory</title>
         <link rel="stylesheet" href="./css/table.css">
     </head>
 
@@ -196,7 +196,7 @@
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" id="id" name="id"
                                                     value="{{ $item->id }}">
-                                                    
+
                                                 <label for="id_area">Area</label>
                                                 <select class="form-control" id="id_area" name="id_area">
                                                     <option value="{{ $item->id_area }}">

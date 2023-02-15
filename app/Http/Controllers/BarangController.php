@@ -12,7 +12,7 @@ class BarangController extends Controller
 {
     public function index()
     {
-        $barang = Barang::orderBy('id', 'ASC')->get();
+        $barang = Barang::orderBy('id', 'DESC')->paginate(10);
         $kategori = Kategori::all();
         $lokasi = Lokasi::all();
         $status = Status::all();
