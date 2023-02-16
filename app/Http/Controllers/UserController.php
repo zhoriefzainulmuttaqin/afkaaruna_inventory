@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = user::orderBy('id','ASC')->get();
+        $user = user::orderBy('id', 'ASC')->paginate(10);
         return view('pages.user', compact('user'));
     }
 
@@ -42,7 +42,7 @@ class UserController extends Controller
             'email' => 'required',
             'username' => 'required',
             'password' => 'required',
-            
+
         ]);
 
         $user = user::where('id', $request->id)->update([

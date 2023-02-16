@@ -34,7 +34,9 @@ class BarangController extends Controller
 
         ]);
 
-        $code = random_int(1000, 2000);
+        $int = random_int(100000, 200000);
+
+        $code = "AFKAA" . $int;
 
         $imageName = time() . '_' . $request->file('foto')->getClientOriginalName();
 

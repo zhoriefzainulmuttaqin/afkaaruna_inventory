@@ -96,7 +96,7 @@
                                     </table>
                                 </div>
                                 <div class="card-footer py-4">
-                                    <nav aria-label="...">
+                                    {{-- <nav aria-label="...">
                                         <ul class="pagination justify-content-end mb-0">
                                             <li class="page-item disabled">
                                                 <a class="page-link" href="#" tabindex="-1">
@@ -119,7 +119,7 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                    </nav>
+                                    </nav> --}}
                                 </div>
                             </div>
                         </div>
@@ -146,8 +146,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Tutup</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                         <button type="submit" class="btn btn-primary">Simpan</button>
                                     </div>
                                 </div>

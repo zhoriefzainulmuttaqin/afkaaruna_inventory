@@ -17,14 +17,14 @@ class PerbaikanController extends Controller
     }
     public function store(Request $request)
     {
-        // dd($request);
-        // $request->validate([
-        //     'tgl_mulai    ' => 'required',
-        //     'biaya' => 'required',
-        //     'keterangan' => 'required',
-        //     'id_barang' => 'required',
 
-        // ]);
+        $request->validate([
+            'tgl_mulai' => 'required',
+            'biaya' => 'required',
+            'keterangan' => 'required',
+            'id_barang' => 'required',
+
+        ]);
 
         $perbaikan = Perbaikan::create([
             'tgl_mulai' => $request->tgl_mulai,

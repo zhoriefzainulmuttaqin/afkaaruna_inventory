@@ -10,7 +10,7 @@ class LokasiController extends Controller
 {
     public function index()
     {
-        $lokasi = Lokasi::orderBy('id', 'ASC')->get();
+        $lokasi = Lokasi::orderBy('id', 'ASC')->paginate(10);
         $area = Area::all();
 
         return view('pages.lokasi', compact('lokasi', 'area'));

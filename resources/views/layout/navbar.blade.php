@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/style.css">
 </head>
@@ -51,7 +51,7 @@
                             <span class="fa fa-folder mr-3"></span> Lainnya</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu3">
                             <li class="mt-5">
-                                <span>Zhorief Zainul Muttaqin</span>
+                                <span>Afkaaruna</span>
                                 <p style="color: rgba(255, 255, 255, 0.6)">Superadmin</p>
                                 <a></a>
                             </li>
@@ -88,6 +88,8 @@
     <script src="./js/popper.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/main.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
+
 </body>
 
 </html>
