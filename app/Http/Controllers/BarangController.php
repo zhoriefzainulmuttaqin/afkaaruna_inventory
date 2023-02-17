@@ -12,7 +12,7 @@ class BarangController extends Controller
 {
     public function index()
     {
-        $barang = Barang::orderBy('id', 'DESC')->paginate(10);
+        $barang = Barang::orderBy('id', 'DESC')->get();
         $kategori = Kategori::all();
         $lokasi = Lokasi::all();
         $status = Status::all();
@@ -69,7 +69,6 @@ class BarangController extends Controller
             'id_kategori' => 'required',
             'id_lokasi' => 'required',
             'id_status' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
         ]);
 
         $imageName = $request->gambarLama;

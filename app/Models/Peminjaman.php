@@ -17,7 +17,8 @@ class Peminjaman extends Model
         'tgl_pengembalian',
         'peminjam',
         'keterangan',
-        'id_barang'
+        'id_barang',
+        'foto'
     ];
 
     public function barang()

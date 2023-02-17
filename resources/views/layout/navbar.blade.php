@@ -4,11 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <title>@yield('tittle')</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/table.css">
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -22,10 +25,19 @@
                 </button>
             </div>
             <div class="p-4">
-                <h1><a href="/admin" class="logo">Afkaaruna <span>Inventory</span></a></h1>
+                <h1><a href="/admin" class="logo ">Afkaaruna <span>Inventory</span></a></h1>
                 <ul class="list-unstyled components mb-5">
-                    <li class="active">
-                        <a href="/admin"><span class="fa fa-home mr-3"></span> Home</a>
+                    <li class="@if (str_contains(url()->current(), 'peminjaman')) active @endif">
+                        <a href="/peminjaman"><span class="fa fa-folder mr-3"></span>
+                            Peminjaman</a>
+                    </li>
+                    <li class="@if (str_contains(url()->current(), 'perbaikan')) active @endif">
+                        <a href="/perbaikan"><span class="fa fa-folder mr-3"></span>
+                            Perbaikan</a>
+                    </li>
+                    <li class="@if (str_contains(url()->current(), 'barang')) active @endif">
+                        <a href="/barang"><span class="fa fa-folder mr-3"></span>
+                            Barang</a>
                     </li>
                     <li>
                         <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -37,18 +49,9 @@
                             <li><a href="/area"><span class="fa fa-caret-right  mr-2"></span> Area</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="/peminjaman"><span class="fa fa-folder mr-3"></span> Peminjaman</a>
-                    </li>
-                    <li>
-                        <a href="/perbaikan"><span class="fa fa-folder mr-3"></span> Perbaikan</a>
-                    </li>
-                    <li>
-                        <a href="/barang"><span class="fa fa-folder mr-3"></span> Barang</a>
-                    </li>
-                    <li class="active">
+                    <li class="">
                         <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <span class="fa fa-folder mr-3"></span> Lainnya</a>
+                            <span class="fa fa-home mr-3"></span> Log Out</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu3">
                             <li class="mt-5">
                                 <span>Afkaaruna</span>
@@ -84,11 +87,13 @@
         </div>
     </div>
 
-    <script src="./js/jquery.min.js"></script>
-    <script src="./js/popper.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/main.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+    @yield('script')
+
 
 </body>
 

@@ -18,6 +18,7 @@ class Perbaikan extends Model
         'biaya',
         'id_barang',
         'keterangan',
+        'foto',
     ];
 
     public function barang()

@@ -10,7 +10,7 @@ class PerbaikanController extends Controller
 {
     public function index()
     {
-        $perbaikan = Perbaikan::orderBy('id', 'ASC')->paginate(10);
+        $perbaikan = Perbaikan::orderBy('id', 'ASC')->get();
         $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
 
         return view('pages.perbaikan', compact('perbaikan', 'barang'));
@@ -23,8 +23,13 @@ class PerbaikanController extends Controller
             'biaya' => 'required',
             'keterangan' => 'required',
             'id_barang' => 'required',
-
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
         ]);
+
+        // dd($request->errors()->all());
+        $imageName = time() . '_' . $request->file('foto')->getClientOriginalName();
+
+        $request->foto->move(public_path('images/'), $imageName);
 
         $perbaikan = Perbaikan::create([
             'tgl_mulai' => $request->tgl_mulai,
@@ -32,7 +37,7 @@ class PerbaikanController extends Controller
             'biaya' => $request->biaya,
             'keterangan' => $request->keterangan,
             'id_barang' => $request->id_barang,
-
+            'foto' => $imageName
         ]);
 
         Barang::where('id', $request->id_barang)->update(['id_status' => 3]);

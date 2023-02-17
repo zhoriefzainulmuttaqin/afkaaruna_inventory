@@ -20,6 +20,7 @@ class CreatePeminjamanTable extends Migration
             $table->string('peminjam');
             $table->string('keterangan');
             $table->bigInteger('id_barang');
+            $table->string('foto');
             $table->timestamps();
         });
     }

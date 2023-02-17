@@ -28,7 +28,6 @@ Route::get('/logout', [LoginController::class, 'logout']);
 
 // Pages Routes
 Route::middleware('auth')->group(function () {
-    Route::get('/admin', [PeminjamanController::class, 'index']);
 
     // Peminjaman
     Route::get('/peminjaman', [PeminjamanController::class, 'index']);

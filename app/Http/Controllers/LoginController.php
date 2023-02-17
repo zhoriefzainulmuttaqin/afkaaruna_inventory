@@ -21,12 +21,13 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($request)) {
-            return redirect('admin');
+            return redirect('peminjaman');
         }
         return redirect()->back()->with('error', 'Username or Password Are Wrong.');
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
         return redirect('/');
     }
