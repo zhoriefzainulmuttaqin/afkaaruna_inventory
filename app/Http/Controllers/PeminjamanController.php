@@ -29,21 +29,34 @@ class PeminjamanController extends Controller
 
         $imageName = time() . '_' . $request->file('foto')->getClientOriginalName();
 
-        $request->foto->move(public_path('images/'), $imageName);
+        $request->foto->move(("foto_gudang"), $imageName);
 
         $peminjaman = Peminjaman::create([
             'tgl_peminjaman' => $request->tgl_peminjaman,
-            'tgl_pengembalian' => $request->tgl_pengembalian,
             'peminjam' => $request->peminjam,
             'keterangan' => $request->keterangan,
             'id_barang' => $request->id_barang,
-            'foto' => $imageName
+            'foto' => $imageName,
+            'jumlahBarang' => $jumlah
 
         ]);
-
-        Barang::where('id', $request->id_barang)->update(['id_status' => 2]);
+       
 
         if ($peminjaman) {
+            $barang = Barang::find($request->id_barang);
+        
+            $updateStock = $barang->stock - $request->jumlahBarang;
+          
+            Barang::where('id', $request->id_barang)->update([
+                'stock' => $updateStock
+                ]);
+                
+            $barang->refresh();
+
+            if($barang->stock == 0){
+                Barang::where('id', $request->id_barang)->update(['id_status' => 2]);
+            }
+            
             return redirect('peminjaman')->with('success', 'Data Berhasil Ditambahkan.');
         }
     }
@@ -57,10 +70,24 @@ class PeminjamanController extends Controller
         Peminjaman::where('id', $request->id)->update([
             'tgl_pengembalian' => $request->tgl_selesai,
         ]);
+        
+        $peminjaman = Peminjaman::find($request->id);    
 
-        Barang::where('id', $request->id)->update(['id_status' => 1]);
+        $barang = Barang::find($peminjaman->id_barang);
+        
+        $updateStock = $barang->stock + $peminjaman->jumlahBarang;
+          
+        Barang::where('id', $peminjaman->id_barang)->update([
+            'stock' => $updateStock
+        ]);
+                
+        $barang->refresh();
 
-        return redirect('perbaikan')->with('success', 'Data Berhasil Diedit.');
+        if($barang->stock > 0){
+                Barang::where('id', $request->id_barang)->update(['id_status' => 1]);
+        }
+
+        return redirect('peminjaman')->with('success', 'Data Berhasil Diedit.');
     }
 
 

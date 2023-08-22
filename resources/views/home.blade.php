@@ -31,18 +31,19 @@
                     </div>
                     <div class="card shadow">
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Peminjaman</h3>
+                            <h3 class="mb-0">Item Lending</h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush" id="tabel-peminjaman">
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Barang</th>
-                                        <th scope="col">Peminjam</th>
-                                        <th scope="col">Tanggal Dipinjam</th>
-                                        <th scope="col">Tanggal Pengembalian</th>
-                                        <th scope="col">Keterangan</th>
+                                        <th scope="col">Item</th>
+                                        <th scope="col">Loanee</th>
+                                        <th scope="col">Loan Start Date</th>
+                                        <th scope="col">Return Date</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Description</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -69,6 +70,9 @@
                                                 {{ $item->tgl_pengembalian }}
                                             </td>
                                             <td>
+                                                {{ $item->jumlahBarang }}
+                                            </td>
+                                            <td>
                                                 {{ $item->keterangan }}
                                             </td>
                                             <td class="text-right">
@@ -85,7 +89,7 @@
                                                         </a>
                                                         <a class="dropdown-item" href="#" data-toggle="modal"
                                                             data-target="#formModalEdit{{ $item->id }}">
-                                                            Selesai
+                                                            Status Finished
                                                         </a>
                                                     </div>
                                                 </div>
@@ -110,17 +114,16 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
+                                <h5 class="modal-title" id="formModalLabel">Add Data</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-
                                 <div class="form-group">
-                                    <label for="namabrg">Nama Barang</label>
+                                    <label for="namabrg">Item Name</label>
                                     <select class="form-control" id="namabrg" name="id_barang">
-                                        <option value="">Nama Barang</option>
+                                        <option value="">Item Name</option>
                                         @foreach ($barang as $items)
                                             <option value="{{ $items->id }}">{{ $items->nama }}
                                             </option>
@@ -128,30 +131,29 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputMessage">Nama Peminjam</label>
+                                    <label for="inputMessage">Loanee</label>
                                     <textarea class="form-control" id="peminjam" name="peminjam" rows="" placeholder=""></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="tglpinjam">Tanggal Dipinjam</label>
+                                    <label for="tglpinjam">Loan Start Date</label>
                                     <input type="date" class="form-control" id="tgl_peminjaman" name="tgl_peminjaman">
                                 </div>
                                 <div class="form-group">
-                                    <label for="tglpengembalian">Tanggal Pengembalian</label>
-                                    <input type="date" class="form-control" id="tgl_pengembalian"
-                                        name="tgl_pengembalian">
+                                    <label for="jumlahBarang">Amount</label>
+                                    <input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang">
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputMessage">Keterangan</label>
+                                    <label for="inputMessage">Description</label>
                                     <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="foto">Foto</label>
+                                    <label for="foto">Image</label>
                                     <input type="file" class="form-control" id="foto" name="foto">
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </div>
                     </div>
@@ -178,15 +180,15 @@
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" id="id" name="id"
                                                 value="{{ $item->id }}">
-                                            <label for="tgl_selesai">Tanggal Selesai</label>
+                                            <label for="tgl_selesai">Loan End Date</label>
                                             <input type="date" class="form-control" id="tgl_selesai"
                                                 name="tgl_selesai" value="{{ $item->tgl_selesai }}">
                                         </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +203,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="formModalLabel">Detail Barang</h5>
+                                <h5 class="modal-title" id="formModalLabel">Item Detail</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -209,14 +211,14 @@
                             <div class="modal-body">
                                 <div class="form-group">
                                     <div class="card" style="width: 29rem;">
-                                        <img src="{{ asset('images/' . $item->foto) }}" class="card-img-top"
+                                        <img src="{{ asset('foto_gudang/' . $item->foto) }}" class="card-img-top"
                                             alt="{{ $item->foto }}">
                                     </div>
                                 </div>
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>

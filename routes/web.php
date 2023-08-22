@@ -67,7 +67,10 @@ Route::middleware('auth')->group(function () {
 
     // barang
     Route::get('/barang', [BarangController::class, 'index']);
+    Route::get('/barang/printpdf', [BarangController::class, 'print']);
+    Route::post('/barang/printpdf', [BarangController::class, 'print']);
     Route::post('/add-barang', [BarangController::class, 'store']);
     Route::post('/edit-barang', [BarangController::class, 'edit']);
     Route::get('/delete-barang/{id}', [BarangController::class, 'delete']);
+    
 });

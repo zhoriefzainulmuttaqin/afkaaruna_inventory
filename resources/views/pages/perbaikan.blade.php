@@ -32,18 +32,19 @@
                     </div>
                     <div class="card shadow">
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Perbaikan</h3>
+                            <h3 class="mb-0">Item Repair</h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush" id="tabel-perbaikan">
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Barang</th>
-                                        <th scope="col">Biaya</th>
-                                        <th scope="col">Tanggal Mulai</th>
-                                        <th scope="col">Tanggal Selesai</th>
-                                        <th scope="col">Keterangan</th>
+                                        <th scope="col">Item</th>
+                                        <th scope="col">Cost</th>
+                                        <th scope="col">Start Date</th>
+                                        <th scope="col">End Date</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Description</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -70,6 +71,9 @@
                                                 {{ $item->tgl_selesai }}
                                             </td>
                                             <td>
+                                                {{ $item->jumlahBarang }}
+                                            </td>
+                                            <td>
                                                 {{ $item->keterangan }}
                                             </td>
                                             <td class="text-center">
@@ -83,11 +87,11 @@
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                         <a class="dropdown-item" href="#" data-toggle="modal"
                                                             data-target="#formModalDetail{{ $item->id }}">
-                                                            Detail
+                                                            Details
                                                         </a>
                                                         <a class="dropdown-item" href="#" data-toggle="modal"
                                                             data-target="#formModalEdit{{ $item->id }}">
-                                                            Selesai
+                                                            Change to Finished
                                                         </a>
                                                     </div>
                                                 </div>
@@ -113,14 +117,14 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
+                                <h5 class="modal-title" id="formModalLabel">Add Data</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="id_barang">Barang</label>
+                                    <label for="id_barang">Item Name</label>
                                     <select class="form-control" id="id_barang" name="id_barang">
                                         @foreach ($barang as $items)
                                             <option value="{{ $items->id }}">{{ $items->nama }}
@@ -129,31 +133,34 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="biaya">Biaya</label>
-                                    <input type="number" class="form-control" id="biaya" name="biaya"
-                                        placeholder="Rp.10.000">
+                                    <label for="biaya">Cost</label>
+                                    <input type="number" class="form-control" id="biaya" name="biaya" placeholder="">
                                 </div>
                                 <div class="form-group">
-                                    <label for="tgl_mulai">Tanggal Mulai</label>
+                                    <label for="tgl_mulai">Start Date</label>
                                     <input type="date" class="form-control" id="tgl_mulai" name="tgl_mulai">
                                 </div>
                                 <div class="form-group">
-                                    <label for="tgl_selesai">Tanggal Selesai</label>
+                                    <label for="tgl_selesai">End Date</label>
                                     <input type="date" class="form-control" id="tgl_selesai" name="tgl_selesai">
                                 </div>
                                 <div class="form-group">
-                                    <label for="keterangan">Keterangan</label>
+                                    <label for="jumlah">Amount</label>
+                                    <input type="date" class="form-control" id="jumlah" name="jumlahBarang">
+                                </div>
+                                <div class="form-group">
+                                    <label for="keterangan">Description</label>
                                     <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="foto">Foto</label>
+                                    <label for="foto">Image</label>
                                     <input type="file" class="form-control" id="foto" name="foto">
                                 </div>
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </div>
                     </div>
@@ -180,15 +187,15 @@
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" id="id" name="id"
                                                 value="{{ $item->id }}">
-                                            <label for="tgl_selesai">Tanggal Selesai</label>
+                                            <label for="tgl_selesai">End Date</label>
                                             <input type="date" class="form-control" id="tgl_selesai"
                                                 name="tgl_selesai" value="{{ $item->tgl_selesai }}">
                                         </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -203,7 +210,7 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="formModalLabel">Detail Barang</h5>
+                                <h5 class="modal-title" id="formModalLabel">Details</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -211,14 +218,14 @@
                             <div class="modal-body">
                                 <div class="form-group">
                                     <div class="card" style="width: 29rem;">
-                                        <img src="{{ asset('images/' . $item->foto) }}" class="card-img-top"
+                                        <img src="{{ asset('foto_gudang/' . $item->foto) }}" class="card-img-top"
                                             alt="{{ $item->foto }}">
                                     </div>
                                 </div>
 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>

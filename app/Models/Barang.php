@@ -22,11 +22,17 @@ class Barang extends Model
         'id_lokasi',
         'id_kategori',
         'id_status',
+        'stock',
     ];
 
     public function lokasi()
     {
         return $this->belongsTo(Lokasi::class, 'id_lokasi');
+    }
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'id_area');
     }
 
     public function kategori()

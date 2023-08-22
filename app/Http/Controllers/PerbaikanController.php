@@ -29,20 +29,32 @@ class PerbaikanController extends Controller
         // dd($request->errors()->all());
         $imageName = time() . '_' . $request->file('foto')->getClientOriginalName();
 
-        $request->foto->move(public_path('images/'), $imageName);
+        $request->foto->move(("foto_gudang"), $imageName);
 
         $perbaikan = Perbaikan::create([
             'tgl_mulai' => $request->tgl_mulai,
-            'tgl_selesai' => $request->tgl_selesai,
             'biaya' => $request->biaya,
             'keterangan' => $request->keterangan,
             'id_barang' => $request->id_barang,
             'foto' => $imageName
         ]);
 
-        Barang::where('id', $request->id_barang)->update(['id_status' => 3]);
+        
 
         if ($perbaikan) {
+            $barang = Barang::find($request->id_barang);
+        
+            $updateStock = $barang->stock - $request->jumlahBarang;
+          
+            Barang::where('id', $request->id_barang)->update([
+                'stock' => $updateStock
+                ]);
+                
+            $barang->refresh();
+
+            if($barang->stock == 0){
+                Barang::where('id', $request->id_barang)->update(['id_status' => 2]);
+            }
             return redirect('perbaikan')->with('success', 'Data Berhasil Ditambahkan.');
         }
     }
@@ -56,9 +68,21 @@ class PerbaikanController extends Controller
         Perbaikan::where('id', $request->id)->update([
             'tgl_selesai' => $request->tgl_selesai,
         ]);
+        
+        $perbaikan = Perbaikan::find($reqeuest->id);
+        $barang = Barang::find($perbaikan->id_barang);
+        
+        $updateStock = $barang->stock + $perbaikan->jumlahBarang;
+          
+        Barang::where('id', $perbaikan->id_barang)->update([
+                'stock' => $updateStock
+                ]);
+                
+        $barang->refresh();
 
-        Barang::where('id', $request->id)->update(['id_status' => 1]);
-
+        if($barang->stock > 0){
+            Barang::where('id', $request->id_barang)->update(['id_status' => 1]);
+        }
         return redirect('perbaikan')->with('success', 'Data Berhasil Diedit.');
     }
 

@@ -32,14 +32,14 @@
                     </div>
                     <div class="card shadow">
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Lokasi</h3>
+                            <h3 class="mb-0">Location</h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush" id="tabel-lokasi">
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col" class="text-center">Lokasi</th>
+                                        <th scope="col" class="text-center">Location</th>
                                         <th scope="col" class="text-center">Area</th>
                                         <th scope="col" class="text-right">Action</th>
                                     </tr>
@@ -73,7 +73,7 @@
                                                             Edit
                                                         </a>
                                                         <a class="dropdown-item"
-                                                            href="{{ asset('delete-lokasi/' . $item->id) }}">Hapus</a>
+                                                            href="{{ asset('delete-lokasi/' . $item->id) }}">Delete</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -96,20 +96,20 @@
 
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
+                                <h5 class="modal-title" id="formModalLabel">Add Data</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="lokasi">Lokasi</label>
+                                    <label for="lokasi">Location</label>
                                     <input type="text" class="form-control" id="lokasi" name="lokasi">
                                 </div>
                                 <div class="form-group">
                                     <label for="id_area">Area</label>
                                     <select class="form-control" id="id_area" name="id_area">
-                                        <option value="">Pilih Area</option>
+                                        <option value="">Select Area</option>
                                         @foreach ($area as $items)
                                             <option value="{{ $items->id }}">{{ $items->area }}</option>
                                         @endforeach
@@ -117,8 +117,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </div>
 
@@ -146,7 +146,7 @@
                                         <input type="hidden" class="form-control" id="id" name="id"
                                             value="{{ $item->id }}">
 
-                                        <label for="lokasi">Lokasi</label>
+                                        <label for="lokasi">Location</label>
                                         <input type="text" class="form-control" id="lokasi" name="lokasi"
                                             value="{{ $item->lokasi }}">
                                     </div>
@@ -168,8 +168,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </div>

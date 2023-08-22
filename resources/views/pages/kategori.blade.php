@@ -31,14 +31,14 @@
                     </div>
                     <div class="card shadow">
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Kategori</h3>
+                            <h3 class="mb-0">Category</h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush" id="tabel-kategori">
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col" class="text-center">Kategori</th>
+                                        <th scope="col" class="text-center">Category</th>
                                         <th scope="col" class="text-right">Action</th>
                                     </tr>
                                 </thead>
@@ -68,7 +68,7 @@
                                                             Edit
                                                         </a>
                                                         <a class="dropdown-item"
-                                                            href="{{ asset('delete-kategori/' . $item->id) }}">Hapus</a>
+                                                            href="{{ asset('delete-kategori/' . $item->id) }}">Delete</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -117,20 +117,20 @@
 
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
+                                <h5 class="modal-title" id="formModalLabel">Add Data</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="kategori">Nama Kategori</label>
+                                    <label for="kategori">Category Name</label>
                                     <input type="text" class="form-control" id="kategori" name="kategori">
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </div>
 
@@ -157,14 +157,14 @@
                                     <div class="form-group">
                                         <input type="hidden" class="form-control" id="id" name="id"
                                             value="{{ $item->id }}">
-                                        <label for="kategori">Nama Kategori</label>
+                                        <label for="kategori">Category Name</label>
                                         <input type="text" class="form-control" id="kategori" name="kategori"
                                             value="{{ $item->kategori }}">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </div>

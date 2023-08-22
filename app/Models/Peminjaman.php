@@ -18,7 +18,8 @@ class Peminjaman extends Model
         'peminjam',
         'keterangan',
         'id_barang',
-        'foto'
+        'foto',
+        'jumlahBarang',
     ];
 
     public function barang()

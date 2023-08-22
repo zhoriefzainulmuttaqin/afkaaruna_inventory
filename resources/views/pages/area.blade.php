@@ -70,7 +70,7 @@
                                                             Edit
                                                         </a>
                                                         <a class="dropdown-item"
-                                                            href="{{ asset('delete-area/' . $item->id) }}">Hapus</a>
+                                                            href="{{ asset('delete-area/' . $item->id) }}">Delete</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -118,7 +118,7 @@
 
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
+                                <h5 class="modal-title" id="formModalLabel">Add Data</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -130,8 +130,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </div>
 
@@ -164,8 +164,8 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </div>
