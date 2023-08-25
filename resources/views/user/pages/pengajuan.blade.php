@@ -1,6 +1,6 @@
-@extends('layout.navbar')
+@extends('user.layout')
 {{-- @extends('layout.button') --}}
-@section('tittle', 'Peminjaman')
+@section('tittle', 'Pengajuan')
 @section('container')
     <div class="main-content">
         <div class="container mt-7">
@@ -31,7 +31,7 @@
                     </div>
                     <div class="card shadow">
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Item Lending</h3>
+                            <h3 class="mb-0">Submission</h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush" id="tabel-peminjaman">
@@ -40,15 +40,15 @@
                                         <th scope="col">No</th>
                                         <th scope="col">Item</th>
                                         <th scope="col">Loanee</th>
-                                        <th scope="col">Loan Start Date</th>
-                                        <th scope="col">Return Date</th>
                                         <th scope="col">Amount</th>
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col">Loan Start Date</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Return Date</th>
+                                        {{-- <th scope="col">Action</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($peminjaman as $item)
+                                    @foreach ($pengajuan as $item)
                                         <tr>
                                             <th scope="row">
                                                 <div class="media align-items-center">
@@ -64,18 +64,32 @@
                                                 {{ $item->peminjam }}
                                             </td>
                                             <td>
-                                                {{ $item->tgl_peminjaman }}
+                                                {{ $item->jumlahBarang }}
+                                            </td>
+                                            <td>
+                                                {{ $item->tgl_peminjam }}
+                                            </td>
+                                            <td>
+                                                @if ($item->status->status == 'Pending Approval')
+                                                    <span class="badge badge-dot mr-4">
+                                                        <i class="bg-warning"></i> {{ $item->status->status }}
+                                                    </span>
+                                                @elseif ($item->status->status == 'Loaned')
+                                                    <span class="badge badge-dot mr-4">
+                                                        <i class="bg-danger"></i> {{ $item->status->status }}
+                                                    </span>
+                                                @elseif ($item->status->status == 'Returned')
+                                                    <span class="badge badge-dot mr-4">
+                                                        <i class="bg-danger"></i> {{ $item->status->status }}
+                                                    </span>
+                                                @endif
                                             </td>
                                             <td>
                                                 {{ $item->tgl_pengembalian }}
                                             </td>
-                                            <td>
-                                                {{ $item->jumlahBarang }}
-                                            </td>
-                                            <td>
-                                                {{ $item->keterangan }}
-                                            </td>
-                                            <td class="text-right">
+
+
+                                            {{-- <td class="text-right">
                                                 <div class="dropdown">
                                                     <a class="btn btn-sm btn-icon-only text-light" href="#"
                                                         role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -87,13 +101,9 @@
                                                             data-target="#formModalDetail{{ $item->id }}">
                                                             Detail
                                                         </a>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
-                                                            data-target="#formModalEdit{{ $item->id }}">
-                                                            Status Finished
-                                                        </a>
                                                     </div>
                                                 </div>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -107,7 +117,7 @@
 
 
             {{-- Modal Tambah Data --}}
-            <form action="/add-peminjaman" method="POST" enctype="multipart/form-data">
+            <form action="/add-pengajuan" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel"
                     aria-hidden="true">
@@ -132,24 +142,31 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="inputMessage">Loanee</label>
-                                    <textarea class="form-control" id="peminjam" name="peminjam" rows="" placeholder=""></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="tglpinjam">Loan Start Date</label>
-                                    <input type="date" class="form-control" id="tgl_peminjaman" name="tgl_peminjaman">
+                                    <input type="text" class="form-control" id="peminjam" name="peminjam">
                                 </div>
                                 <div class="form-group">
                                     <label for="jumlahBarang">Amount</label>
                                     <input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang">
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputMessage">Description</label>
-                                    <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
+                                    <label for="tglpinjam">Loan Start Date</label>
+                                    <input type="date" class="form-control" id="tgl_peminjam" name="tgl_peminjam">
                                 </div>
-                                <div class="form-group">
-                                    <label for="foto">Image</label>
-                                    <input type="file" class="form-control" id="foto" name="foto">
-                                </div>
+                                {{-- <div class="form-group">
+                                    <label for="status">Status</label>
+                                    <select class="form-control" id="status" name="id_status">
+                                        <option value="">Select Status</option>
+                                        @foreach ($status as $items)
+                                            <option value="{{ $items->id }}">{{ $items->status }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div> --}}
+                                {{-- <div class="form-group">
+                                    <label for="tglpinjam">Return Date</label>
+                                    <input type="date" class="form-control" id="tgl_pengembalian"
+                                        name="tgl_pengembalian">
+                                </div> --}}
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -162,8 +179,8 @@
             {{-- End Modal Tambah Data --}}
 
             {{-- Modal Edit Data --}}
-            @foreach ($peminjaman as $item)
-                <form action="edit-peminjaman" method="POST">
+            @foreach ($pengajuan as $item)
+                <form action="edit-pengajuan" method="POST">
                     @csrf
                     <div class="modal fade" id="formModalEdit{{ $item->id }}" tabindex="-1" role="dialog"
                         aria-labelledby="formModalLabel" aria-hidden="true">
@@ -197,33 +214,7 @@
             @endforeach
             {{-- End Modal Edit Data --}}
 
-            @foreach ($peminjaman as $item)
-                <div class="modal fade" id="formModalDetail{{ $item->id }}" tabindex="-1" role="dialog"
-                    aria-labelledby="formModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="formModalLabel">Item Detail</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <div class="card" style="width: 29rem;">
-                                        <img src="{{ asset('foto_gudang/' . $item->foto) }}" class="card-img-top"
-                                            alt="{{ $item->foto }}">
-                                    </div>
-                                </div>
 
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
 
         @endsection
 

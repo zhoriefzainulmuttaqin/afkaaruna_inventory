@@ -15,14 +15,21 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $request = $request->validate([
+        $credentials = $request->validate([
             'username' => 'required',
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($request)) {
-            return redirect('peminjaman');
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            if ($user->role === 'admin') {
+                return redirect('peminjaman'); // Redirect to admin page
+            } else {
+                return redirect('pengajuan'); // Redirect to user's page
+            }
         }
+
         return redirect()->back()->with('error', 'Username or Password Are Wrong.');
     }
 

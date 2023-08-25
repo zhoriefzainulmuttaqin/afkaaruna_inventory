@@ -6,6 +6,7 @@ use App\Models\Area;
 use App\Models\Barang;
 use App\Models\Kategori;
 use App\Models\Lokasi;
+use App\Models\Pengajuan;
 use App\Models\Status;
 use Illuminate\Http\Request;
 
@@ -18,8 +19,9 @@ class BarangController extends Controller
         $lokasi = Lokasi::all();
         $area = Area::all();
         $status = Status::all();
+        $pendingCount = Pengajuan::where('id_status', 5)->count();
 
-        return view('pages.barang', compact('barang', 'kategori', 'lokasi', 'status', 'area'));
+        return view('pages.barang', compact('barang', 'kategori', 'lokasi', 'status', 'area', 'pendingCount'));
     }
 
     public function print(Request $request)
@@ -141,5 +143,16 @@ class BarangController extends Controller
         if ($del) {
             return redirect('barang')->with('success', 'barang Berhasil Dihapus.');
         }
+    }
+
+    public function barang_user()
+    {
+        $barang = Barang::orderBy('id', 'DESC')->get();
+        $kategori = Kategori::all();
+        $lokasi = Lokasi::all();
+        $area = Area::all();
+        $status = Status::all();
+
+        return view('user.pages.barang', compact('barang', 'kategori', 'lokasi', 'status', 'area'));
     }
 }

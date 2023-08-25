@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Area;
 use App\Models\Lokasi;
+use App\Models\Pengajuan;
 use Illuminate\Http\Request;
 
 class LokasiController extends Controller
@@ -12,8 +13,9 @@ class LokasiController extends Controller
     {
         $lokasi = Lokasi::orderBy('id', 'ASC')->get();
         $area = Area::all();
+        $pendingCount = Pengajuan::where('id_status', 5)->count();
 
-        return view('pages.lokasi', compact('lokasi', 'area'));
+        return view('pages.lokasi', compact('lokasi', 'area', 'pendingCount'));
     }
 
     public function store(Request $request)

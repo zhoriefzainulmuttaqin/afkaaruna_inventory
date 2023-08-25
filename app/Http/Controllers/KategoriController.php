@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
+use App\Models\Pengajuan;
 use Illuminate\Http\Request;
 use PDO;
 
@@ -11,8 +12,9 @@ class KategoriController extends Controller
     public function index()
     {
         $kategori = Kategori::orderBy('id', 'ASC')->get();
+        $pendingCount = Pengajuan::where('id_status', 5)->count();
 
-        return view('pages.kategori', compact('kategori'));
+        return view('pages.kategori', compact('kategori', 'pendingCount'));
     }
 
     public function store(Request $request)

@@ -27,36 +27,13 @@
             <div class="p-4">
                 <h1><a href="/admin" class="logo ">Afkaaruna <span>Inventory</span></a></h1>
                 <ul class="list-unstyled components mb-5">
-                    <li class="@if (str_contains(url()->current(), 'peminjaman')) active @endif">
-                        <a href="/peminjaman"><span class="fa fa-folder mr-3"></span>
-                            Item Lending</a>
+                    <li class="@if (str_contains(url()->current(), 'pengajuan')) active @endif">
+                        <a href="/pengajuan"><span class="fa fa-folder mr-3"></span>
+                            Submission</a>
                     </li>
-                    <li class="@if (str_contains(url()->current(), 'pengajuanBarang')) active @endif">
-                        <a href="/pengajuanBarang"><span class="fa fa-folder mr-3"></span>
-                            Submission
-
-                            @if ($pendingCount > 0)
-                                <span class="badge badge-danger">{{ $pendingCount }}</span>
-                            @endif
-                        </a>
-                    </li>
-                    <li class="@if (str_contains(url()->current(), 'perbaikan')) active @endif">
-                        <a href="/perbaikan"><span class="fa fa-folder mr-3"></span>
-                            Item Repair</a>
-                    </li>
-                    <li class="@if (str_contains(url()->current(), 'barang')) active @endif">
-                        <a href="/barang"><span class="fa fa-folder mr-3"></span>
-                            Items</a>
-                    </li>
-                    <li>
-                        <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <span class="fa fa-folder mr-3"></span> Data Master</a>
-                        <ul class="collapse list-unstyled" id="pageSubmenu2">
-                            <li><a href="/user"><span class="fa fa-caret-right mr-2"></span> User</a></li>
-                            <li><a href="/kategori"><span class="fa fa-caret-right mr-2"></span> Category</a></li>
-                            <li><a href="/lokasi"><span class="fa fa-caret-right mr-2"></span> Location</a></li>
-                            <li><a href="/area"><span class="fa fa-caret-right  mr-2"></span> Area</a></li>
-                        </ul>
+                    <li class="@if (str_contains(url()->current(), 'list_barang')) active @endif">
+                        <a href="/list_barang"><span class="fa fa-folder mr-3"></span>
+                            List Item</a>
                     </li>
                     <li class="">
                         <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -64,7 +41,7 @@
                         <ul class="collapse list-unstyled" id="pageSubmenu3">
                             <li class="mt-5">
                                 <span>Afkaaruna</span>
-                                <p style="color: rgba(255, 255, 255, 0.6)">Superadmin</p>
+                                <p style="color: rgba(255, 255, 255, 0.6)">User</p>
                                 <a></a>
                             </li>
                             <li>
