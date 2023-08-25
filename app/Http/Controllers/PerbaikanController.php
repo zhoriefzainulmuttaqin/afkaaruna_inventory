@@ -13,7 +13,7 @@ class PerbaikanController extends Controller
     {
         $perbaikan = Perbaikan::orderBy('id', 'ASC')->get();
         $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
-        $pendingCount = Pengajuan::where('id_status', 7)->count();
+        $pendingCount = Pengajuan::where('id_status', 5)->count();
 
         return view('pages.perbaikan', compact('perbaikan', 'barang', 'pendingCount'));
     }

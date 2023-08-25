@@ -11,7 +11,7 @@ class TypeController extends Controller
     public function index()
     {
         $type = Type::orderBy('id', 'ASC')->get();
-        $pendingCount = Pengajuan::where('id_status', 7)->count();
+        $pendingCount = Pengajuan::where('id_status', 5)->count();
 
         return view('pages.type', compact('type', 'pendingCount'));
     }

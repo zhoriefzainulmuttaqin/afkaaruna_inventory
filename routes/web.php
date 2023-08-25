@@ -30,7 +30,10 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout']);
 Route::get('/accesslock', [ErrorController::class, 'access']);
 
-
+Route::get('//pengajuan/printPDF/', [PengajuanController::class, 'exportFilter']);
+Route::post('//pengajuan/printPDF/', [PengajuanController::class, 'exportFilter']);
+Route::get('//pengajuan/printPDF/{id}', [PengajuanController::class, 'export']);
+Route::post('//pengajuan/printPDF/{id}', [PengajuanController::class, 'export']);
 Route::middleware(['auth', 'role:admin'])->group(function () {
     // Peminjaman
     Route::get('/peminjaman', [PeminjamanController::class, 'index']);
@@ -93,6 +96,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/pengajuan', [PengajuanController::class, 'index']);
+
     Route::post('/add-pengajuan', [PengajuanController::class, 'store']);
     Route::post('/edit-pengajuan', [PengajuanController::class, 'edit']);
     Route::get('/delete-pengajuan/{id}', [PengajuanController::class, 'delete']);

@@ -21,7 +21,7 @@ class BarangController extends Controller
         $type = Type::all();
         $area = Area::all();
         $status = Status::all();
-        $pendingCount = Pengajuan::where('id_status', 7)->count();
+        $pendingCount = Pengajuan::where('id_status', 5)->count();
 
         return view('pages.barang', compact('barang', 'kategori', 'lokasi', 'status', 'area', 'type', 'pendingCount'));
     }

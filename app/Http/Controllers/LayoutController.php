@@ -9,7 +9,7 @@ class LayoutController extends Controller
 {
     public function showSubmissionPage()
     {
-        $pendingCount = Pengajuan::where('id_status', 7)->count();
+        $pendingCount = Pengajuan::where('id_status', 5)->count();
 
         return view('layout.navbar', compact('pendingCount'));
     }

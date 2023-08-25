@@ -13,7 +13,7 @@ class UserController extends Controller
     public function index()
     {
         $user = user::orderBy('id', 'ASC')->get();
-        $pendingCount = Pengajuan::where('id_status', 7)->count();
+        $pendingCount = Pengajuan::where('id_status', 5)->count();
 
         return view('pages.user', compact('user', 'pendingCount'));
     }

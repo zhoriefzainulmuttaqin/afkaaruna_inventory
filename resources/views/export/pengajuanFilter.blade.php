@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Laporan Barang | PDF</title>
+    <title>Report Submission | PDF</title>
 
     <style>
         .title {
@@ -139,20 +139,37 @@
                 </td>
             </tr>
         </table>
+        <table>
+
+            <tr>
+                <td style="text-align: center; font-weight: Bold;">Unit: @foreach ($pengajuan as $a)
+                        {{ $a->area->area }}
+                    @endforeach
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center; font-weight: Bold;">Request Date: @foreach ($pengajuan as $b)
+                        {{ $b->request_date }}
+                    @endforeach
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center; font-weight: Bold;">Required Date: @foreach ($pengajuan as $c)
+                        {{ $c->required_date }}
+                    @endforeach
+                </td>
+            </tr>
+        </table>
         <table cellpadding="0" cellspacing="0">
 
             <tr class="heading">
                 <td>No</td>
-                <td>Item Name</td>
-                <td>Stock</td>
+                <td>Item</td>
+                <td>Request Qty</td>
+                <td>Note</td>
                 <td>Category</td>
-                <td>Type</td>
-                <td>Location</td>
-                <td>Area</td>
-                <td>Date</td>
             </tr>
-
-            @foreach ($barang as $item)
+            @foreach ($pengajuan as $p)
                 <tr class="details">
                     <td scope="row">
                         <div class="media align-items-center">
@@ -162,29 +179,19 @@
                         </div>
                     </td>
                     <td>
-                        {{ $item->nama }}
+                        {{ $p->barang->nama }}
                     </td>
                     <td>
-                        {{ $item->stock }}
+                        {{ $p->jumlahBarang }}
                     </td>
                     <td>
-                        {{ $item->kategori->kategori }}
+                        {{ $p->note }}
                     </td>
                     <td>
-                        {{ $item->type->type ?? '-' }}
-                    </td>
-                    <td>
-                        {{ $item->lokasi->lokasi }}
-                    </td>
-                    <td>
-                        {{ $item->area->area ?? '-' }}
-                    </td>
-                    <td>
-                        {{ $item->tgl_masuk }}
+                        {{ $p->barang->kategori->kategori }}
                     </td>
                 </tr>
             @endforeach
-
         </table>
     </div>
 </body>

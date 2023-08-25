@@ -13,11 +13,13 @@ class Pengajuan extends Model
     protected $table = 'pengajuan';
     protected $fillable = [
         'id_barang',
-        'peminjam',
+        'id_area',
         'jumlahBarang',
-        'tgl_peminjam',
+        'required_date',
         'id_status',
         'tgl_pengembalian',
+        'note',
+
     ];
     public function barang()
     {
@@ -26,5 +28,9 @@ class Pengajuan extends Model
     public function status()
     {
         return $this->belongsTo(Status::class, 'id_status');
+    }
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'id_area');
     }
 }

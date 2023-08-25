@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Laporan Barang | PDF</title>
+    <title>Report Submission | PDF</title>
 
     <style>
         .title {
@@ -139,51 +139,48 @@
                 </td>
             </tr>
         </table>
+        <table>
+            <tr>
+                <td style="text-align: center; font-weight: Bold;">Unit: {{ $area->area }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: center; font-weight: Bold;">Request Date: {{ $pengajuan->request_date }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: center; font-weight: Bold;">Required Date: {{ $pengajuan->required_date }}</td>
+            </tr>
+        </table>
         <table cellpadding="0" cellspacing="0">
 
             <tr class="heading">
                 <td>No</td>
-                <td>Item Name</td>
-                <td>Stock</td>
+                <td>Item</td>
+                <td>Request Qty</td>
+                <td>Note</td>
                 <td>Category</td>
-                <td>Type</td>
-                <td>Location</td>
-                <td>Area</td>
-                <td>Date</td>
             </tr>
 
-            @foreach ($barang as $item)
-                <tr class="details">
-                    <td scope="row">
-                        <div class="media align-items-center">
-                            <div class="media-body">
-                                <span class="mb-0 text-sm">{{ $loop->iteration }}</span>
-                            </div>
+            <tr class="details">
+                <td scope="row">
+                    <div class="media align-items-center">
+                        <div class="media-body">
+                            {{-- <span class="mb-0 text-sm">{{ $loop->iteration }}</span> --}}
                         </div>
-                    </td>
-                    <td>
-                        {{ $item->nama }}
-                    </td>
-                    <td>
-                        {{ $item->stock }}
-                    </td>
-                    <td>
-                        {{ $item->kategori->kategori }}
-                    </td>
-                    <td>
-                        {{ $item->type->type ?? '-' }}
-                    </td>
-                    <td>
-                        {{ $item->lokasi->lokasi }}
-                    </td>
-                    <td>
-                        {{ $item->area->area ?? '-' }}
-                    </td>
-                    <td>
-                        {{ $item->tgl_masuk }}
-                    </td>
-                </tr>
-            @endforeach
+                    </div>
+                </td>
+                <td>
+                    {{ $barang->nama }}
+                </td>
+                <td>
+                    {{ $pengajuan->jumlahBarang }}
+                </td>
+                <td>
+                    {{ $pengajuan->note }}
+                </td>
+                <td>
+                    {{ $barang->kategori->kategori }}
+                </td>
+            </tr>
 
         </table>
     </div>

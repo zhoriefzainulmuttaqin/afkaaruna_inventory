@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
 use App\Models\Barang;
 use App\Models\Peminjaman;
 use App\Models\Status;
@@ -15,18 +16,21 @@ class PengajuanController extends Controller
         $pengajuan = Pengajuan::orderBy('id', 'ASC')->get();
         $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
         $status = Status::all();
+        $area = Area::all();
 
 
-        return view('user.pages.pengajuan', compact('pengajuan', 'barang', 'status'));
+
+        return view('user.pages.pengajuan', compact('pengajuan', 'barang', 'status', 'area'));
     }
 
     public function store(Request $request)
     {
         $pengajuan = Pengajuan::create([
             'id_barang' => $request->id_barang,
-            'peminjam' => $request->peminjam,
             'jumlahBarang' => $request->jumlahBarang,
-            'tgl_peminjam' => $request->tgl_peminjam,
+            'id_area' => $request->id_area,
+            'required_date' => $request->required_date,
+            'note' => $request->note,
             'id_status' => 5, // Automatically set id_status to 5
         ]);
 
@@ -38,9 +42,9 @@ class PengajuanController extends Controller
 
     public function edit(Request $request)
     {
-        $request->validate([
-            'tgl_pengembalian' => 'required',
-        ]);
+        // $request->validate([
+        //     'tgl_pengembalian' => 'required',
+        // ]);
 
         Pengajuan::where('id', $request->id)->update([
             'tgl_pengembalian' => $request->tgl_pengembalian,
@@ -80,18 +84,52 @@ class PengajuanController extends Controller
         $pengajuan = Pengajuan::orderBy('id', 'ASC')->get();
         $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
         $status = Status::all();
-        $pendingCount = Pengajuan::where('id_status', 7)->count();
+        $pendingCount = Pengajuan::where('id_status', 5)->count();
+        $area = Area::all();
 
-        return view('pages.pengajuan', compact('pengajuan', 'barang', 'status', 'pendingCount'));
+        return view('pages.pengajuan', compact('pengajuan', 'barang', 'status', 'pendingCount', 'area'));
     }
+
+    public function export()
+    {
+        $pengajuan = Pengajuan::orderBy('id', 'ASC')->first();
+        $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->first();
+        $status = Status::first();
+        $area = Area::first();
+
+        return view('export.pengajuan', compact('pengajuan', 'barang', 'status', 'area'));
+    }
+
+
+    public function exportFilter(Request $request)
+    {
+        $query = Pengajuan::query();
+
+        if ($request->has('id_area')) {
+            $query->where('id_area', $request->id_area);
+        }
+
+        if ($request->has('request_date')) {
+            $query->whereDate('created_at', $request->request_date);
+        }
+
+        $pengajuan = $query->orderBy('id', 'ASC')->get();
+        $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
+        $status = Status::get();
+        $area = Area::get();
+
+        return view('export.pengajuanFilter', compact('pengajuan', 'barang', 'status', 'area'));
+    }
+
 
     public function store_admin(Request $request)
     {
         $pengajuan = Pengajuan::create([
             'id_barang' => $request->id_barang,
-            'peminjam' => $request->peminjam,
             'jumlahBarang' => $request->jumlahBarang,
-            'tgl_peminjam' => $request->tgl_peminjam,
+            'id_area' => $request->id_area,
+            'required_date' => $request->required_date,
+            'note' => $request->note,
             'id_status' => 5, // Automatically set id_status to 5
         ]);
 
@@ -102,14 +140,14 @@ class PengajuanController extends Controller
 
     public function edit_admin(Request $request)
     {
-        // $request->validate([
-        //     'tgl_pengembalian' => 'required',
-        // ]);
-
         $pengajuan = Pengajuan::find($request->id);
 
-        $barang = Barang::find($pengajuan->id_barang);
+        if ($pengajuan->id_status < 6) {
+            return redirect('pengajuanBarang')->with('error', 'Edit Data Failed: status has not been approved
+            .');
+        }
 
+        $barang = Barang::find($pengajuan->id_barang);
         $updateStock = $barang->stock + $pengajuan->jumlahBarang;
 
         Pengajuan::where('id', $request->id)->update([
@@ -126,6 +164,7 @@ class PengajuanController extends Controller
 
         return redirect('pengajuanBarang')->with('success', 'Data Berhasil Diedit.');
     }
+
 
     public function delete_admin(Request $request)
     {

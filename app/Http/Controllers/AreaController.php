@@ -11,7 +11,7 @@ class AreaController extends Controller
     public function index()
     {
         $area = Area::orderBy('id', 'ASC')->get();
-        $pendingCount = Pengajuan::where('id_status', 7)->count();
+        $pendingCount = Pengajuan::where('id_status', 5)->count();
 
         return view('pages.area', compact('area', 'pendingCount'));
     }
