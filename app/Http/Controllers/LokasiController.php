@@ -13,7 +13,7 @@ class LokasiController extends Controller
     {
         $lokasi = Lokasi::orderBy('id', 'ASC')->get();
         $area = Area::all();
-        $pendingCount = Pengajuan::where('id_status', 5)->count();
+        $pendingCount = Pengajuan::where('id_status', 7)->count();
 
         return view('pages.lokasi', compact('lokasi', 'area', 'pendingCount'));
     }

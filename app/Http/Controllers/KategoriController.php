@@ -12,7 +12,7 @@ class KategoriController extends Controller
     public function index()
     {
         $kategori = Kategori::orderBy('id', 'ASC')->get();
-        $pendingCount = Pengajuan::where('id_status', 5)->count();
+        $pendingCount = Pengajuan::where('id_status', 7)->count();
 
         return view('pages.kategori', compact('kategori', 'pendingCount'));
     }

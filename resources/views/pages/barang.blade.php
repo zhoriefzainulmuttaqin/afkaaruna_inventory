@@ -76,17 +76,18 @@
                                                 {{ $item->stock }}
                                             </td>
                                             <td>
-                                                {{ $item->id_kategori }}
+                                                {{ $item->kategori->kategori }}
                                             </td>
                                             <td>
-                                                {{ $item->id_jenis }}
+                                                {{ $item->type->type ?? '-' }}
                                             </td>
                                             <td>
-                                                {{ $item->id_lokasi }}
+                                                {{ $item->lokasi->lokasi }}
                                             </td>
                                             <td>
-                                                {{ $item->id_area }}
+                                                {{ $item->area->area ?? '-' }}
                                             </td>
+
                                             <td>
                                                 {{ $item->tgl_masuk }}
                                             </td>
@@ -168,11 +169,6 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="kepemilikan">ownership</label>
-                                        <input type="text" class="form-control" id="kepemilikan" name="kepemilikan"
-                                            placeholder="ownership">
-                                    </div>
-                                    <div class="form-group">
                                         <label for="area">Area</label>
                                         <select class="form-control" id="area" name="id_area">
                                             <option value="">Select Area</option>
@@ -182,6 +178,7 @@
                                             @endforeach
                                         </select>
                                     </div>
+
                                     <div class="form-group">
                                         <label for="lokasi">Location</label>
                                         <select class="form-control" id="lokasi" name="id_lokasi">
@@ -189,6 +186,16 @@
                                             @foreach ($lokasi as $items)
                                                 <option value="{{ $items->id }}"
                                                     data-area-id="{{ $items->id_area }}">{{ $items->lokasi }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="area">Type</label>
+                                        <select class="form-control" id="type" name="id_type">
+                                            <option value="">Select Type</option>
+                                            @foreach ($type as $items)
+                                                <option value="{{ $items->id }}">{{ $items->type }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -216,7 +223,7 @@
                                             type="number"></input>
                                     </div>
                                     <div class="form-group">
-                                        <label for="foto">Nota Image</label>
+                                        <label for="foto">Image</label>
                                         <input type="file" class="form-control" id="foto" name="foto">
                                     </div>
                                 </form>
@@ -267,18 +274,12 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="kepemilikan">Ownership</label>
-                                            <input type="text" class="form-control" id="kepemilikan"
-                                                name="kepemilikan" placeholder="ownership"
-                                                value="{{ $item->kepemilikan }}">
-                                        </div>
-                                        <div class="form-group">
                                             <input type="hidden" class="form-control" id="id" name="id"
                                                 value="{{ $item->id }}">
                                             <label for="area">Area</label>
                                             <select class="form-control" id="area" name="id_area">
                                                 <option value="{{ $item->id_area }}">
-                                                    {{ $item->area }}
+                                                    {{ $item->area->area ?? 'not selected' }}
                                                 </option>
                                                 @foreach ($area as $items)
                                                     <option value="{{ $items->id }}">
@@ -290,11 +291,22 @@
                                         <div class="form-group">
                                             <label for="lokasi">Location</label>
                                             <select class="form-control" id="lokasi" name="id_lokasi">
-                                                <option value="{{ $item->id_lokasi }}">
-                                                    {{ $item->lokasi->lokasi }}
-                                                </option>
                                                 @foreach ($lokasi as $items)
-                                                    <option value="{{ $items->id }}">{{ $items->lokasi }}
+                                                    <option value="{{ $items->id_area }}"
+                                                        data-area-id="{{ $items->id_area }}">{{ $items->lokasi }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lokasi">Type</label>
+                                            <select class="form-control" id="type" name="id_type">
+                                                <option value=""">
+                                                    {{ $item->type->type ?? 'not selected' }}
+
+                                                </option>
+                                                @foreach ($type as $items)
+                                                    <option value="{{ $items->id }}">{{ $items->type }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -325,7 +337,7 @@
                                                 type="number" value="{{ $item->stock }}">
                                         </div>
                                         <div class="form-group">
-                                            <label for="foto">Nota Image</label>
+                                            <label for="foto">Image</label>
                                             <input type="file" class="form-control" id="foto" name="foto">
                                             <input class=" form-control" type="hidden" name="gambarLama"
                                                 value="{{ $item->foto }}">
@@ -374,10 +386,6 @@
                                                 <li class="list-group-item">
                                                     <h5 class="card-title">Entry Date</h5>
                                                     <p class="card-text">{{ $item->tgl_masuk }}</p>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <h5 class="card-title">Ownership</h5>
-                                                    <p class="card-text">{{ $item->kepemilikan }}</p>
                                                 </li>
                                                 <li class="list-group-item">
                                                     <h5 class="card-title">Category</h5>
@@ -444,19 +452,6 @@
                                         @foreach ($kategori as $k)
                                             <option value="{{ $k->id }}"
                                                 @if (request()->input('kategori') == $k->id) selected @endif>{{ $k->kategori }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="kepemilikan">Filter by Ownership</label>
-                                    <select name="kepemilikan" id="kepemilikan" class="form-control">
-                                        <option value="">Select Ownership</option>
-                                        @foreach ($barang as $b)
-                                            <option value="{{ $b->kepemilikan }}"
-                                                @if (request()->input('kepemilikan') == $b->kepemilikan) selected @endif>
-                                                {{ $b->kepemilikan }}
                                             </option>
                                         @endforeach
                                     </select>

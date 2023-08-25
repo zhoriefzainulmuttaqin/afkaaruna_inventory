@@ -8,6 +8,7 @@ use App\Models\Kategori;
 use App\Models\Lokasi;
 use App\Models\Pengajuan;
 use App\Models\Status;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class BarangController extends Controller
@@ -17,11 +18,12 @@ class BarangController extends Controller
         $barang = Barang::orderBy('id', 'DESC')->get();
         $kategori = Kategori::all();
         $lokasi = Lokasi::all();
+        $type = Type::all();
         $area = Area::all();
         $status = Status::all();
-        $pendingCount = Pengajuan::where('id_status', 5)->count();
+        $pendingCount = Pengajuan::where('id_status', 7)->count();
 
-        return view('pages.barang', compact('barang', 'kategori', 'lokasi', 'status', 'area', 'pendingCount'));
+        return view('pages.barang', compact('barang', 'kategori', 'lokasi', 'status', 'area', 'type', 'pendingCount'));
     }
 
     public function print(Request $request)
@@ -32,8 +34,8 @@ class BarangController extends Controller
             return $q->where('id_kategori', $request->input('kategori'));
         });
 
-        $query->when($request->filled('kepemilikan'), function ($q) use ($request) {
-            return $q->where('kepemilikan', $request->input('kepemilikan'));
+        $query->when($request->filled('type'), function ($q) use ($request) {
+            return $q->where('type', $request->input('type'));
         });
 
         $query->when($request->filled('tgl_masuk_awal') && $request->filled('tgl_masuk_akhir'), function ($q) use ($request) {
@@ -48,6 +50,7 @@ class BarangController extends Controller
 
         $barang = $query->orderBy('id', 'DESC')->get();
         $kategori = Kategori::all();
+        $type = Type::all();
         $lokasi = Lokasi::all();
         $status = Status::all();
 
@@ -56,19 +59,19 @@ class BarangController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nama' => 'required',
-            'tgl_masuk' => 'required',
-            'kepemilikan' => 'required',
-            'id_kategori' => 'required',
-            'id_lokasi' => 'required',
-            'id_area' => 'required',
-            'id_area' => 'required',
-            'id_status' => 'required',
-            // 'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
-            'stock' => 'required',
+        // $request->validate([
+        //     'nama' => 'required',
+        //     'tgl_masuk' => 'required',
+        //     'id_type' => 'required',
+        //     'id_kategori' => 'required',
+        //     'id_lokasi' => 'required',
+        //     'id_area' => 'required',
+        //     'id_area' => 'required',
+        //     'id_status' => 'required',
+        //     // 'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
+        //     'stock' => 'required',
 
-        ]);
+        // ]);
 
         $int = random_int(100000, 200000);
 
@@ -82,7 +85,7 @@ class BarangController extends Controller
             'nama' => $request->nama,
             'code' => $code,
             'tgl_masuk' => $request->tgl_masuk,
-            'kepemilikan' => $request->kepemilikan,
+            'id_type' => $request->id_type,
             'keterangan' => $request->keterangan,
             // 'foto' => $imageName,
             'id_kategori' => $request->id_kategori,
@@ -99,17 +102,17 @@ class BarangController extends Controller
 
     public function edit(Request $request)
     {
-        $request->validate([
-            'nama' => 'required',
-            'tgl_masuk' => 'required',
-            'kepemilikan' => 'required',
-            'id_kategori' => 'required',
-            'id_area' => 'required',
-            'id_lokasi' => 'required',
-            'id_status' => 'required',
-            'stock' => 'required',
-            // 'foto' => 'required',
-        ]);
+        // $request->validate([
+        //     'nama' => 'required',
+        //     'tgl_masuk' => 'required',
+        //     'id_type' => 'required',
+        //     'id_kategori' => 'required',
+        //     'id_area' => 'required',
+        //     'id_lokasi' => 'required',
+        //     'id_status' => 'required',
+        //     'stock' => 'required',
+        //     // 'foto' => 'required',
+        // ]);
 
         $imageName = $request->gambarLama;
 
@@ -122,7 +125,7 @@ class BarangController extends Controller
         $barang = Barang::where('id', $request->id)->update([
             'nama' => $request->nama,
             'tgl_masuk' => $request->tgl_masuk,
-            'kepemilikan' => $request->kepemilikan,
+            'id_type' => $request->id_type,
             'foto' => $imageName,
             'id_kategori' => $request->id_kategori,
             'id_area' => $request->id_area,

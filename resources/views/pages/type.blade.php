@@ -1,6 +1,7 @@
 @extends('layout.navbar')
 {{-- @extends('layout.button') --}}
-@section('tittle', 'user')
+@section('tittle', 'type')
+
 @section('container')
 
     <div class="main-content">
@@ -32,22 +33,19 @@
                     </div>
                     <div class="card shadow">
                         <div class="card-header border-0">
-                            <h3 class="mb-0">User</h3>
+                            <h3 class="mb-0">Type</h3>
                         </div>
                         <div class="table-responsive">
-                            <table class="table align-items-center table-flush" id="tabel-user">
+                            <table class="table align-items-center table-flush" id="tabel-type">
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col" class="text-left">Name</th>
-                                        <th scope="col" class="text-left">Email</th>
-                                        <th scope="col" class="text-left">Role</th>
-                                        <th scope="col" class="text-left">username</th>
-                                        <th scope="col" class="text-left">Action</th>
+                                        <th scope="col" class="text-center">Type</th>
+                                        <th scope="col" class="text-right">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($user as $item)
+                                    @foreach ($type as $item)
                                         <tr>
                                             <td scope="row">
                                                 <div class="media align-items-left">
@@ -56,23 +54,10 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="text-left">
-
-                                                {{ $item->name }}
+                                            <td class="text-center">
+                                                {{ $item->type }}
                                             </td>
-                                            <td class="text-left">
-
-                                                {{ $item->email }}
-                                            </td>
-                                            <td class="text-left">
-
-                                                {{ $item->role }}
-                                            </td>
-                                            <td class="text-left">
-
-                                                {{ $item->username }}
-                                            </td>
-                                            <td class="text-left">
+                                            <td class="text-right">
                                                 <div class="dropdown">
                                                     <a class="btn btn-sm btn-icon-only text-light" href="#"
                                                         role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -85,7 +70,7 @@
                                                             Edit
                                                         </a>
                                                         <a class="dropdown-item"
-                                                            href="{{ asset('delete-user/' . $item->id) }}">Hapus</a>
+                                                            href="{{ asset('delete-type/' . $item->id) }}">Delete</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -95,13 +80,37 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="card-footer py-4">
+                            <nav aria-label="...">
+                                <ul class="pagination justify-content-end mb-0">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1">
+                                            <i class="fa fa-angle-left"></i>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item active">
+                                        <a class="page-link" href="#">1</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">
+                                            <i class="fa fa-angle-right"></i>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
 
-
             {{-- Modal Tambah Data --}}
-            <form action="/add-user" method="POST">
+            <form action="/add-type" method="POST">
                 @csrf
                 <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel"
                     aria-hidden="true">
@@ -109,33 +118,20 @@
 
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
+                                <h5 class="modal-title" id="formModalLabel">Add Data</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" class="form-control" id="name" name="name">
-
-                                    <label for="email">Email</label>
-                                    <input type="text" class="form-control" id="email" name="email">
-
-                                    <label for="role">Role</label>
-                                    <input type="text" class="form-control" id="role" name="role"
-                                        placeholder="admin/user">
-
-                                    <label for="username">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username">
-
-                                    <label for="password">Password</label>
-                                    <input type="text" class="form-control" id="password" name="password">
+                                    <label for="type">Type</label>
+                                    <input type="text" class="form-control" id="type" name="type">
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </div>
 
@@ -145,8 +141,8 @@
             {{-- End Modal Tambah Data --}}
 
             {{-- Modal Edit Data --}}
-            @foreach ($user as $item)
-                <form action="edit-user" method="POST">
+            @foreach ($type as $item)
+                <form action="edit-type" method="POST">
                     @csrf
                     <div class="modal fade" id="formModalEdit{{ $item->id }}" tabindex="-1" role="dialog"
                         aria-labelledby="formModalLabel" aria-hidden="true">
@@ -162,33 +158,14 @@
                                     <div class="form-group">
                                         <input type="hidden" class="form-control" id="id" name="id"
                                             value="{{ $item->id }}">
-
-                                        <label for="user">User</label>
-                                        <label for="name">Name</label>
-                                        <input type="text" class="form-control" id="name" name="name"
-                                            value="{{ $item->name }}">
-
-                                        <label for="email">Email</label>
-                                        <input type="text" class="form-control" id="email" name="email"
-                                            value="{{ $item->email }}">
-
-                                        <label for="role">Role</label>
-                                        <input type="text" class="form-control" id="role" name="role"
-                                            value="{{ $item->role }}">
-
-                                        <label for="username">Username</label>
-                                        <input type="text" class="form-control" id="username" name="username"
-                                            value="{{ $item->username }}">
-
-                                        <label for="password">Password</label>
-                                        <input type="text" class="form-control" id="password" name="password"
-                                            value="{{ $item->password }}">
-
+                                        <label for="type">Type</label>
+                                        <input type="text" class="form-control" id="type" name="type"
+                                            value="{{ $item->type }}">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -197,12 +174,11 @@
             @endforeach
 
             {{-- End Modal Edit Data --}}
-
         @endsection
 
         @section('script')
             <script>
-                const tabel = document.querySelector('#tabel-user');
+                const tabel = document.querySelector('#tabel-type');
                 const dataTable = new simpleDatatables.DataTable(tabel)
             </script>
         @endsection

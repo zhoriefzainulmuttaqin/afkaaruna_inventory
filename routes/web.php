@@ -8,6 +8,7 @@ use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PerbaikanController;
+use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Controller\ErrorController;
@@ -74,6 +75,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/add-area', [AreaController::class, 'store']);
     Route::post('/edit-area', [AreaController::class, 'edit']);
     Route::get('/delete-area/{id}', [AreaController::class, 'delete']);
+
+    // type
+    Route::get('/type', [TypeController::class, 'index']);
+    Route::post('/add-type', [TypeController::class, 'store']);
+    Route::post('/edit-type', [TypeController::class, 'edit']);
+    Route::get('/delete-type/{id}', [TypeController::class, 'delete']);
 
     // barang
     Route::get('/barang', [BarangController::class, 'index']);

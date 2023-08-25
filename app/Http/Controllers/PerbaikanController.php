@@ -13,7 +13,7 @@ class PerbaikanController extends Controller
     {
         $perbaikan = Perbaikan::orderBy('id', 'ASC')->get();
         $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
-        $pendingCount = Pengajuan::where('id_status', 5)->count();
+        $pendingCount = Pengajuan::where('id_status', 7)->count();
 
         return view('pages.perbaikan', compact('perbaikan', 'barang', 'pendingCount'));
     }
@@ -71,7 +71,7 @@ class PerbaikanController extends Controller
             'tgl_selesai' => $request->tgl_selesai,
         ]);
 
-        $perbaikan = Perbaikan::find($reqeuest->id);
+        $perbaikan = Perbaikan::find($request->id);
         $barang = Barang::find($perbaikan->id_barang);
 
         $updateStock = $barang->stock + $perbaikan->jumlahBarang;

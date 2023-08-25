@@ -56,6 +56,7 @@
                             <li><a href="/kategori"><span class="fa fa-caret-right mr-2"></span> Category</a></li>
                             <li><a href="/lokasi"><span class="fa fa-caret-right mr-2"></span> Location</a></li>
                             <li><a href="/area"><span class="fa fa-caret-right  mr-2"></span> Area</a></li>
+                            <li><a href="/type"><span class="fa fa-caret-right  mr-2"></span> Type</a></li>
                         </ul>
                     </li>
                     <li class="">

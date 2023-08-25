@@ -80,7 +80,7 @@ class PengajuanController extends Controller
         $pengajuan = Pengajuan::orderBy('id', 'ASC')->get();
         $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
         $status = Status::all();
-        $pendingCount = Pengajuan::where('id_status', 5)->count();
+        $pendingCount = Pengajuan::where('id_status', 7)->count();
 
         return view('pages.pengajuan', compact('pengajuan', 'barang', 'status', 'pendingCount'));
     }

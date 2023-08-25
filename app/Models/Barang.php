@@ -44,4 +44,8 @@ class Barang extends Model
     {
         return $this->belongsTo(Status::class, 'id_status');
     }
+    public function type()
+    {
+        return $this->belongsTo(Type::class, 'id_type');
+    }
 }
