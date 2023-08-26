@@ -179,7 +179,14 @@
                         </div>
                     </td>
                     <td>
-                        {{ $p->barang->nama }}
+                        @if ($p->barang)
+                            {{ $p->barang->nama }}
+                            @if ($p->new_item)
+                                , {{ $p->new_item }}
+                            @endif
+                        @elseif ($p->new_item)
+                            {{ $p->new_item }}
+                        @endif
                     </td>
                     <td>
                         {{ $p->jumlahBarang }}
@@ -188,7 +195,7 @@
                         {{ $p->note }}
                     </td>
                     <td>
-                        {{ $p->barang->kategori->kategori }}
+                        {{ $p->kategori->kategori }}
                     </td>
                 </tr>
             @endforeach

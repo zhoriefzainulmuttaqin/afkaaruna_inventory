@@ -44,6 +44,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     // Pengajuan
     Route::get('/pengajuanBarang', [PengajuanController::class, 'index_admin']);
     Route::post('/add-pengajuanBarang', [PengajuanController::class, 'store_admin']);
+    Route::post('/add-new-item', [PengajuanController::class, 'new_admin']);
     Route::post('/edit-pengajuanBarang', [PengajuanController::class, 'edit_admin']);
     Route::get('/delete-pengajuanBarang/{id}', [PengajuanController::class, 'delete_admin']);
     Route::get('approve-pengajuanBarang/{id}', [PengajuanController::class, 'approve'])->name('approve.pengajuanBarang');
@@ -96,7 +97,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/pengajuan', [PengajuanController::class, 'index']);
-
+    Route::post('/add-new_item', [PengajuanController::class, 'new']);
     Route::post('/add-pengajuan', [PengajuanController::class, 'store']);
     Route::post('/edit-pengajuan', [PengajuanController::class, 'edit']);
     Route::get('/delete-pengajuan/{id}', [PengajuanController::class, 'delete']);

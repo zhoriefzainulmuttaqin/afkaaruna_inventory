@@ -59,19 +59,7 @@ class BarangController extends Controller
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'nama' => 'required',
-        //     'tgl_masuk' => 'required',
-        //     'id_type' => 'required',
-        //     'id_kategori' => 'required',
-        //     'id_lokasi' => 'required',
-        //     'id_area' => 'required',
-        //     'id_area' => 'required',
-        //     'id_status' => 'required',
-        //     // 'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
-        //     'stock' => 'required',
 
-        // ]);
 
         $int = random_int(100000, 200000);
 

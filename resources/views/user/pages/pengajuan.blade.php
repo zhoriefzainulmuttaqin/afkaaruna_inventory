@@ -26,6 +26,14 @@
                                     </a>
                                 </li>
                                 {{-- end tambah --}}
+                                <li class="page-item ">
+                                    <a class="page-link" href="#" data-toggle="modal" data-target="#new"
+                                        style="width: 100px; border-radius: 8% !important;font-weight: bold;
+                                        ">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                        New Item
+                                    </a>
+                                </li>
                                 <li class="page-item ml-auto">
                                     <a class="page-link" href="#" data-toggle="modal" data-target="#filter"
                                         style="width: 100px; border-radius: 8% !important;font-weight: bold;
@@ -49,9 +57,10 @@
                                         <th scope="col">Item Name</th>
                                         <th scope="col">Stock</th>
                                         <th scope="col">Note</th>
-
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
+
+                                        {{-- <th scope="col">Action</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -68,8 +77,16 @@
                                                 {{ $item->area->area ?? '-' }}
                                             </td>
                                             <td>
-                                                {{ $item->barang->nama }}
+                                                @if ($item->barang)
+                                                    {{ $item->barang->nama }}
+                                                    @if ($item->new_item)
+                                                        , {{ $item->new_item }}
+                                                    @endif
+                                                @elseif ($item->new_item)
+                                                    {{ $item->new_item }}
+                                                @endif
                                             </td>
+
                                             <td>
                                                 {{ $item->jumlahBarang }}
                                             </td>
@@ -93,6 +110,7 @@
                                             </td>
 
 
+
                                             <td class="text-right">
                                                 <div class="dropdown">
                                                     <a class="btn btn-sm btn-icon-only text-light" href="#"
@@ -101,9 +119,11 @@
                                                         <i class="fa fa-ellipsis-v"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+
                                                         <a class="dropdown-item"
                                                             href="{{ asset('/pengajuan/printPDF/' . $item->id) }}">Export
                                                             PDF</a>
+
                                                     </div>
                                                 </div>
                                             </td>
@@ -154,6 +174,16 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="area">Kategori</label>
+                                    <select class="form-control" id="kategori" name="id_kategori">
+                                        <option value="">Select Kategori</option>
+                                        @foreach ($kategori as $ka)
+                                            <option value="{{ $ka->id }}">{{ $ka->kategori }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="jumlahBarang">Amount</label>
                                     <input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang">
                                 </div>
@@ -191,6 +221,68 @@
             </form>
             {{-- End Modal Tambah Data --}}
 
+            {{-- Modal Tambah New Data --}}
+            <form action="/add-new_item" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal fade" id="new" tabindex="-1" role="dialog" aria-labelledby="formModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="formModalLabel">Submit a New Item</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="namabrg">Item Name</label>
+                                    <input type="text" class="form-control" id="new_item" name="new_item">
+                                </div>
+                                <div class="form-group">
+                                    <label for="area">Area</label>
+                                    <select class="form-control" id="area" name="id_area">
+                                        <option value="">Select Area</option>
+                                        @foreach ($area as $items)
+                                            <option value="{{ $items->id }}">{{ $items->area }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="area">Kategori</label>
+                                    <select class="form-control" id="kategori" name="id_kategori">
+                                        <option value="">Select Kategori</option>
+                                        @foreach ($kategori as $ka)
+                                            <option value="{{ $ka->id }}">{{ $ka->kategori }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="jumlahBarang">Amount</label>
+                                    <input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang">
+                                </div>
+                                <div class="form-group">
+                                    <label for="required_date">Required Date</label>
+                                    <input type="date" class="form-control" id="required_date" name="required_date">
+                                </div>
+                                <div class="form-group">
+                                    <label for="note">Note</label>
+                                    <input type="text" class="form-control" id="note" name="note">
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            {{-- End Modal Tambah New Data --}}
+
             {{-- Modal Edit Data --}}
             @foreach ($pengajuan as $item)
                 <form action="edit-pengajuan" method="POST">
@@ -227,7 +319,6 @@
             @endforeach
             {{-- End Modal Edit Data --}}
 
-            {{-- filter print --}}
             <form action="/pengajuan/printPDF" method="POST" target="_blank">
                 @csrf
                 <input type="hidden" name="id_area" value="{{ request()->input('id_area') }}">

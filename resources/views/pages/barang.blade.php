@@ -76,13 +76,13 @@
                                                 {{ $item->stock }}
                                             </td>
                                             <td>
-                                                {{ $item->kategori->kategori }}
+                                                {{ $item->kategori->kategori ?? '-' }}
                                             </td>
                                             <td>
                                                 {{ $item->type->type ?? '-' }}
                                             </td>
                                             <td>
-                                                {{ $item->lokasi->lokasi }}
+                                                {{ $item->lokasi->lokasi ?? '-' }}
                                             </td>
                                             <td>
                                                 {{ $item->area->area ?? '-' }}
@@ -265,7 +265,7 @@
                                             <label for="kategori">Category</label>
                                             <select class="form-control" id="kategori" name="id_kategori">
                                                 <option value="{{ $item->id_kategori }}">
-                                                    {{ $item->kategori->kategori }}
+                                                    {{ $item->kategori->kategori ?? 'not selected' }}
                                                 </option>
                                                 @foreach ($kategori as $items)
                                                     <option value="{{ $items->id }}">{{ $items->kategori }}
@@ -319,7 +319,8 @@
                                         <div class="form-group">
                                             <label for="status">Status</label>
                                             <select class="form-control" id="status" name="id_status">
-                                                <option value="{{ $item->id_status }}">{{ $item->status->status }}
+                                                <option value="{{ $item->id_status }}">
+                                                    {{ $item->status->status ?? 'not selected' }}
                                                 </option>
                                                 @foreach ($status as $items)
                                                     <option value="{{ $items->id }}">{{ $items->status }}
@@ -389,23 +390,27 @@
                                                 </li>
                                                 <li class="list-group-item">
                                                     <h5 class="card-title">Category</h5>
-                                                    <p class="card-text"> {{ $item->kategori->kategori }}</p>
+                                                    <p class="card-text">
+                                                        {{ $item->kategori->kategori ?? 'not selected' }}</p>
                                                 </li>
                                                 <li class="list-group-item">
                                                     <div class="row">
                                                         <div class="col-6">
                                                             <h5 class="card-title">Location</h5>
-                                                            <p class="card-text"> {{ $item->lokasi->lokasi }}</p>
+                                                            <p class="card-text">
+                                                                {{ $item->lokasi->lokasi ?? 'not selected' }}</p>
                                                         </div>
                                                         <div class="col-6">
                                                             <h5 class="card-title">Area</h5>
-                                                            <p class="card-text"> {{ $item->lokasi->area->area }}</p>
+                                                            <p class="card-text">
+                                                                {{ $item->lokasi->area->area ?? 'not selected' }}</p>
                                                         </div>
                                                     </div>
                                                 </li>
                                                 <li class="list-group-item">
                                                     <h5 class="card-title">Status</h5>
-                                                    <p class="card-text"> {{ $item->status->status }}</p>
+                                                    <p class="card-text"> {{ $item->status->status ?? 'not selected' }}
+                                                    </p>
                                                 </li>
                                                 <li class="list-group-item">
                                                     <h5 class="card-title">Description</h5>

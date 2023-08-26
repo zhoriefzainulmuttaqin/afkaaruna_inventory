@@ -19,6 +19,8 @@ class Pengajuan extends Model
         'id_status',
         'tgl_pengembalian',
         'note',
+        'new_item',
+        'id_kategori'
 
     ];
     public function barang()
@@ -32,5 +34,9 @@ class Pengajuan extends Model
     public function area()
     {
         return $this->belongsTo(Area::class, 'id_area');
+    }
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'id_kategori');
     }
 }

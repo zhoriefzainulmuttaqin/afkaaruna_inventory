@@ -159,17 +159,26 @@
                 <td>Note</td>
                 <td>Category</td>
             </tr>
-
+            @php
+                $no = 1;
+            @endphp
             <tr class="details">
                 <td scope="row">
                     <div class="media align-items-center">
                         <div class="media-body">
-                            {{-- <span class="mb-0 text-sm">{{ $loop->iteration }}</span> --}}
+                            <span class="mb-0 text-sm">{{ $no++ }}</span>
                         </div>
                     </div>
                 </td>
                 <td>
-                    {{ $barang->nama }}
+                    @if ($barang)
+                        {{ $barang->nama }}
+                        @if ($pengajuan->new_item)
+                            , {{ $pengajuan->new_item }}
+                        @endif
+                    @elseif ($pengajuan->new_item)
+                        {{ $pengajuan->new_item }}
+                    @endif
                 </td>
                 <td>
                     {{ $pengajuan->jumlahBarang }}
@@ -178,7 +187,7 @@
                     {{ $pengajuan->note }}
                 </td>
                 <td>
-                    {{ $barang->kategori->kategori }}
+                    {{ $pengajuan->kategori->kategori }}
                 </td>
             </tr>
 

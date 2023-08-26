@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Area;
 use App\Models\Barang;
+use App\Models\Kategori;
 use App\Models\Peminjaman;
 use App\Models\Status;
 use App\Models\Pengajuan;
@@ -17,10 +18,9 @@ class PengajuanController extends Controller
         $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
         $status = Status::all();
         $area = Area::all();
+        $kategori = Kategori::all();
 
-
-
-        return view('user.pages.pengajuan', compact('pengajuan', 'barang', 'status', 'area'));
+        return view('user.pages.pengajuan', compact('pengajuan', 'barang', 'status', 'area', 'kategori'));
     }
 
     public function store(Request $request)
@@ -29,6 +29,7 @@ class PengajuanController extends Controller
             'id_barang' => $request->id_barang,
             'jumlahBarang' => $request->jumlahBarang,
             'id_area' => $request->id_area,
+            'id_kategori' => $request->id_kategori,
             'required_date' => $request->required_date,
             'note' => $request->note,
             'id_status' => 5, // Automatically set id_status to 5
@@ -39,6 +40,22 @@ class PengajuanController extends Controller
         }
     }
 
+    public function new(Request $request)
+    {
+        $pengajuan = Pengajuan::create([
+            'new_item' => $request->new_item,
+            'jumlahBarang' => $request->jumlahBarang,
+            'id_area' => $request->id_area,
+            'id_kategori' => $request->id_kategori,
+            'required_date' => $request->required_date,
+            'note' => $request->note,
+            'id_status' => 5, // Automatically set id_status to 5
+        ]);
+
+        if ($pengajuan) {
+            return redirect('pengajuan')->with('success', 'Data Berhasil Ditambahkan.');
+        }
+    }
 
     public function edit(Request $request)
     {
@@ -86,16 +103,36 @@ class PengajuanController extends Controller
         $status = Status::all();
         $pendingCount = Pengajuan::where('id_status', 5)->count();
         $area = Area::all();
+        $kategori = Kategori::all();
 
-        return view('pages.pengajuan', compact('pengajuan', 'barang', 'status', 'pendingCount', 'area'));
+        return view('pages.pengajuan', compact('pengajuan', 'barang', 'status', 'pendingCount', 'area', 'kategori'));
     }
 
-    public function export()
+    public function new_admin(Request $request)
     {
-        $pengajuan = Pengajuan::orderBy('id', 'ASC')->first();
-        $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->first();
-        $status = Status::first();
-        $area = Area::first();
+        $pengajuan = Pengajuan::create([
+            'new_item' => $request->new_item,
+            'jumlahBarang' => $request->jumlahBarang,
+            'id_area' => $request->id_area,
+            'id_kategori' => $request->id_kategori,
+            'required_date' => $request->required_date,
+            'note' => $request->note,
+            'id_status' => 5, // Automatically set id_status to 5
+
+        ]);
+
+        if ($pengajuan) {
+            return redirect('pengajuanBarang')->with('success', 'Data Berhasil Ditambahkan.');
+        }
+    }
+
+
+    public function export($id)
+    {
+        $pengajuan = Pengajuan::findOrFail($id);
+        $barang = $pengajuan->barang; // Assuming you have a relationship defined in your Pengajuan model
+        $status = $pengajuan->status; // Assuming you have a relationship defined in your Pengajuan model
+        $area = $pengajuan->area; // Assuming you have a relationship defined in your Pengajuan model
 
         return view('export.pengajuan', compact('pengajuan', 'barang', 'status', 'area'));
     }
@@ -117,8 +154,8 @@ class PengajuanController extends Controller
         $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
         $status = Status::get();
         $area = Area::get();
-
-        return view('export.pengajuanFilter', compact('pengajuan', 'barang', 'status', 'area'));
+        $kategori = Kategori::get();
+        return view('export.pengajuanFilter', compact('pengajuan', 'barang', 'status', 'area', 'kategori'));
     }
 
 
@@ -127,6 +164,7 @@ class PengajuanController extends Controller
         $pengajuan = Pengajuan::create([
             'id_barang' => $request->id_barang,
             'jumlahBarang' => $request->jumlahBarang,
+            'id_kategori' => $request->id_kategori,
             'id_area' => $request->id_area,
             'required_date' => $request->required_date,
             'note' => $request->note,
@@ -142,28 +180,39 @@ class PengajuanController extends Controller
     {
         $pengajuan = Pengajuan::find($request->id);
 
-        if ($pengajuan->id_status < 6) {
-            return redirect('pengajuanBarang')->with('error', 'Edit Data Failed: status has not been approved
-            .');
+        if (!$pengajuan) {
+            return redirect('pengajuanBarang')->with('error', 'Edit Data Failed: Pengajuan not found.');
         }
 
-        $barang = Barang::find($pengajuan->id_barang);
-        $updateStock = $barang->stock + $pengajuan->jumlahBarang;
+        if ($pengajuan->id_status < 6) {
+            return redirect('pengajuanBarang')->with('error', 'Edit Data Failed: Status has not been approved.');
+        }
 
         Pengajuan::where('id', $request->id)->update([
             'tgl_pengembalian' => $request->tgl_pengembalian,
         ]);
 
-        Barang::where('id', $pengajuan->id_barang)->update([
-            'stock' => $updateStock
-        ]);
+        if ($pengajuan->id_barang) {
+            $barang = Barang::find($pengajuan->id_barang);
 
-        $barang->refresh();
+            if (!$barang) {
+                return redirect('pengajuanBarang')->with('error', 'Edit Data Failed: Barang not found.');
+            }
+
+            $updateStock = $barang->stock + $pengajuan->jumlahBarang;
+
+            Barang::where('id', $pengajuan->id_barang)->update([
+                'stock' => $updateStock
+            ]);
+
+            $barang->refresh();
+        }
 
         Pengajuan::where('id', $request->id)->update(['id_status' => 7]);
 
         return redirect('pengajuanBarang')->with('success', 'Data Berhasil Diedit.');
     }
+
 
 
     public function delete_admin(Request $request)
@@ -183,19 +232,41 @@ class PengajuanController extends Controller
             return redirect()->back()->with('error', 'This Item is already approved.');
         }
 
-        $barang = Barang::find($pengajuan->id_barang);
-        $updateStock = $barang->stock - $pengajuan->jumlahBarang;
+        $updateStock = $pengajuan->jumlahBarang;
 
-        if ($updateStock < 0) {
-            return redirect()->back()->with('error', 'Insufficient stock.');
+        $int = random_int(100000, 200000);
+        $code = "AFKAA" . $int;
+
+        // Check if new_item is provided in the request
+        if ($pengajuan->new_item) {
+            // Create a new record in the Barang table
+            Barang::create([
+                'nama' => $pengajuan->new_item,
+                'code' => $code,
+                'tgl_masuk' => now(), // Use the current timestamp or the appropriate date
+                'id_area' => $pengajuan->id_area,
+                'stock' => $pengajuan->jumlahBarang,
+            ]);
+        } else {
+            // Update existing Barang
+            $barang = Barang::find($pengajuan->id_barang);
+            if (!$barang) {
+                return redirect()->back()->with('error', 'Item not found.');
+            }
+
+            $updateStock = $barang->stock - $pengajuan->jumlahBarang;
+
+            if ($updateStock < 0) {
+                return redirect()->back()->with('error', 'Insufficient stock.');
+            }
+
+            $barang->update([
+                'stock' => $updateStock
+            ]);
         }
 
         $pengajuan->update([
             'id_status' => 6
-        ]);
-
-        $barang->update([
-            'stock' => $updateStock
         ]);
 
         return redirect()->back()->with('success', 'Pengajuan approved successfully.');
