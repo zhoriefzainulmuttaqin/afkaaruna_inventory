@@ -32,14 +32,14 @@
                     </div>
                     <div class="card shadow">
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Location</h3>
+                            <h3 class="mb-0">Lokasi</h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush" id="tabel-lokasi">
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col" class="text-center">Location</th>
+                                        <th scope="col" class="text-center">Lokasi</th>
                                         <th scope="col" class="text-center">Area</th>
                                         <th scope="col" class="text-right">Action</th>
                                     </tr>
@@ -96,14 +96,14 @@
 
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="formModalLabel">Add Data</h5>
+                                <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="lokasi">Location</label>
+                                    <label for="lokasi">Lokasi</label>
                                     <input type="text" class="form-control" id="lokasi" name="lokasi">
                                 </div>
                                 <div class="form-group">
@@ -146,7 +146,7 @@
                                         <input type="hidden" class="form-control" id="id" name="id"
                                             value="{{ $item->id }}">
 
-                                        <label for="lokasi">Location</label>
+                                        <label for="lokasi">Lokasi</label>
                                         <input type="text" class="form-control" id="lokasi" name="lokasi"
                                             value="{{ $item->lokasi }}">
                                     </div>

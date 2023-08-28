@@ -31,19 +31,19 @@
                     </div>
                     <div class="card shadow">
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Item Lending</h3>
+                            <h3 class="mb-0">Peminjaman</h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush" id="tabel-peminjaman">
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Item</th>
-                                        <th scope="col">Loanee</th>
-                                        <th scope="col">Loan Start Date</th>
-                                        <th scope="col">Return Date</th>
-                                        <th scope="col">Amount</th>
-                                        <th scope="col">Description</th>
+                                        <th scope="col">Barang</th>
+                                        <th scope="col">Peminjam</th>
+                                        <th scope="col">Tanggal Mulai</th>
+                                        <th scope="col">Tanggal Dikembalikan</th>
+                                        <th scope="col">Jumlah</th>
+                                        <th scope="col">Deskripsi</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -89,7 +89,7 @@
                                                         </a>
                                                         <a class="dropdown-item" href="#" data-toggle="modal"
                                                             data-target="#formModalEdit{{ $item->id }}">
-                                                            Status Finished
+                                                            Status Selesai
                                                         </a>
                                                     </div>
                                                 </div>
@@ -114,16 +114,16 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="formModalLabel">Add Data</h5>
+                                <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="namabrg">Item Name</label>
+                                    <label for="namabrg">Nama Barang</label>
                                     <select class="form-control" id="namabrg" name="id_barang">
-                                        <option value="">Item Name</option>
+                                        <option value="">Nama Barang</option>
                                         @foreach ($barang as $items)
                                             <option value="{{ $items->id }}">{{ $items->nama }}
                                             </option>
@@ -131,9 +131,9 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="area">Loanee</label>
+                                    <label for="area">Peminjam</label>
                                     <select class="form-control" id="area" name="id_area">
-                                        <option value="">Select Area</option>
+                                        <option value="">Pilih Area</option>
                                         @foreach ($area as $items)
                                             <option value="{{ $items->id }}">{{ $items->area }}
                                             </option>
@@ -141,19 +141,19 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="tglpinjam">Loan Start Date</label>
+                                    <label for="tglpinjam">Tanggal Mulai</label>
                                     <input type="date" class="form-control" id="tgl_peminjaman" name="tgl_peminjaman">
                                 </div>
                                 <div class="form-group">
-                                    <label for="jumlahBarang">Amount</label>
+                                    <label for="jumlahBarang">Jumlah</label>
                                     <input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang">
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputMessage">Description</label>
+                                    <label for="inputMessage">Deskripsi</label>
                                     <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="foto">Image</label>
+                                    <label for="foto">Gambar</label>
                                     <input type="file" class="form-control" id="foto" name="foto">
                                 </div>
                             </div>
@@ -186,7 +186,7 @@
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" id="id" name="id"
                                                 value="{{ $item->id }}">
-                                            <label for="tgl_pengembalian">Loan End Date</label>
+                                            <label for="tgl_pengembalian">Tanggal Selesai</label>
                                             <input type="date" class="form-control" id="tgl_pengembalian"
                                                 name="tgl_pengembalian">
                                         </div>

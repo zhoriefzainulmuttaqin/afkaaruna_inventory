@@ -31,14 +31,14 @@
                     </div>
                     <div class="card shadow">
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Category</h3>
+                            <h3 class="mb-0">Kategori</h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush" id="tabel-kategori">
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col" class="text-center">Category</th>
+                                        <th scope="col" class="text-center">Kategori</th>
                                         <th scope="col" class="text-right">Action</th>
                                     </tr>
                                 </thead>
@@ -117,14 +117,14 @@
 
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="formModalLabel">Add Data</h5>
+                                <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="kategori">Category Name</label>
+                                    <label for="kategori">Nama Kategori</label>
                                     <input type="text" class="form-control" id="kategori" name="kategori">
                                 </div>
                             </div>
@@ -157,7 +157,7 @@
                                     <div class="form-group">
                                         <input type="hidden" class="form-control" id="id" name="id"
                                             value="{{ $item->id }}">
-                                        <label for="kategori">Category Name</label>
+                                        <label for="kategori">Nama Kategori</label>
                                         <input type="text" class="form-control" id="kategori" name="kategori"
                                             value="{{ $item->kategori }}">
                                     </div>

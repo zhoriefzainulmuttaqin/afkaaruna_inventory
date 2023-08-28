@@ -38,21 +38,21 @@
                     </div>
                     <div class="card shadow">
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Items</h3>
+                            <h3 class="mb-0">Barang</h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush" id="tabel-barang">
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Item Code</th>
+                                        <th scope="col">Kode Barang</th>
                                         <th scope="col">Nama Barang</th>
                                         <th scope="col">Stock</th>
-                                        <th scope="col">Category</th>
+                                        <th scope="col">Kategori</th>
                                         <th scope="col">Type</th>
                                         <th scope="col">Location</th>
                                         <th scope="col">Area</th>
-                                        <th scope="col">Date</th>
+                                        <th scope="col">Tanggal Masuk</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -146,7 +146,7 @@
 
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="formModalLabel">Add Data</h5>
+                                <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -154,14 +154,14 @@
                             <div class="modal-body">
                                 <form>
                                     <div class="form-group">
-                                        <label for="nama">Item Name</label>
+                                        <label for="nama">Nama Barang</label>
                                         <input type="text" class="form-control" id="nama" name="nama"
                                             placeholder="Name">
                                     </div>
                                     <div class="form-group">
-                                        <label for="kategori">Category</label>
+                                        <label for="kategori">Kategori</label>
                                         <select class="form-control" id="kategori" name="id_kategori">
-                                            <option value="">Select Category</option>
+                                            <option value="">Pilih Kategori</option>
                                             @foreach ($kategori as $items)
                                                 <option value="{{ $items->id }}">{{ $items->kategori }}
                                                 </option>
@@ -171,7 +171,7 @@
                                     <div class="form-group">
                                         <label for="area">Area</label>
                                         <select class="form-control" id="area" name="id_area">
-                                            <option value="">Select Area</option>
+                                            <option value="">Pilih Area</option>
                                             @foreach ($area as $items)
                                                 <option value="{{ $items->id }}">{{ $items->area }}
                                                 </option>
@@ -180,9 +180,9 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="lokasi">Location</label>
+                                        <label for="lokasi">Lokasi</label>
                                         <select class="form-control" id="lokasi" name="id_lokasi">
-                                            <option value="">Select Location</option>
+                                            <option value="">Pilih Lokasi</option>
                                             @foreach ($lokasi as $items)
                                                 <option value="{{ $items->id }}"
                                                     data-area-id="{{ $items->id_area }}">{{ $items->lokasi }}</option>
@@ -192,7 +192,7 @@
                                     <div class="form-group">
                                         <label for="area">Type</label>
                                         <select class="form-control" id="type" name="id_type">
-                                            <option value="">Select Type</option>
+                                            <option value="">Pilih Type</option>
                                             @foreach ($type as $items)
                                                 <option value="{{ $items->id }}">{{ $items->type }}
                                                 </option>
@@ -200,13 +200,13 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="tgl_masuk">Entry Date</label>
+                                        <label for="tgl_masuk">Tanggal Masuk</label>
                                         <input type="date" class="form-control" id="tgl_masuk" name="tgl_masuk">
                                     </div>
                                     <div class="form-group">
                                         <label for="status">Status</label>
                                         <select class="form-control" id="status" name="id_status">
-                                            <option value="">Select Status</option>
+                                            <option value="">Pilih Status</option>
                                             @foreach ($status as $items)
                                                 <option value="{{ $items->id }}">{{ $items->status }}
                                                 </option>
@@ -214,7 +214,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputMessage">Description</label>
+                                        <label for="inputMessage">Deskripsi</label>
                                         <textarea class="form-control" id="keterangan" rows="3" name="keterangan"></textarea>
                                     </div>
                                     <div class="form-group">
@@ -223,7 +223,7 @@
                                             type="number"></input>
                                     </div>
                                     <div class="form-group">
-                                        <label for="foto">Image</label>
+                                        <label for="foto">Gambar</label>
                                         <input type="file" class="form-control" id="foto" name="foto">
                                     </div>
                                 </form>
@@ -257,12 +257,12 @@
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" id="id" name="id"
                                                 value="{{ $item->id }}">
-                                            <label for="nama">Item Name</label>
+                                            <label for="nama">Nama Barang</label>
                                             <input type="text" class="form-control" id="nama" name="nama"
-                                                placeholder="Item Name" value="{{ $item->nama }}">
+                                                placeholder="Nama Barang" value="{{ $item->nama }}">
                                         </div>
                                         <div class="form-group">
-                                            <label for="kategori">Category</label>
+                                            <label for="kategori">Kategori</label>
                                             <select class="form-control" id="kategori" name="id_kategori">
                                                 <option value="{{ $item->id_kategori }}">
                                                     {{ $item->kategori->kategori ?? 'not selected' }}
@@ -289,7 +289,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="lokasi">Location</label>
+                                            <label for="lokasi">Lokasi</label>
                                             <select class="form-control" id="lokasi" name="id_lokasi">
                                                 @foreach ($lokasi as $items)
                                                     <option value="{{ $items->id_area }}"
@@ -312,7 +312,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="tgl_masuk">Entry Date</label>
+                                            <label for="tgl_masuk">Tanggal Masuk</label>
                                             <input type="date" class="form-control" id="tgl_masuk" name="tgl_masuk"
                                                 value="{{ $item->tgl_masuk }}">
                                         </div>
@@ -329,7 +329,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="keterangan">Description</label>
+                                            <label for="keterangan">Deskripsi</label>
                                             <textarea class="form-control" id="keterangan" rows="3" name="keterangan" value="{{ $item->keterangan }}">{{ $item->keterangan }}</textarea>
                                         </div>
                                         <div class="form-group">
@@ -338,7 +338,7 @@
                                                 type="number" value="{{ $item->stock }}">
                                         </div>
                                         <div class="form-group">
-                                            <label for="foto">Image</label>
+                                            <label for="foto">Gambar</label>
                                             <input type="file" class="form-control" id="foto" name="foto">
                                             <input class=" form-control" type="hidden" name="gambarLama"
                                                 value="{{ $item->foto }}">
@@ -377,26 +377,26 @@
                                                 alt="{{ $item->foto }}">
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item">
-                                                    <h5 class="card-title">Item Name</h5>
+                                                    <h5 class="card-title">Nama Barang</h5>
                                                     <p class="card-text">{{ $item->nama }}</p>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <h5 class="card-title">Item Code</h5>
+                                                    <h5 class="card-title">Kode Barang</h5>
                                                     <p class="card-text">{{ $item->code }}</p>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <h5 class="card-title">Entry Date</h5>
+                                                    <h5 class="card-title">Tanggal Masuk</h5>
                                                     <p class="card-text">{{ $item->tgl_masuk }}</p>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <h5 class="card-title">Category</h5>
+                                                    <h5 class="card-title">Kategori</h5>
                                                     <p class="card-text">
                                                         {{ $item->kategori->kategori ?? 'not selected' }}</p>
                                                 </li>
                                                 <li class="list-group-item">
                                                     <div class="row">
                                                         <div class="col-6">
-                                                            <h5 class="card-title">Location</h5>
+                                                            <h5 class="card-title">Lokasi</h5>
                                                             <p class="card-text">
                                                                 {{ $item->lokasi->lokasi ?? 'not selected' }}</p>
                                                         </div>
@@ -413,7 +413,7 @@
                                                     </p>
                                                 </li>
                                                 <li class="list-group-item">
-                                                    <h5 class="card-title">Description</h5>
+                                                    <h5 class="card-title">Deskripsi</h5>
                                                     <p class="card-text"> {{ $item->keterangan }}</p>
                                                 </li>
                                                 <li class="list-group-item">
@@ -451,9 +451,9 @@
                             <div class="modal-body">
 
                                 <div class="form-group">
-                                    <label for="kategori">Filter by Category:</label>
+                                    <label for="kategori">Filter Berdasarkan Kategori:</label>
                                     <select name="kategori" id="kategori" class="form-control">
-                                        <option value="">Select Category</option>
+                                        <option value="">Pilih Kategori</option>
                                         @foreach ($kategori as $k)
                                             <option value="{{ $k->id }}"
                                                 @if (request()->input('kategori') == $k->id) selected @endif>{{ $k->kategori }}
@@ -463,7 +463,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="tgl_masuk_awal">Filter by Entry Date (Date Range)</label>
+                                    <label for="tgl_masuk_awal">Filter Berdasarkan Rentang Tanggal</label>
                                     <div class="input-group">
                                         <input type="date" class="form-control" id="tgl_masuk_awal"
                                             name="tgl_masuk_awal" value="{{ request()->input('tgl_masuk_awal') }}">
@@ -476,7 +476,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="status">Filter by Status</label>
+                                    <label for="status">Filter Berdasarkan Status</label>
                                     <select class="form-control" id="status" name="status">
                                         <option value="">Select Status</option>
                                         @foreach ($status as $s)

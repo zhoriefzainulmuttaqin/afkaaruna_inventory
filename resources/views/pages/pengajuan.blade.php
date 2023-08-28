@@ -31,7 +31,7 @@
                                         style="width: 100px; border-radius: 8% !important;font-weight: bold;
                                         ">
                                         <i class="fa fa-plus" aria-hidden="true"></i>
-                                        New Item
+                                        Barang Baru
                                     </a>
                                 </li>
                                 <li class="page-item ml-auto">
@@ -46,7 +46,7 @@
                     </div>
                     <div class="card shadow">
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Submission</h3>
+                            <h3 class="mb-0">Pengajuan</h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush" id="tabel-peminjaman">
@@ -54,7 +54,7 @@
                                     <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">Area</th>
-                                        <th scope="col">Item Name</th>
+                                        <th scope="col">Nama Barang</th>
                                         <th scope="col">Stock</th>
                                         <th scope="col">Note</th>
                                         <th scope="col">Status</th>
@@ -108,9 +108,6 @@
                                                     </span>
                                                 @endif
                                             </td>
-
-
-
                                             <td class="text-right">
                                                 <div class="dropdown">
                                                     <a class="btn btn-sm btn-icon-only text-light" href="#"
@@ -120,10 +117,10 @@
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                         <a class="dropdown-item"
-                                                            href="{{ route('approve.pengajuanBarang', $item->id) }}">Approve</a>
+                                                            href="{{ route('approve.pengajuanBarang', $item->id) }}">Setujui</a>
                                                         <a class="dropdown-item" href="#" data-toggle="modal"
                                                             data-target="#formModalEdit{{ $item->id }}">
-                                                            Status Finished
+                                                            Status Selesai
                                                         </a>
                                                         <a class="dropdown-item"
                                                             href="{{ asset('/pengajuan/printPDF/' . $item->id) }}">Export
@@ -153,16 +150,16 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="formModalLabel">Add Data</h5>
+                                <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="namabrg">Item Name</label>
+                                    <label for="namabrg">Nama Barang</label>
                                     <select class="form-control" id="namabrg" name="id_barang">
-                                        <option value="">Item Name</option>
+                                        <option value="">Nama Barang</option>
                                         @foreach ($barang as $items)
                                             <option value="{{ $items->id }}">{{ $items->nama }}
                                             </option>
@@ -172,7 +169,7 @@
                                 <div class="form-group">
                                     <label for="area">Area</label>
                                     <select class="form-control" id="area" name="id_area">
-                                        <option value="">Select Area</option>
+                                        <option value="">Pilih Area</option>
                                         @foreach ($area as $items)
                                             <option value="{{ $items->id }}">{{ $items->area }}
                                             </option>
@@ -182,7 +179,7 @@
                                 <div class="form-group">
                                     <label for="area">Kategori</label>
                                     <select class="form-control" id="kategori" name="id_kategori">
-                                        <option value="">Select Kategori</option>
+                                        <option value="">Pilih Kategori</option>
                                         @foreach ($kategori as $ka)
                                             <option value="{{ $ka->id }}">{{ $ka->kategori }}
                                             </option>
@@ -190,7 +187,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="jumlahBarang">Amount</label>
+                                    <label for="jumlahBarang">Jumlah</label>
                                     <input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang">
                                 </div>
                                 <div class="form-group">
@@ -242,13 +239,13 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="namabrg">Item Name</label>
+                                    <label for="namabrg">Nama Barang</label>
                                     <input type="text" class="form-control" id="new_item" name="new_item">
                                 </div>
                                 <div class="form-group">
                                     <label for="area">Area</label>
                                     <select class="form-control" id="area" name="id_area">
-                                        <option value="">Select Area</option>
+                                        <option value="">Pilih Area</option>
                                         @foreach ($area as $items)
                                             <option value="{{ $items->id }}">{{ $items->area }}
                                             </option>
@@ -258,7 +255,7 @@
                                 <div class="form-group">
                                     <label for="area">Kategori</label>
                                     <select class="form-control" id="kategori" name="id_kategori">
-                                        <option value="">Select Kategori</option>
+                                        <option value="">Pilih Kategori</option>
                                         @foreach ($kategori as $ka)
                                             <option value="{{ $ka->id }}">{{ $ka->kategori }}
                                             </option>
@@ -266,7 +263,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="jumlahBarang">Amount</label>
+                                    <label for="jumlahBarang">Jumlah</label>
                                     <input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang">
                                 </div>
                                 <div class="form-group">
@@ -308,7 +305,7 @@
                                         <div class="form-group">
                                             <input type="hidden" class="form-control" id="id" name="id"
                                                 value="{{ $item->id }}">
-                                            <label for="tgl_pengembalian">Loan End Date</label>
+                                            <label for="tgl_pengembalian">Tanggal Selesai</label>
                                             <input type="date" class="form-control" id="tgl_pengembalian"
                                                 name="tgl_pengembalian">
                                         </div>
@@ -342,7 +339,7 @@
                             <div class="modal-body">
 
                                 <div class="form-group">
-                                    <label for="kategori">Filter by Area:</label>
+                                    <label for="kategori">Filter Berdasarkan Area:</label>
                                     <select name="id_area" id="id_area" class="form-control">
                                         <option value="">Select Area</option>
                                         @foreach ($area as $k)
@@ -354,7 +351,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="tgl_masuk_awal">Filter by Entry Date </label>
+                                    <label for="tgl_masuk_awal">Filter Berdasarkan Tanggal Masuk </label>
                                     <div class="input-group">
                                         <input type="date" class="form-control" id="request_date" name="request_date"
                                             value="{{ request()->input('request_date') }}">

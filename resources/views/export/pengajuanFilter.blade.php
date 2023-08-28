@@ -164,10 +164,10 @@
 
             <tr class="heading">
                 <td>No</td>
-                <td>Item</td>
+                <td>Barang</td>
                 <td>Request Qty</td>
                 <td>Note</td>
-                <td>Category</td>
+                <td>Kategori</td>
             </tr>
             @foreach ($pengajuan as $p)
                 <tr class="details">

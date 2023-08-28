@@ -143,13 +143,13 @@
 
             <tr class="heading">
                 <td>No</td>
-                <td>Item Name</td>
+                <td>Nama Barang</td>
                 <td>Stock</td>
-                <td>Category</td>
-                <td>Type</td>
-                <td>Location</td>
+                <td>Kategori</td>
+                <td>Tipe</td>
+                <td>Lokasi</td>
                 <td>Area</td>
-                <td>Date</td>
+                <td>Tanggal Masuk</td>
             </tr>
 
             @foreach ($barang as $item)
@@ -168,13 +168,13 @@
                         {{ $item->stock }}
                     </td>
                     <td>
-                        {{ $item->kategori->kategori }}
+                        {{ $item->kategori->kategori ?? '-' }}
                     </td>
                     <td>
                         {{ $item->type->type ?? '-' }}
                     </td>
                     <td>
-                        {{ $item->lokasi->lokasi }}
+                        {{ $item->lokasi->lokasi ?? '-' }}
                     </td>
                     <td>
                         {{ $item->area->area ?? '-' }}

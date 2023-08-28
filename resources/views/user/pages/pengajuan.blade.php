@@ -54,7 +54,7 @@
                                     <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">Area</th>
-                                        <th scope="col">Item Name</th>
+                                        <th scope="col">Nama Barang</th>
                                         <th scope="col">Stock</th>
                                         <th scope="col">Note</th>
                                         <th scope="col">Status</th>
@@ -147,16 +147,16 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="formModalLabel">Add Data</h5>
+                                <h5 class="modal-title" id="formModalLabel">Tambah Data</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="namabrg">Item Name</label>
+                                    <label for="namabrg">Nama Barang</label>
                                     <select class="form-control" id="namabrg" name="id_barang">
-                                        <option value="">Item Name</option>
+                                        <option value="">Nama Barang</option>
                                         @foreach ($barang as $items)
                                             <option value="{{ $items->id }}">{{ $items->nama }}
                                             </option>
@@ -236,7 +236,7 @@
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
-                                    <label for="namabrg">Item Name</label>
+                                    <label for="namabrg">Nama Barang</label>
                                     <input type="text" class="form-control" id="new_item" name="new_item">
                                 </div>
                                 <div class="form-group">

@@ -41,10 +41,10 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Item Code</th>
+                                        <th scope="col">Kode Barang</th>
                                         <th scope="col">Nama Barang</th>
                                         <th scope="col">Stock</th>
-                                        <th scope="col">Category</th>
+                                        <th scope="col">Kategori</th>
                                         <th scope="col">Type</th>
                                         <th scope="col">Location</th>
                                         <th scope="col">Area</th>
@@ -149,9 +149,9 @@
                             <div class="modal-body">
 
                                 <div class="form-group">
-                                    <label for="kategori">Filter by Category:</label>
+                                    <label for="kategori">Filter by Kategori:</label>
                                     <select name="kategori" id="kategori" class="form-control">
-                                        <option value="">Select Category</option>
+                                        <option value="">Select Kategori</option>
                                         @foreach ($kategori as $k)
                                             <option value="{{ $k->id }}"
                                                 @if (request()->input('kategori') == $k->id) selected @endif>{{ $k->kategori }}
