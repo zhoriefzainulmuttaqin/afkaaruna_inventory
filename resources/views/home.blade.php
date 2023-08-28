@@ -61,7 +61,7 @@
                                                 {{ $item->barang->nama }}
                                             </td>
                                             <td>
-                                                {{ $item->peminjam }}
+                                                {{ $item->area->area ?? '-' }}
                                             </td>
                                             <td>
                                                 {{ $item->tgl_peminjaman }}
@@ -131,8 +131,14 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputMessage">Loanee</label>
-                                    <textarea class="form-control" id="peminjam" name="peminjam" rows="" placeholder=""></textarea>
+                                    <label for="area">Loanee</label>
+                                    <select class="form-control" id="area" name="id_area">
+                                        <option value="">Select Area</option>
+                                        @foreach ($area as $items)
+                                            <option value="{{ $items->id }}">{{ $items->area }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="tglpinjam">Loan Start Date</label>

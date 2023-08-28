@@ -23,6 +23,8 @@ class Barang extends Model
         'id_kategori',
         'id_status',
         'stock',
+        'id_type',
+        'id_area'
     ];
 
     public function lokasi()

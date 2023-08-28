@@ -15,7 +15,7 @@ class Peminjaman extends Model
     protected $fillable = [
         'tgl_peminjaman',
         'tgl_pengembalian',
-        'peminjam',
+        'id_area',
         'keterangan',
         'id_barang',
         'foto',
@@ -25,5 +25,9 @@ class Peminjaman extends Model
     public function barang()
     {
         return $this->belongsTo(Barang::class, 'id_barang');
+    }
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'id_area');
     }
 }

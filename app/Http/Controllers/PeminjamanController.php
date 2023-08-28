@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
 use App\Models\Barang;
 use App\Models\Peminjaman;
 use App\Models\Pengajuan;
@@ -14,8 +15,9 @@ class PeminjamanController extends Controller
         $peminjaman = Peminjaman::orderBy('id', 'ASC')->get();
         $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
         $pendingCount = Pengajuan::where('id_status', 5)->count();
+        $area = Area::all();
 
-        return view('home', compact('peminjaman', 'barang', 'pendingCount'));
+        return view('home', compact('peminjaman', 'barang', 'pendingCount', 'area'));
     }
 
     public function store(Request $request)
@@ -23,22 +25,22 @@ class PeminjamanController extends Controller
         // dd($request);
         $request->validate([
             'tgl_peminjaman' => 'required',
-            'peminjam' => 'required',
+            'id_area' => 'required',
             'keterangan' => 'required',
             'id_barang' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
+            // 'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
         ]);
 
-        $imageName = time() . '_' . $request->file('foto')->getClientOriginalName();
+        // $imageName = time() . '_' . $request->file('foto')->getClientOriginalName();
 
-        $request->foto->move(("foto_gudang"), $imageName);
+        // $request->foto->move(("foto_gudang"), $imageName);
 
         $peminjaman = Peminjaman::create([
             'tgl_peminjaman' => $request->tgl_peminjaman,
-            'peminjam' => $request->peminjam,
+            'id_area' => $request->id_area,
             'keterangan' => $request->keterangan,
             'id_barang' => $request->id_barang,
-            'foto' => $imageName,
+            // 'foto' => $imageName,
             'jumlahBarang' => $request->jumlahBarang
 
         ]);
