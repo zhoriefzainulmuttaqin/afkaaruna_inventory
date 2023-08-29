@@ -15,7 +15,7 @@ class PengajuanController extends Controller
     public function index()
     {
         $pengajuan = Pengajuan::orderBy('id', 'ASC')->get();
-        $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
+        $barang = Barang::where('id_status', '=', '1')->orderBy('nama', 'ASC')->get();
         $status = Status::all();
         $area = Area::all();
         $kategori = Kategori::all();
@@ -99,7 +99,7 @@ class PengajuanController extends Controller
     public function index_admin()
     {
         $pengajuan = Pengajuan::orderBy('id', 'ASC')->get();
-        $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
+        $barang = Barang::where('id_status', '=', '1')->orderBy('nama', 'ASC')->get();
         $status = Status::all();
         $pendingCount = Pengajuan::where('id_status', 5)->count();
         $area = Area::all();
@@ -187,6 +187,9 @@ class PengajuanController extends Controller
         if ($pengajuan->id_status < 6) {
             return redirect('pengajuanBarang')->with('error', 'Edit Data Failed: Status has not been approved.');
         }
+        if ($pengajuan->id_status == 8) {
+            return redirect('pengajuanBarang')->with('error', 'Edit Data Failed: Status has not been approved.');
+        }
 
         Pengajuan::where('id', $request->id)->update([
             'tgl_pengembalian' => $request->tgl_pengembalian,
@@ -270,5 +273,23 @@ class PengajuanController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Pengajuan approved successfully.');
+    }
+
+    public function pending($id)
+    {
+        $pengajuan = Pengajuan::findOrFail($id);
+
+        if ($pengajuan->id_status == 7) {
+            return redirect()->back()->with('error', 'This Item is already returned.');
+        }
+        if ($pengajuan->id_status == 6) {
+            return redirect()->back()->with('error', 'This Item is already loadned.');
+        }
+
+        $pengajuan->update([
+            'id_status' => 8
+        ]);
+
+        return redirect()->back()->with('success', 'Pending Success.');
     }
 }

@@ -48,6 +48,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::post('/edit-pengajuanBarang', [PengajuanController::class, 'edit_admin']);
     Route::get('/delete-pengajuanBarang/{id}', [PengajuanController::class, 'delete_admin']);
     Route::get('approve-pengajuanBarang/{id}', [PengajuanController::class, 'approve'])->name('approve.pengajuanBarang');
+    Route::get('pending-pengajuanBarang/{id}', [PengajuanController::class, 'pending'])->name('pending.pengajuanBarang');
 
 
     // Perbaikan

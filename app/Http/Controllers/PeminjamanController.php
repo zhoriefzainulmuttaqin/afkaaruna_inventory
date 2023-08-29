@@ -13,7 +13,7 @@ class PeminjamanController extends Controller
     public function index()
     {
         $peminjaman = Peminjaman::orderBy('id', 'ASC')->get();
-        $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
+        $barang = Barang::where('id_status', '=', '1')->orderBy('nama', 'ASC')->get();
         $pendingCount = Pengajuan::where('id_status', 5)->count();
         $area = Area::all();
 
@@ -22,11 +22,17 @@ class PeminjamanController extends Controller
 
     public function store(Request $request)
     {
+
+        $barang = Barang::find($request->id_barang);
+
+        // Check if the barang exists and has sufficient stock
+        if (!$barang || $barang->stock < $request->jumlahBarang) {
+            return redirect('peminjaman')->with('error', 'Stock barang tidak tersedia.');
+        }
+
         // dd($request);
         $request->validate([
             'tgl_peminjaman' => 'required',
-            'id_area' => 'required',
-            'keterangan' => 'required',
             'id_barang' => 'required',
             // 'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
         ]);
@@ -37,10 +43,7 @@ class PeminjamanController extends Controller
 
         $peminjaman = Peminjaman::create([
             'tgl_peminjaman' => $request->tgl_peminjaman,
-            'id_area' => $request->id_area,
-            'keterangan' => $request->keterangan,
             'id_barang' => $request->id_barang,
-            // 'foto' => $imageName,
             'jumlahBarang' => $request->jumlahBarang
 
         ]);

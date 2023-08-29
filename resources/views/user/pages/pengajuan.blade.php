@@ -52,11 +52,13 @@
                             <table class="table align-items-center table-flush" id="tabel-peminjaman">
                                 <thead class="thead-light">
                                     <tr>
+                                    <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">Area</th>
                                         <th scope="col">Nama Barang</th>
                                         <th scope="col">Stock</th>
                                         <th scope="col">Note</th>
+                                        <th scope="col">Request Date</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
 
@@ -92,6 +94,9 @@
                                             </td>
                                             <td>
                                                 {{ $item->note }}
+                                            </td>
+                                            <td>
+                                                {{ $item->created_at->format('Y-m-d H:i') }}
                                             </td>
                                             <td>
                                                 @if ($item->status->status == 'Waiting Approval')
@@ -136,7 +141,34 @@
                 </div>
             </div>
 
-
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" id="openModalButton" data-toggle="modal"
+                data-target="#staticBackdrop" style="display: none;">
+                Launch static backdrop modal
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Alert</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Batas Waktu Pengajuan Hanya Sampai Pukul 11, <br> Jika Lebih Dari Itu Maka Akan Diproses Pada
+                            Esok
+                            Hari!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Understood</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
             {{-- Modal Tambah Data --}}
@@ -158,15 +190,15 @@
                                     <select class="form-control" id="namabrg" name="id_barang">
                                         <option value="">Nama Barang</option>
                                         @foreach ($barang as $items)
-                                            <option value="{{ $items->id }}">{{ $items->nama }}
-                                            </option>
+                                            <option value="{{ $items->id }}"
+                                                data-kategori-id="{{ $items->id_kategori }}">{{ $items->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="area">Area</label>
                                     <select class="form-control" id="area" name="id_area">
-                                        <option value="">Select Area</option>
+                                        <option value="">Pilih Area</option>
                                         @foreach ($area as $items)
                                             <option value="{{ $items->id }}">{{ $items->area }}
                                             </option>
@@ -174,17 +206,16 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="area">Kategori</label>
+                                    <label for="kategori">Kategori</label>
                                     <select class="form-control" id="kategori" name="id_kategori">
-                                        <option value="">Select Kategori</option>
+                                        <option value="">Pilih Kategori</option>
                                         @foreach ($kategori as $ka)
-                                            <option value="{{ $ka->id }}">{{ $ka->kategori }}
-                                            </option>
+                                            <option value="{{ $ka->id }}">{{ $ka->kategori }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="jumlahBarang">Amount</label>
+                                    <label for="jumlahBarang">Jumlah</label>
                                     <input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang">
                                 </div>
                                 <div class="form-group">
@@ -237,12 +268,18 @@
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="namabrg">Nama Barang</label>
-                                    <input type="text" class="form-control" id="new_item" name="new_item">
+                                    <select class="form-control" id="namabrg" name="id_barang">
+                                        <option value="">Nama Barang</option>
+                                        @foreach ($barang as $items)
+                                            <option value="{{ $items->id }}"
+                                                data-kategori-id="{{ $items->id_kategori }}">{{ $items->nama }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="area">Area</label>
                                     <select class="form-control" id="area" name="id_area">
-                                        <option value="">Select Area</option>
+                                        <option value="">Pilih Area</option>
                                         @foreach ($area as $items)
                                             <option value="{{ $items->id }}">{{ $items->area }}
                                             </option>
@@ -250,17 +287,16 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="area">Kategori</label>
+                                    <label for="kategori">Kategori</label>
                                     <select class="form-control" id="kategori" name="id_kategori">
-                                        <option value="">Select Kategori</option>
+                                        <option value="">Pilih Kategori</option>
                                         @foreach ($kategori as $ka)
-                                            <option value="{{ $ka->id }}">{{ $ka->kategori }}
-                                            </option>
+                                            <option value="{{ $ka->id }}">{{ $ka->kategori }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="jumlahBarang">Amount</label>
+                                    <label for="jumlahBarang">Jumlah</label>
                                     <input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang">
                                 </div>
                                 <div class="form-group">
@@ -372,5 +408,27 @@
             <script>
                 const tabel = document.querySelector('#tabel-peminjaman');
                 const dataTable = new simpleDatatables.DataTable(tabel)
+            </script>
+
+            <script>
+                $(document).ready(function() {
+                    $('#namabrg').change(function() {
+                        var selectedBarangId = $(this).val();
+                        var selectedKategoriId = $('#namabrg option:selected').data('kategori-id');
+
+                        if (selectedBarangId && selectedKategoriId) {
+                            $('#kategori').val(selectedKategoriId);
+                        } else {
+                            $('#kategori').val('');
+                        }
+                    });
+                });
+            </script>
+
+            <script>
+                // Use JavaScript to trigger the modal on page load
+                $(document).ready(function() {
+                    $("#openModalButton").click(); // This triggers the modal to open
+                });
             </script>
         @endsection

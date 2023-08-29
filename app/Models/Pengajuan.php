@@ -23,6 +23,9 @@ class Pengajuan extends Model
         'id_kategori'
 
     ];
+    protected $casts = [
+        'created_at' => 'datetime', // Assuming 'created_at' is the timestamp field
+    ];
     public function barang()
     {
         return $this->belongsTo(Barang::class, 'id_barang');

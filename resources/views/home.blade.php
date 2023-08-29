@@ -39,11 +39,9 @@
                                     <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">Barang</th>
-                                        <th scope="col">Peminjam</th>
                                         <th scope="col">Tanggal Mulai</th>
                                         <th scope="col">Tanggal Dikembalikan</th>
                                         <th scope="col">Jumlah</th>
-                                        <th scope="col">Deskripsi</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -60,9 +58,7 @@
                                             <td>
                                                 {{ $item->barang->nama }}
                                             </td>
-                                            <td>
-                                                {{ $item->area->area ?? '-' }}
-                                            </td>
+
                                             <td>
                                                 {{ $item->tgl_peminjaman }}
                                             </td>
@@ -72,9 +68,7 @@
                                             <td>
                                                 {{ $item->jumlahBarang }}
                                             </td>
-                                            <td>
-                                                {{ $item->keterangan }}
-                                            </td>
+
                                             <td class="text-right">
                                                 <div class="dropdown">
                                                     <a class="btn btn-sm btn-icon-only text-light" href="#"
@@ -83,10 +77,10 @@
                                                         <i class="fa fa-ellipsis-v"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        <a class="dropdown-item" href="#" data-toggle="modal"
+                                                        {{-- <a class="dropdown-item" href="#" data-toggle="modal"
                                                             data-target="#formModalDetail{{ $item->id }}">
                                                             Detail
-                                                        </a>
+                                                        </a> --}}
                                                         <a class="dropdown-item" href="#" data-toggle="modal"
                                                             data-target="#formModalEdit{{ $item->id }}">
                                                             Status Selesai
@@ -102,9 +96,6 @@
                     </div>
                 </div>
             </div>
-
-
-
 
             {{-- Modal Tambah Data --}}
             <form action="/add-peminjaman" method="POST" enctype="multipart/form-data">
@@ -131,30 +122,12 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="area">Peminjam</label>
-                                    <select class="form-control" id="area" name="id_area">
-                                        <option value="">Pilih Area</option>
-                                        @foreach ($area as $items)
-                                            <option value="{{ $items->id }}">{{ $items->area }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="tglpinjam">Tanggal Mulai</label>
-                                    <input type="date" class="form-control" id="tgl_peminjaman" name="tgl_peminjaman">
-                                </div>
-                                <div class="form-group">
                                     <label for="jumlahBarang">Jumlah</label>
                                     <input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang">
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputMessage">Deskripsi</label>
-                                    <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="foto">Gambar</label>
-                                    <input type="file" class="form-control" id="foto" name="foto">
+                                    <label for="tglpinjam">Tanggal Pinjam</label>
+                                    <input type="date" class="form-control" id="tgl_peminjaman" name="tgl_peminjaman">
                                 </div>
                             </div>
                             <div class="modal-footer">

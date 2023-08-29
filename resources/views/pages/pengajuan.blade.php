@@ -57,6 +57,7 @@
                                         <th scope="col">Nama Barang</th>
                                         <th scope="col">Stock</th>
                                         <th scope="col">Note</th>
+                                        <th scope="col">Request Date</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
 
@@ -94,11 +95,19 @@
                                                 {{ $item->note }}
                                             </td>
                                             <td>
+                                                {{ $item->created_at->format('Y-m-d H:i') }}
+                                            </td>
+
+                                            <td>
                                                 @if ($item->status->status == 'Waiting Approval')
                                                     <span class="badge badge-dot mr-4">
                                                         <i class="bg-warning"></i> {{ $item->status->status }}
                                                     </span>
                                                 @elseif ($item->status->status == 'Loaned')
+                                                    <span class="badge badge-dot mr-4">
+                                                        <i class="bg-danger"></i> {{ $item->status->status }}
+                                                    </span>
+                                                @elseif ($item->status->status == 'Pending')
                                                     <span class="badge badge-dot mr-4">
                                                         <i class="bg-danger"></i> {{ $item->status->status }}
                                                     </span>
@@ -118,6 +127,8 @@
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                         <a class="dropdown-item"
                                                             href="{{ route('approve.pengajuanBarang', $item->id) }}">Setujui</a>
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('pending.pengajuanBarang', $item->id) }}">Pending</a>
                                                         <a class="dropdown-item" href="#" data-toggle="modal"
                                                             data-target="#formModalEdit{{ $item->id }}">
                                                             Status Selesai
@@ -161,8 +172,8 @@
                                     <select class="form-control" id="namabrg" name="id_barang">
                                         <option value="">Nama Barang</option>
                                         @foreach ($barang as $items)
-                                            <option value="{{ $items->id }}">{{ $items->nama }}
-                                            </option>
+                                            <option value="{{ $items->id }}"
+                                                data-kategori-id="{{ $items->id_kategori }}">{{ $items->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -177,12 +188,11 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="area">Kategori</label>
+                                    <label for="kategori">Kategori</label>
                                     <select class="form-control" id="kategori" name="id_kategori">
                                         <option value="">Pilih Kategori</option>
                                         @foreach ($kategori as $ka)
-                                            <option value="{{ $ka->id }}">{{ $ka->kategori }}
-                                            </option>
+                                            <option value="{{ $ka->id }}">{{ $ka->kategori }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -375,5 +385,20 @@
             <script>
                 const tabel = document.querySelector('#tabel-peminjaman');
                 const dataTable = new simpleDatatables.DataTable(tabel)
+            </script>
+
+            <script>
+                $(document).ready(function() {
+                    $('#namabrg').change(function() {
+                        var selectedBarangId = $(this).val();
+                        var selectedKategoriId = $('#namabrg option:selected').data('kategori-id');
+
+                        if (selectedBarangId && selectedKategoriId) {
+                            $('#kategori').val(selectedKategoriId);
+                        } else {
+                            $('#kategori').val('');
+                        }
+                    });
+                });
             </script>
         @endsection
