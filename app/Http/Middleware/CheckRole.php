@@ -18,10 +18,15 @@ class CheckRole
      */
     public function handle($request, Closure $next, ...$roles)
     {
-        if (!in_array(auth()->user()->role, $roles)) {
+        $user = $request->user();
+
+        if (!$user || !in_array($user->role, $roles)) {
             return response()->view('error.403', [], 403);
         }
-
+        // if (in_array($request->user()->role, $roles)) {
+        //     return $next($request);
+        //     //mendapatkan level dari tabel users
+        // }
         return $next($request);
     }
 }

@@ -9,9 +9,11 @@ use App\Models\Peminjaman;
 use App\Models\Status;
 use App\Models\Pengajuan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PengajuanController extends Controller
 {
+
     public function index()
     {
         $pengajuan = Pengajuan::orderBy('id', 'ASC')->get();
@@ -98,14 +100,35 @@ class PengajuanController extends Controller
 
     public function index_admin()
     {
-        $pengajuan = Pengajuan::orderBy('id', 'ASC')->get();
-        $barang = Barang::where('id_status', '=', '1')->orderBy('nama', 'ASC')->get();
-        $status = Status::all();
+        $user = Auth::user(); // Mendapatkan informasi pengguna yang sedang login
+
+        if ($user->role == 'admin1') {
+            $levelFilter = 1;
+        } elseif ($user->role == 'admin2') {
+            $levelFilter = 2;
+        } elseif ($user->role == 'admin3') {
+            $levelFilter = 3;
+        } elseif ($user->role == 'admin4') {
+            $levelFilter = 4;
+        } else {
+            $levelFilter = null; // Tidak ada pemfilteran level jika bukan admin1-4
+        }
+
+        $pengajuan = Pengajuan::orderBy('id', 'ASC')
+            ->when($levelFilter !== null, function ($query) use ($levelFilter) {
+                $query->whereHas('barang', function ($subQuery) use ($levelFilter) {
+                    $subQuery->where('level', $levelFilter);
+                });
+            })
+            ->get();
+        $barang = Barang::OrderBy('nama', 'ASC')->get();
+
         $pendingCount = Pengajuan::where('id_status', 5)->count();
+        $status = Status::all();
         $area = Area::all();
         $kategori = Kategori::all();
 
-        return view('pages.pengajuan', compact('pengajuan', 'barang', 'status', 'pendingCount', 'area', 'kategori'));
+        return view('pages.pengajuan', compact('pengajuan', 'barang', 'status', 'area', 'kategori', 'pendingCount'));
     }
 
     public function new_admin(Request $request)

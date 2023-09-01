@@ -24,7 +24,8 @@ class Barang extends Model
         'id_status',
         'stock',
         'id_type',
-        'id_area'
+        'id_area',
+        'level'
     ];
 
     public function lokasi()

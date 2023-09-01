@@ -52,6 +52,7 @@
                                         <th scope="col">Type</th>
                                         <th scope="col">Location</th>
                                         <th scope="col">Area</th>
+                                        <th scope="col">Level</th>
                                         <th scope="col">Tanggal Masuk</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -87,7 +88,9 @@
                                             <td>
                                                 {{ $item->area->area ?? '-' }}
                                             </td>
-
+                                            <td>
+                                                {{ $item->level ?? '-' }}
+                                            </td>
                                             <td>
                                                 {{ $item->tgl_masuk }}
                                             </td>
@@ -200,6 +203,11 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
+                                        <label for="level">Level</label>
+                                        <input type="number" class="form-control" id="level" name="level"
+                                            min="1" max="4">
+                                    </div>
+                                    <div class="form-group">
                                         <label for="tgl_masuk">Tanggal Masuk</label>
                                         <input type="date" class="form-control" id="tgl_masuk" name="tgl_masuk">
                                     </div>
@@ -310,6 +318,11 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="level">Level</label>
+                                            <input type="number" class="form-control" id="level" name="level"
+                                                min="1" max="4" value="{{ $item->level }}">
                                         </div>
                                         <div class="form-group">
                                             <label for="tgl_masuk">Tanggal Masuk</label>

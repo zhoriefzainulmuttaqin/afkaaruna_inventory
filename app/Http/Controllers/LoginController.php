@@ -23,10 +23,10 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            if ($user->role === 'admin') {
-                return redirect('peminjaman'); // Redirect to admin page
+            if ($user->role == 'admin' || $user->role == 'admin1'  || $user->role == 'admin2'  || $user->role == 'admin3'  || $user->role == 'admin4') {
+                return redirect('/peminjaman'); // Redirect to admin page
             } else {
-                return redirect('pengajuan'); // Redirect to user's page
+                return redirect('/pengajuan'); // Redirect to user's page
             }
         }
 

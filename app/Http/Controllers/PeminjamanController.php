@@ -7,18 +7,41 @@ use App\Models\Barang;
 use App\Models\Peminjaman;
 use App\Models\Pengajuan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PeminjamanController extends Controller
 {
     public function index()
     {
-        $peminjaman = Peminjaman::orderBy('id', 'ASC')->get();
+        $user = Auth::user(); // Mendapatkan informasi pengguna yang sedang login
+
+        if ($user->role == 'admin1') {
+            $levelFilter = 1;
+        } elseif ($user->role == 'admin2') {
+            $levelFilter = 2;
+        } elseif ($user->role == 'admin3') {
+            $levelFilter = 3;
+        } elseif ($user->role == 'admin4') {
+            $levelFilter = 4;
+        } else {
+            $levelFilter = null; // Tidak ada pemfilteran level jika bukan admin1-4
+        }
+
+        $peminjaman = Peminjaman::orderBy('id', 'ASC')
+            ->when($levelFilter !== null, function ($query) use ($levelFilter) {
+                $query->whereHas('barang', function ($subQuery) use ($levelFilter) {
+                    $subQuery->where('level', $levelFilter);
+                });
+            })
+            ->get();
         $barang = Barang::where('id_status', '=', '1')->orderBy('nama', 'ASC')->get();
+
         $pendingCount = Pengajuan::where('id_status', 5)->count();
         $area = Area::all();
 
-        return view('home', compact('peminjaman', 'barang', 'pendingCount', 'area'));
+        return view('home', compact('peminjaman', 'pendingCount', 'area', 'barang'));
     }
+
 
     public function store(Request $request)
     {
@@ -104,6 +127,64 @@ class PeminjamanController extends Controller
 
         if ($del) {
             return redirect('peminjaman')->with('success', 'Data Berhasil Dihapus.');
+        }
+    }
+
+    public function index_user()
+    {
+        $peminjaman = Peminjaman::orderBy('id', 'ASC')->get();
+        $barang = Barang::where('id_status', '=', '1')->orderBy('nama', 'ASC')->get();
+        $pendingCount = Pengajuan::where('id_status', 5)->count();
+        $area = Area::all();
+
+        return view('user.pages.peminjaman', compact('peminjaman', 'barang', 'pendingCount', 'area'));
+    }
+
+    public function store_user(Request $request)
+    {
+
+        $barang = Barang::find($request->id_barang);
+
+        // Check if the barang exists and has sufficient stock
+        if (!$barang || $barang->stock < $request->jumlahBarang) {
+            return redirect('user.pages.peminjaman')->with('error', 'Stock barang tidak tersedia.');
+        }
+
+        // dd($request);
+        $request->validate([
+            'tgl_peminjaman' => 'required',
+            'id_barang' => 'required',
+            // 'foto' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp',
+        ]);
+
+        // $imageName = time() . '_' . $request->file('foto')->getClientOriginalName();
+
+        // $request->foto->move(("foto_gudang"), $imageName);
+
+        $peminjaman = Peminjaman::create([
+            'tgl_peminjaman' => $request->tgl_peminjaman,
+            'id_barang' => $request->id_barang,
+            'jumlahBarang' => $request->jumlahBarang
+
+        ]);
+
+
+        if ($peminjaman) {
+            $barang = Barang::find($request->id_barang);
+
+            $updateStock = $barang->stock - $request->jumlahBarang;
+
+            Barang::where('id', $request->id_barang)->update([
+                'stock' => $updateStock
+            ]);
+
+            $barang->refresh();
+
+            if ($barang->stock == 0) {
+                Barang::where('id', $request->id_barang)->update(['id_status' => 2]);
+            }
+
+            return redirect('user.pages.peminjaman')->with('success', 'Data Berhasil Ditambahkan.');
         }
     }
 }

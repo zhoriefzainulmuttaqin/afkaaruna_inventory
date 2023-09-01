@@ -46,7 +46,7 @@
                     </li>
                     <li class="@if (str_contains(url()->current(), 'barang')) active @endif">
                         <a href="/barang"><span class="fa fa-folder mr-3"></span>
-                            Barang</a>
+                            Items</a>
                     </li>
                     <li>
                         <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -65,7 +65,7 @@
                         <ul class="collapse list-unstyled" id="pageSubmenu3">
                             <li class="mt-5">
                                 <span>Afkaaruna</span>
-                                <p style="color: rgba(255, 255, 255, 0.6)">Superadmin</p>
+                                <p style="color: rgba(255, 255, 255, 0.6)">{{ auth()->user()->name }}</p>
                                 <a></a>
                             </li>
                             <li>

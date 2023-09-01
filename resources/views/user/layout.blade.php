@@ -41,7 +41,7 @@
                         <ul class="collapse list-unstyled" id="pageSubmenu3">
                             <li class="mt-5">
                                 <span>Afkaaruna</span>
-                                <p style="color: rgba(255, 255, 255, 0.6)">User</p>
+                                <p style="color: rgba(255, 255, 255, 0.6)">{{ auth()->user()->name }}</p>
                                 <a></a>
                             </li>
                             <li>

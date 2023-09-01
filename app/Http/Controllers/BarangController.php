@@ -81,6 +81,8 @@ class BarangController extends Controller
             'id_lokasi' => $request->id_lokasi,
             'id_status' => $request->id_status,
             'stock' => $request->stock,
+            'level' => $request->level,
+
         ]);
 
         if ($barang) {
@@ -120,6 +122,7 @@ class BarangController extends Controller
             'id_lokasi' => $request->id_lokasi,
             'id_status' => $request->id_status,
             'stock' => $request->stock,
+            'level' => $request->level,
         ]);
 
         if ($barang) {
