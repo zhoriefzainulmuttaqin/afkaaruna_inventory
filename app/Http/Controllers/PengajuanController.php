@@ -17,7 +17,7 @@ class PengajuanController extends Controller
     public function index()
     {
         $pengajuan = Pengajuan::orderBy('id', 'ASC')->get();
-        $barang = Barang::where('id_status', '=', '1')->orderBy('nama', 'ASC')->get();
+        $barang = Barang::orderBy('nama', 'ASC')->get();
         $status = Status::all();
         $area = Area::all();
         $kategori = Kategori::all();
@@ -52,6 +52,8 @@ class PengajuanController extends Controller
             'required_date' => $request->required_date,
             'note' => $request->note,
             'id_status' => 5, // Automatically set id_status to 5
+            'level' => $request->level,
+
         ]);
 
         if ($pengajuan) {
@@ -118,7 +120,7 @@ class PengajuanController extends Controller
             ->when($levelFilter !== null, function ($query) use ($levelFilter) {
                 $query->whereHas('barang', function ($subQuery) use ($levelFilter) {
                     $subQuery->where('level', $levelFilter);
-                });
+                })->orWhere('level', $levelFilter); // Menambahkan kondisi OR untuk level di tabel pengajuan
             })
             ->get();
         $barang = Barang::OrderBy('nama', 'ASC')->get();
@@ -141,6 +143,7 @@ class PengajuanController extends Controller
             'required_date' => $request->required_date,
             'note' => $request->note,
             'id_status' => 5, // Automatically set id_status to 5
+            'level' => $request->level,
 
         ]);
 
@@ -272,6 +275,9 @@ class PengajuanController extends Controller
                 'tgl_masuk' => now(), // Use the current timestamp or the appropriate date
                 'id_area' => $pengajuan->id_area,
                 'stock' => $pengajuan->jumlahBarang,
+                'level' => $pengajuan->level,
+                'id_kategori' => $pengajuan->id_kategori,
+
             ]);
         } else {
             // Update existing Barang

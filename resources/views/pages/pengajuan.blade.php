@@ -263,12 +263,11 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="area">Kategori</label>
+                                    <label for="kategori">Kategori</label>
                                     <select class="form-control" id="kategori" name="id_kategori">
                                         <option value="">Pilih Kategori</option>
                                         @foreach ($kategori as $ka)
-                                            <option value="{{ $ka->id }}">{{ $ka->kategori }}
-                                            </option>
+                                            <option value="{{ $ka->id }}">{{ $ka->kategori }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -276,6 +275,16 @@
                                     <label for="jumlahBarang">Jumlah</label>
                                     <input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang">
                                 </div>
+                                <div class="form-group">
+                                    <label for="level">Level</label>
+                                    <select class="form-control" id="level" name="level">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="required_date">Required Date</label>
                                     <input type="date" class="form-control" id="required_date" name="required_date">

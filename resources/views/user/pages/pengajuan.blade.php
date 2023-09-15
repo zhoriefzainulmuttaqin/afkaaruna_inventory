@@ -57,6 +57,7 @@
                                         <th scope="col">Area</th>
                                         <th scope="col">Nama Barang</th>
                                         <th scope="col">Stock</th>
+                                        <th scope="col">Level</th>
                                         <th scope="col">Note</th>
                                         <th scope="col">Request Date</th>
                                         <th scope="col">Status</th>
@@ -91,6 +92,9 @@
 
                                             <td>
                                                 {{ $item->jumlahBarang }}
+                                            </td>
+                                            <td>
+                                                {{ $item->level ?? '-' }}
                                             </td>
                                             <td>
                                                 {{ $item->note }}
@@ -268,13 +272,7 @@
                             <div class="modal-body">
                                 <div class="form-group">
                                     <label for="namabrg">Nama Barang</label>
-                                    <select class="form-control" id="namabrg" name="id_barang">
-                                        <option value="">Nama Barang</option>
-                                        @foreach ($barang as $items)
-                                            <option value="{{ $items->id }}"
-                                                data-kategori-id="{{ $items->id_kategori }}">{{ $items->nama }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="text" class="form-control" id="new_item" name="new_item">
                                 </div>
                                 <div class="form-group">
                                     <label for="area">Area</label>
@@ -298,6 +296,11 @@
                                 <div class="form-group">
                                     <label for="jumlahBarang">Jumlah</label>
                                     <input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang">
+                                </div>
+                                <div class="form-group">
+                                    <label for="level">Level</label>
+                                    <input type="number" class="form-control" id="level" name="level"
+                                        min="1" max="4">
                                 </div>
                                 <div class="form-group">
                                     <label for="required_date">Required Date</label>

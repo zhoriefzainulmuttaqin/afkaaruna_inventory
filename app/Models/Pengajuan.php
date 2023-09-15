@@ -20,7 +20,8 @@ class Pengajuan extends Model
         'tgl_pengembalian',
         'note',
         'new_item',
-        'id_kategori'
+        'id_kategori',
+        'level'
 
     ];
     protected $casts = [
