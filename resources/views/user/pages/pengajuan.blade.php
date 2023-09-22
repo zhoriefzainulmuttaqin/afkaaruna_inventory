@@ -269,11 +269,23 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
+
                             <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="namabrg">List Barang</label>
+                                    <select class="form-control" id="namabrg">
+                                        <option value="">Nama Barang</option>
+                                        @foreach ($barang as $items)
+                                            <option value="{{ $items->id }}"
+                                                data-kategori-id="{{ $items->id_kategori }}">{{ $items->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label for="namabrg">Nama Barang</label>
                                     <input type="text" class="form-control" id="new_item" name="new_item">
                                 </div>
+
                                 <div class="form-group">
                                     <label for="area">Area</label>
                                     <select class="form-control" id="area" name="id_area">
@@ -284,6 +296,18 @@
                                         @endforeach
                                     </select>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="lokasi">Lokasi</label>
+                                    <select class="form-control" id="lokasi" name="id_lokasi">
+                                        <option value="S">Pilih Lokasi</option>
+                                        @foreach ($lokasi as $items)
+                                            <option value="{{ $items->id }}" data-area-id="{{ $items->id_area }}">
+                                                {{ $items->lokasi }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="kategori">Kategori</label>
                                     <select class="form-control" id="kategori" name="id_kategori">
@@ -299,9 +323,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="level">Level</label>
-                                    <input type="number" class="form-control" id="level" name="level"
-                                        min="1" max="4">
+                                    <select class="form-control" id="level" name="level">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="required_date">Required Date</label>
                                     <input type="date" class="form-control" id="required_date" name="required_date">
@@ -375,7 +404,7 @@
                             <div class="modal-body">
 
                                 <div class="form-group">
-                                    <label for="kategori">Filter by Area:</label>
+                                    <label for="id_area">Filter by Area:</label>
                                     <select name="id_area" id="id_area" class="form-control">
                                         <option value="">Select Area</option>
                                         @foreach ($area as $k)
@@ -387,11 +416,23 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="tgl_masuk_awal">Filter by Entry Date </label>
+                                    <label for="request_date">Filter by Entry Date </label>
                                     <div class="input-group">
                                         <input type="date" class="form-control" id="request_date" name="request_date"
                                             value="{{ request()->input('request_date') }}">
 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="request_date">Filter Berdasarkan Rentang Tanggal</label>
+                                    <div class="input-group">
+                                        <input type="date" class="form-control" id="request_date" name="request_date"
+                                            value="{{ request()->input('request_date') }}">
+                                        <div class="input-group-prepend input-group-append">
+                                            <div class="input-group-text">to</div>
+                                        </div>
+                                        <input type="date" class="form-control" id="request_date" name="request_date"
+                                            value="{{ request()->input('request_date') }}">
                                     </div>
                                 </div>
                             </div>
@@ -432,6 +473,36 @@
                 // Use JavaScript to trigger the modal on page load
                 $(document).ready(function() {
                     $("#openModalButton").click(); // This triggers the modal to open
+                });
+            </script>
+
+            <script>
+                // Menangkap elemen select "Area" dan "Lokasi"
+                var areaSelect = document.getElementById('area');
+                var lokasiSelect = document.getElementById('lokasi');
+
+                // Menangkap semua opsi dalam elemen select "Lokasi"
+                var lokasiOptions = lokasiSelect.getElementsByTagName('option');
+
+                // Ketika area dipilih, atur tampilan opsi lokasi sesuai dengan area yang dipilih
+                areaSelect.addEventListener('change', function() {
+                    var selectedAreaId = areaSelect.value;
+
+                    // Sembunyikan semua opsi lokasi
+                    for (var i = 0; i < lokasiOptions.length; i++) {
+                        lokasiOptions[i].style.display = 'none';
+                    }
+
+                    // Tampilkan hanya opsi lokasi yang memiliki data-area-id sesuai dengan area yang dipilih
+                    for (var i = 0; i < lokasiOptions.length; i++) {
+                        if (lokasiOptions[i].getAttribute('data-area-id') === selectedAreaId || lokasiOptions[i].value ===
+                            '') {
+                            lokasiOptions[i].style.display = 'block';
+                        }
+                    }
+
+                    // Setel opsi lokasi pertama sebagai pilihan default
+                    lokasiSelect.selectedIndex = 0;
                 });
             </script>
         @endsection

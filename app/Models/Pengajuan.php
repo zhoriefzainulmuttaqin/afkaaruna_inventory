@@ -16,13 +16,16 @@ class Pengajuan extends Model
         'id_area',
         'jumlahBarang',
         'required_date',
+        'request_date',
+        'request_date_end',
         'id_status',
         'tgl_pengembalian',
         'note',
         'new_item',
         'id_kategori',
-        'level'
-
+        'level',
+        'id_lokasi',
+        'id_type'
     ];
     protected $casts = [
         'created_at' => 'datetime', // Assuming 'created_at' is the timestamp field
@@ -42,5 +45,14 @@ class Pengajuan extends Model
     public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'id_kategori');
+    }
+
+    public function lokasi()
+    {
+        return $this->belongsTo(Lokasi::class, 'id_lokasi');
+    }
+    public function type()
+    {
+        return $this->belongsTo(Type::class, 'id_type');
     }
 }

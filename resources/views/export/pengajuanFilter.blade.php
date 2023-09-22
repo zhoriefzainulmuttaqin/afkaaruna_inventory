@@ -195,7 +195,7 @@
                         {{ $p->note }}
                     </td>
                     <td>
-                        {{ $p->kategori->kategori }}
+                        {{ $p->kategori->kategori ?? '-' }}
                     </td>
                 </tr>
             @endforeach

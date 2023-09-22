@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Area;
 use App\Models\Barang;
 use App\Models\Kategori;
+use App\Models\Lokasi;
 use App\Models\Peminjaman;
 use App\Models\Status;
 use App\Models\Pengajuan;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,10 +21,12 @@ class PengajuanController extends Controller
         $pengajuan = Pengajuan::orderBy('id', 'ASC')->get();
         $barang = Barang::orderBy('nama', 'ASC')->get();
         $status = Status::all();
+        $type = Type::all();
+        $lokasi = Lokasi::all();
         $area = Area::all();
         $kategori = Kategori::all();
 
-        return view('user.pages.pengajuan', compact('pengajuan', 'barang', 'status', 'area', 'kategori'));
+        return view('user.pages.pengajuan', compact('pengajuan', 'barang', 'status', 'area', 'kategori', 'type', 'lokasi'));
     }
 
     public function store(Request $request)
@@ -35,6 +39,9 @@ class PengajuanController extends Controller
             'required_date' => $request->required_date,
             'note' => $request->note,
             'id_status' => 5, // Automatically set id_status to 5
+            // 'id_lokasi' => $request->id_lokasi,
+            // 'id_type' => $request->id_type,
+
         ]);
 
         if ($pengajuan) {
@@ -53,7 +60,8 @@ class PengajuanController extends Controller
             'note' => $request->note,
             'id_status' => 5, // Automatically set id_status to 5
             'level' => $request->level,
-
+            'id_lokasi' => $request->id_lokasi,
+            'id_type' => $request->id_type,
         ]);
 
         if ($pengajuan) {
@@ -129,8 +137,10 @@ class PengajuanController extends Controller
         $status = Status::all();
         $area = Area::all();
         $kategori = Kategori::all();
+        $type = Type::all();
+        $lokasi = Lokasi::all();
 
-        return view('pages.pengajuan', compact('pengajuan', 'barang', 'status', 'area', 'kategori', 'pendingCount'));
+        return view('pages.pengajuan', compact('pengajuan', 'barang', 'status', 'area', 'kategori', 'pendingCount', 'type', 'lokasi'));
     }
 
     public function new_admin(Request $request)
@@ -144,7 +154,8 @@ class PengajuanController extends Controller
             'note' => $request->note,
             'id_status' => 5, // Automatically set id_status to 5
             'level' => $request->level,
-
+            'id_lokasi' => $request->id_lokasi,
+            'id_type' => $request->id_type,
         ]);
 
         if ($pengajuan) {
@@ -168,21 +179,29 @@ class PengajuanController extends Controller
     {
         $query = Pengajuan::query();
 
-        if ($request->has('id_area')) {
-            $query->where('id_area', $request->id_area);
-        }
+        $query->when($request->filled('id_area'), function ($q) use ($request) {
+            return $q->where('id_area', $request->input('id_area'));
+        });
 
-        if ($request->has('request_date')) {
-            $query->whereDate('created_at', $request->request_date);
-        }
+        $query->when($request->filled('request_date_start') && $request->filled('request_date_end'), function ($q) use ($request) {
+            $tgl_masuk_awal = $request->input('request_date_start');
+            $tgl_masuk_akhir = $request->input('request_date_end');
+            return $q->whereBetween('request_date', [$tgl_masuk_awal, $tgl_masuk_akhir]);
+        });
 
+        // Ambil data yang sesuai
         $pengajuan = $query->orderBy('id', 'ASC')->get();
+
+        // Sisanya tetap sama seperti sebelumnya
         $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
         $status = Status::get();
         $area = Area::get();
         $kategori = Kategori::get();
+
         return view('export.pengajuanFilter', compact('pengajuan', 'barang', 'status', 'area', 'kategori'));
     }
+
+
 
 
     public function store_admin(Request $request)
@@ -195,6 +214,8 @@ class PengajuanController extends Controller
             'required_date' => $request->required_date,
             'note' => $request->note,
             'id_status' => 5, // Automatically set id_status to 5
+            // 'id_lokasi' => $request->id_lokasi,
+            // 'id_type' => $request->id_type,
         ]);
 
         if ($pengajuan) {

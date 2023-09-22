@@ -262,6 +262,17 @@
                                         @endforeach
                                     </select>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="lokasi">Lokasi</label>
+                                    <select class="form-control" id="lokasi" name="id_lokasi">
+                                        <option value="">Pilih Lokasi</option>
+                                        @foreach ($lokasi as $items)
+                                            <option value="{{ $items->id }}" data-area-id="{{ $items->id_area }}">
+                                                {{ $items->lokasi }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label for="kategori">Kategori</label>
                                     <select class="form-control" id="kategori" name="id_kategori">
@@ -284,7 +295,6 @@
                                         <option value="4">4</option>
                                     </select>
                                 </div>
-
                                 <div class="form-group">
                                     <label for="required_date">Required Date</label>
                                     <input type="date" class="form-control" id="required_date" name="required_date">
@@ -358,7 +368,7 @@
                             <div class="modal-body">
 
                                 <div class="form-group">
-                                    <label for="kategori">Filter Berdasarkan Area:</label>
+                                    <label for="id_area">Filter Berdasarkan Area:</label>
                                     <select name="id_area" id="id_area" class="form-control">
                                         <option value="">Select Area</option>
                                         @foreach ($area as $k)
@@ -370,13 +380,17 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="tgl_masuk_awal">Filter Berdasarkan Tanggal Masuk </label>
-                                    <div class="input-group">
-                                        <input type="date" class="form-control" id="request_date" name="request_date"
-                                            value="{{ request()->input('request_date') }}">
-
-                                    </div>
+                                    <label for="request_date_start">Mulai Tanggal:</label>
+                                    <input type="date" class="form-control" id="request_date_start"
+                                        name="request_date_start" value="{{ request()->input('request_date_start') }}">
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="request_date_end">Akhir Tanggal:</label>
+                                    <input type="date" class="form-control" id="request_date_end"
+                                        name="request_date_end" value="{{ request()->input('request_date_end') }}">
+                                </div>
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
