@@ -188,6 +188,26 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label for="lokasi">Lokasi</label>
+                                    <select class="form-control" id="lokasi" name="id_lokasi">
+                                        <option value="">Pilih Lokasi</option>
+                                        @foreach ($lokasi as $items)
+                                            <option value="{{ $items->id }}"
+                                                data-area-id="{{ $items->id_area }}">{{ $items->lokasi }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="area">Type</label>
+                                    <select class="form-control" id="type" name="id_type">
+                                        <option value="">Pilih Type</option>
+                                        @foreach ($type as $items)
+                                            <option value="{{ $items->id }}">{{ $items->type }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="kategori">Kategori</label>
                                     <select class="form-control" id="kategori" name="id_kategori">
                                         <option value="">Pilih Kategori</option>
@@ -254,7 +274,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="area">Area</label>
-                                    <select class="form-control" id="area" name="id_area">
+                                    <select class="form-control" id="area2" name="id_area">
                                         <option value="">Pilih Area</option>
                                         @foreach ($area as $items)
                                             <option value="{{ $items->id }}">{{ $items->area }}
@@ -262,14 +282,23 @@
                                         @endforeach
                                     </select>
                                 </div>
-
                                 <div class="form-group">
                                     <label for="lokasi">Lokasi</label>
-                                    <select class="form-control" id="lokasi" name="id_lokasi">
+                                    <select class="form-control" id="lokasi2" name="id_lokasi">
                                         <option value="">Pilih Lokasi</option>
                                         @foreach ($lokasi as $items)
-                                            <option value="{{ $items->id }}" data-area-id="{{ $items->id_area }}">
-                                                {{ $items->lokasi }}</option>
+                                            <option value="{{ $items->id }}"
+                                                data-area-id="{{ $items->id_area }}">{{ $items->lokasi }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="area">Type</label>
+                                    <select class="form-control" id="type" name="id_type">
+                                        <option value="">Pilih Type</option>
+                                        @foreach ($type as $items)
+                                            <option value="{{ $items->id }}">{{ $items->type }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -422,6 +451,69 @@
                             $('#kategori').val('');
                         }
                     });
+                });
+            </script>
+
+            <script>
+                // Menangkap elemen select "Area" dan "Lokasi"
+                var areaSelect = document.getElementById('area');
+                var lokasiSelect = document.getElementById('lokasi');
+
+                // Menangkap semua opsi dalam elemen select "Lokasi"
+                var lokasiOptions = lokasiSelect.getElementsByTagName('option');
+
+                // Ketika area dipilih, atur tampilan opsi lokasi sesuai dengan area yang dipilih
+                areaSelect.addEventListener('change', function() {
+                    var selectedAreaId = areaSelect.value;
+
+                    // Sembunyikan semua opsi lokasi
+                    for (var i = 0; i < lokasiOptions.length; i++) {
+                        lokasiOptions[i].style.display = 'none';
+                    }
+
+                    // Tampilkan hanya opsi lokasi yang memiliki data-area-id sesuai dengan area yang dipilih
+                    for (var i = 0; i < lokasiOptions.length; i++) {
+                        if (lokasiOptions[i].getAttribute('data-area-id') === selectedAreaId || lokasiOptions[i].value ===
+                            '') {
+                            lokasiOptions[i].style.display = 'block';
+                        }
+                    }
+
+                    // Setel opsi lokasi pertama sebagai pilihan default
+                    lokasiSelect.selectedIndex = 0;
+                });
+            </script>
+
+
+            <script>
+                // Copy paste ke-2 untuk fix form area dan lokasi tidak sinkron
+
+                // Menangkap elemen select "Area" dan "Lokasi"
+                var areaSelect2 = document.getElementById('area2');
+                var lokasiSelect2 = document.getElementById('lokasi2');
+
+                // Menangkap semua opsi dalam elemen select "Lokasi"
+                var lokasiOptions2 = lokasiSelect2.getElementsByTagName('option');
+
+                // Ketika area dipilih, atur tampilan opsi lokasi sesuai dengan area yang dipilih
+                areaSelect2.addEventListener('change', function() {
+                    var selectedAreaId2 = areaSelect2.value;
+
+                    // Sembunyikan semua opsi lokasi
+                    for (var i = 0; i < lokasiOptions2.length; i++) {
+                        lokasiOptions2[i].style.display = 'none';
+                    }
+
+                    // Tampilkan hanya opsi lokasi yang memiliki data-area-id sesuai dengan area yang dipilih
+                    for (var i = 0; i < lokasiOptions2.length; i++) {
+                        if (lokasiOptions2[i].getAttribute('data-area-id') === selectedAreaId2 || lokasiOptions2[i].value ===
+                            '') {
+                            lokasiOptions2[i].style.display = 'block';
+                        }
+                    }
+
+                    // Setel opsi lokasi pertama sebagai pilihan default
+                    lokasiSelect2.selectedIndex = 0;
                 });
             </script>
         @endsection

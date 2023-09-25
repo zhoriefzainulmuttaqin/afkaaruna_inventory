@@ -142,21 +142,50 @@
         <table>
 
             <tr>
+                @php
+                    $dataA = []
+                @endphp
                 <td style="text-align: center; font-weight: Bold;">Unit: @foreach ($pengajuan as $a)
-                        {{ $a->area->area }}
+                        @php
+                            $dataA[] = $a->area->area
+                        @endphp
                     @endforeach
+                    @php
+                        $uniqueA = collect($dataA)->unique()->implode(', ');
+                    @endphp
+                    {{ $uniqueA }}
                 </td>
             </tr>
             <tr>
+                @php
+                    $dataB = []
+                @endphp
                 <td style="text-align: center; font-weight: Bold;">Request Date: @foreach ($pengajuan as $b)
-                        {{ $b->request_date }}
+                        @php
+                            $dataB[] = $b->request_date
+                        @endphp
                     @endforeach
+                    @php
+                        $firstB = collect($dataB)->first();
+                        $lastB = collect($dataB)->last();
+                    @endphp
+                    {{ $firstB." - ".$lastB }}
                 </td>
             </tr>
             <tr>
+                @php
+                    $dataC = []
+                @endphp
                 <td style="text-align: center; font-weight: Bold;">Required Date: @foreach ($pengajuan as $c)
-                        {{ $c->required_date }}
+                        @php
+                            $dataC[] = $c->required_date
+                        @endphp
                     @endforeach
+                    @php
+                        $firstC = collect($dataC)->first();
+                        $lastC = collect($dataC)->last();
+                    @endphp
+                    {{ $firstC." - ".$lastC }}
                 </td>
             </tr>
         </table>
