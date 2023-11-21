@@ -143,49 +143,51 @@
 
             <tr>
                 @php
-                    $dataA = []
+                    $dataA = [];
                 @endphp
                 <td style="text-align: center; font-weight: Bold;">Unit: @foreach ($pengajuan as $a)
                         @php
-                            $dataA[] = $a->area->area
+                            $dataA[] = $a->area->area;
                         @endphp
                     @endforeach
                     @php
-                        $uniqueA = collect($dataA)->unique()->implode(', ');
+                        $uniqueA = collect($dataA)
+                            ->unique()
+                            ->implode(', ');
                     @endphp
                     {{ $uniqueA }}
                 </td>
             </tr>
             <tr>
                 @php
-                    $dataB = []
+                    $dataB = [];
                 @endphp
                 <td style="text-align: center; font-weight: Bold;">Request Date: @foreach ($pengajuan as $b)
                         @php
-                            $dataB[] = $b->request_date
+                            $dataB[] = $b->request_date;
                         @endphp
                     @endforeach
                     @php
                         $firstB = collect($dataB)->first();
                         $lastB = collect($dataB)->last();
                     @endphp
-                    {{ $firstB." - ".$lastB }}
+                    {{ $firstB . ' - ' . $lastB }}
                 </td>
             </tr>
             <tr>
                 @php
-                    $dataC = []
+                    $dataC = [];
                 @endphp
                 <td style="text-align: center; font-weight: Bold;">Required Date: @foreach ($pengajuan as $c)
                         @php
-                            $dataC[] = $c->required_date
+                            $dataC[] = $c->required_date;
                         @endphp
                     @endforeach
                     @php
                         $firstC = collect($dataC)->first();
                         $lastC = collect($dataC)->last();
                     @endphp
-                    {{ $firstC." - ".$lastC }}
+                    {{ $firstC . ' - ' . $lastC }}
                 </td>
             </tr>
         </table>

@@ -297,12 +297,14 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
+                                            <input type="hidden" class="form-control" id="id" name="id"
+                                                value="{{ $item->id }}">
                                             <label for="lokasi">Lokasi</label>
-                                            <select class="form-control" id="lokasi" name="id_lokasi">
+                                            <select class="form-control" id="lokasi" name="id_lokasi" >
+                                                <option value="{{ $item->id_area }}"> {{ $item->lokasi->lokasi ?? 'not selected' }}</option>
                                                 @foreach ($lokasi as $items)
-                                                    <option value="{{ $items->id_area }}"
-                                                        data-area-id="{{ $items->id_area }}">{{ $items->lokasi }}
-                                                    </option>
+                                                    <option value="{{ $items->id }}"
+                                                        data-area-id="{{ $items->id_area }}">{{ $items->lokasi }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -501,6 +503,31 @@
                                     </select>
                                 </div>
 
+                            
+                                <div class="form-group">
+                                    <label for="id_area">Filter Berdasarkan Area</label>
+                                    <select name="id_area" id="id_area" class="form-control">
+                                        <option value="">Select Area</option>
+                                        @foreach ($area as $k)
+                                            <option value="{{ $k->id }}"
+                                                @if (request()->input('id_area') == $k->id) selected @endif>{{ $k->area }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="id_lokasi">Filter Berdasarkan Lokasi</label>
+                                    <select name="id_lokasi" id="id_lokasi" class="form-control">
+                                        <option value="">Select Lokasi</option>
+                                        @foreach ($lokasi as $k)
+                                            <option value="{{ $k->id }}"
+                                                @if (request()->input('id_lokasi') == $k->id) selected @endif>{{ $k->lokasi }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
 
                             </div>
                             <div class="modal-footer">
@@ -548,6 +575,8 @@
 
             <script>
                 const tabel = document.querySelector('#tabel-barang');
-                const dataTable = new simpleDatatables.DataTable(tabel)
+                const dataTable = new DataTable(tabel, {
+                    stateSave: true
+                });
             </script>
         @endsection

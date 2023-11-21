@@ -7,7 +7,7 @@
     <title>@yield('tittle')</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/table.css">
@@ -44,9 +44,13 @@
                         <a href="/perbaikan"><span class="fa fa-folder mr-3"></span>
                             Perbaikan</a>
                     </li>
-                    <li class="@if (str_contains(url()->current(), 'barang')) active @endif">
-                        <a href="/barang"><span class="fa fa-folder mr-3"></span>
-                            Items</a>
+                    <li>
+                        <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <span class="fa fa-folder mr-3"></span> Items</a>
+                        <ul class="collapse list-unstyled" id="pageSubmenu4">
+                            <li><a href="/asset"><span class="fa fa-caret-right mr-2"></span> Asset</a></li>
+                            <li><a href="/barang"><span class="fa fa-caret-right mr-2"></span> Non-asset</a></li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -101,7 +105,8 @@
     <script src="/js/popper.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     @yield('script')
 
 

@@ -56,9 +56,10 @@
                                                 </div>
                                             </th>
                                             <td>
-                                                {{ $item->barang->nama }}
+                                                <span class="{{ isset($item->barang->nama) ? '' : 'text-danger' }}">
+                                                    {{ $item->barang->nama ?? 'item name not defined' }}
+                                                </span>
                                             </td>
-
                                             <td>
                                                 {{ $item->tgl_peminjaman }}
                                             </td>

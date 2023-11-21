@@ -38,7 +38,8 @@ class PerbaikanController extends Controller
             'biaya' => $request->biaya,
             'keterangan' => $request->keterangan,
             'id_barang' => $request->id_barang,
-            'foto' => $imageName
+            'foto' => $imageName,
+            'jumlahBarang' => $request->jumlahBarang,
         ]);
 
 

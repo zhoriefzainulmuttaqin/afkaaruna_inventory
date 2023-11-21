@@ -20,7 +20,11 @@
                     <div class="card-header border-0">
                         <nav aria-label="...">
                             <ul class="pagination mb-0">
-
+                                {{-- tambah --}}
+                                <li class="page-item"><a class="page-link" href="#" data-toggle="modal"
+                                        data-target="#formModal"><i class="fa fa-plus" aria-hidden="true"></i>
+                                    </a>
+                                </li>
                                 <li class="page-item ml-auto">
                                     <a class="page-link" href="#" data-toggle="modal" data-target="#filter"
                                         style="width: 100px; border-radius: 8% !important;font-weight: bold;
@@ -34,7 +38,7 @@
                     </div>
                     <div class="card shadow">
                         <div class="card-header border-0">
-                            <h3 class="mb-0">Items</h3>
+                            <h3 class="mb-0">Barang</h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table align-items-center table-flush" id="tabel-barang">
@@ -48,7 +52,9 @@
                                         <th scope="col">Type</th>
                                         <th scope="col">Location</th>
                                         <th scope="col">Area</th>
-                                        <th scope="col">Date</th>
+                                        <th scope="col">Level</th>
+                                        <th scope="col">Tanggal Masuk</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -71,16 +77,19 @@
                                                 {{ $item->stock }}
                                             </td>
                                             <td>
-                                                {{ $item->id_kategori }}
+                                                {{ $item->kategori->kategori ?? '-' }}
                                             </td>
                                             <td>
-                                                {{ $item->id_jenis }}
+                                                {{ $item->type->type ?? '-' }}
                                             </td>
                                             <td>
-                                                {{ $item->id_lokasi }}
+                                                {{ $item->lokasi->lokasi ?? '-' }}
                                             </td>
                                             <td>
-                                                {{ $item->id_area }}
+                                                {{ $item->area->area ?? '-' }}
+                                            </td>
+                                            <td>
+                                                {{ $item->level ?? '-' }}
                                             </td>
                                             <td>
                                                 {{ $item->tgl_masuk }}
@@ -101,7 +110,7 @@
                                                     </span>
                                                 @endif
                                             </td> --}}
-                                            {{-- <td class="text-right">
+                                            <td class="text-right">
                                                 <div class="dropdown">
                                                     <a class="btn btn-sm btn-icon-only text-light" href="#"
                                                         role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -121,7 +130,7 @@
                                                             href="{{ asset('delete-barang/' . $item->id) }}">Delete</a>
                                                     </div>
                                                 </div>
-                                            </td> --}}
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -130,7 +139,6 @@
                     </div>
                 </div>
             </div>
-
 
 
             {{-- filter print --}}
@@ -199,6 +207,29 @@
                                     </select>
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="id_area">Filter Berdasarkan Area</label>
+                                    <select name="id_area" id="id_area" class="form-control">
+                                        <option value="">Select Area</option>
+                                        @foreach ($area as $k)
+                                            <option value="{{ $k->id }}"
+                                                @if (request()->input('id_area') == $k->id) selected @endif>{{ $k->area }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="id_lokasi">Filter Berdasarkan Lokasi</label>
+                                    <select name="id_lokasi" id="id_lokasi" class="form-control">
+                                        <option value="">Select Lokasi</option>
+                                        @foreach ($lokasi as $k)
+                                            <option value="{{ $k->id }}"
+                                                @if (request()->input('id_lokasi') == $k->id) selected @endif>{{ $k->lokasi }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
                             </div>
                             <div class="modal-footer">
@@ -246,6 +277,8 @@
 
             <script>
                 const tabel = document.querySelector('#tabel-barang');
-                const dataTable = new simpleDatatables.DataTable(tabel)
+                const dataTable = new DataTable(tabel, {
+                    stateSave: true
+                });
             </script>
         @endsection

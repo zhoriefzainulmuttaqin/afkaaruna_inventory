@@ -35,6 +35,7 @@ Route::get('//pengajuan/printPDF/', [PengajuanController::class, 'exportFilter']
 Route::post('//pengajuan/printPDF/', [PengajuanController::class, 'exportFilter']);
 Route::get('//pengajuan/printPDF/{id}', [PengajuanController::class, 'export']);
 Route::post('//pengajuan/printPDF/{id}', [PengajuanController::class, 'export']);
+Route::get('/home-user', [WoyController::class, 'home_user']);
 
 Route::group(['middleware' => ['auth', 'cekrole:user,admin,admin1,admin2,admin3,admin4']], function () {
     // Peminjaman
@@ -43,7 +44,6 @@ Route::group(['middleware' => ['auth', 'cekrole:user,admin,admin1,admin2,admin3,
     Route::post('/edit-peminjaman', [PeminjamanController::class, 'edit']);
     Route::get('/delete-peminjaman/{id}', [PeminjamanController::class, 'delete']);
     //woy
-    Route::get('/woy', [WoyController::class, 'index']);
 
     // Pengajuan
     Route::get('/pengajuanBarang', [PengajuanController::class, 'index_admin']);
@@ -98,6 +98,14 @@ Route::group(['middleware' => ['auth', 'cekrole:user,admin,admin1,admin2,admin3,
     Route::post('/add-barang', [BarangController::class, 'store']);
     Route::post('/edit-barang', [BarangController::class, 'edit']);
     Route::get('/delete-barang/{id}', [BarangController::class, 'delete']);
+
+    // asset
+    Route::get('/asset', [BarangController::class, 'asset']);
+    Route::get('/asset/printpdf', [BarangController::class, 'print_asset']);
+    Route::post('/asset/printpdf', [BarangController::class, 'print_asset']);
+    Route::post('/add-asset', [BarangController::class, 'store_asset']);
+    Route::post('/edit-asset', [BarangController::class, 'edit_asset']);
+    Route::get('/delete-asset/{id}', [BarangController::class, 'delete_asset']);
     // });
 
     // Route::middleware(['auth', 'cekrole:user,superadmin'])->group(function () {
@@ -108,6 +116,7 @@ Route::group(['middleware' => ['auth', 'cekrole:user,admin,admin1,admin2,admin3,
     Route::get('/delete-pengajuan/{id}', [PengajuanController::class, 'delete']);
 
     Route::get('/list_barang', [BarangController::class, 'barang_user']);
+    Route::get('/list_asset', [BarangController::class, 'asset_user']);
 
     // Peminjaman
     Route::get('/peminjaman-barang', [PeminjamanController::class, 'index_user']);

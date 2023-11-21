@@ -59,7 +59,7 @@
                                                 </div>
                                             </th>
                                             <td>
-                                                {{ $item->barang->nama }}
+                                                {{ $item->barang->nama ?? '-' }}
                                             </td>
                                             <td>
                                                 {{ $item->biaya }}
@@ -146,7 +146,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="jumlah">Jumlah</label>
-                                    <input type="date" class="form-control" id="jumlah" name="jumlahBarang">
+                                    <input type="number" class="form-control" id="jumlah" name="jumlahBarang">
                                 </div>
                                 <div class="form-group">
                                     <label for="keterangan">Deskripsi</label>

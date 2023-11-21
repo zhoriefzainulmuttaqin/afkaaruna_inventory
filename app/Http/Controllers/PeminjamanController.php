@@ -13,7 +13,7 @@ class PeminjamanController extends Controller
 {
     public function index()
     {
-
+      
 
         $peminjaman = Peminjaman::orderBy('id', 'ASC')->get();
         $barang = Barang::where('id_status', '=', '1')->orderBy('nama', 'ASC')->get();

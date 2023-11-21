@@ -15,6 +15,15 @@ use Illuminate\Support\Facades\Auth;
 
 class PengajuanController extends Controller
 {
+    public function view_user()
+    {
+        return view('user.pages.barang');
+    }
+    public function view_admin()
+    {
+        return view('admin.pages.barang');
+    }
+
 
     public function index()
     {
@@ -164,42 +173,60 @@ class PengajuanController extends Controller
     }
 
 
-    public function export($id)
-    {
-        $pengajuan = Pengajuan::findOrFail($id);
-        $barang = $pengajuan->barang; // Assuming you have a relationship defined in your Pengajuan model
-        $status = $pengajuan->status; // Assuming you have a relationship defined in your Pengajuan model
-        $area = $pengajuan->area; // Assuming you have a relationship defined in your Pengajuan model
+        public function export($id)
+        {
+            $pengajuan = Pengajuan::findOrFail($id);
+            $barang = $pengajuan->barang; // Assuming you have a relationship defined in your Pengajuan model
+            $status = $pengajuan->status; // Assuming you have a relationship defined in your Pengajuan model
+            $area = $pengajuan->area; // Assuming you have a relationship defined in your Pengajuan model
 
-        return view('export.pengajuan', compact('pengajuan', 'barang', 'status', 'area'));
-    }
+            return view('export.pengajuan', compact('pengajuan', 'barang', 'status', 'area'));
+        }
 
 
-    public function exportFilter(Request $request)
-    {
-        $query = Pengajuan::query();
+        public function exportFilter(Request $request)
+        {
+            $query = Pengajuan::query();
 
-        $query->when($request->filled('id_area'), function ($q) use ($request) {
-            return $q->where('id_area', $request->input('id_area'));
-        });
+            $query->when($request->filled('id_area'), function ($q) use ($request) {
+                return $q->where('id_area', $request->input('id_area'));
+            });
 
-        $query->when($request->filled('request_date_start') && $request->filled('request_date_end'), function ($q) use ($request) {
-            $tgl_masuk_awal = $request->input('request_date_start');
-            $tgl_masuk_akhir = $request->input('request_date_end');
-            return $q->whereBetween('request_date', [$tgl_masuk_awal, $tgl_masuk_akhir]);
-        });
+            $query->when($request->filled('request_date_start') && $request->filled('request_date_end'), function ($q) use ($request) {
+                $tgl_masuk_awal = $request->input('request_date_start');
+                $tgl_masuk_akhir = $request->input('request_date_end');
+                return $q->whereBetween('request_date', [$tgl_masuk_awal, $tgl_masuk_akhir]);
+            });
+            $user = Auth::user(); // Mendapatkan informasi pengguna yang sedang login
 
-        // Ambil data yang sesuai
-        $pengajuan = $query->orderBy('id', 'ASC')->get();
+            if ($user->role == 'admin1') {
+                $levelFilter = 1;
+            } elseif ($user->role == 'admin2') {
+                $levelFilter = 2;
+            } elseif ($user->role == 'admin3') {
+                $levelFilter = 3;
+            } elseif ($user->role == 'admin4') {
+                $levelFilter = 4;
+            } else {
+                $levelFilter = null; // Tidak ada pemfilteran level jika bukan admin1-4
+            }
+            $pengajuan = $query->orderBy('id', 'ASC')->get();
 
-        // Sisanya tetap sama seperti sebelumnya
-        $barang = Barang::where('id_status', '=', '1')->orderBy('id', 'ASC')->get();
-        $status = Status::get();
-        $area = Area::get();
-        $kategori = Kategori::get();
+            // Ambil data yang sesuai
+            $pengajuan = $query->orderBy('id', 'ASC')
+                ->where('level', $levelFilter)
+                 // Menambahkan kondisi OR untuk level di tabel pengajuan
 
-        return view('export.pengajuanFilter', compact('pengajuan', 'barang', 'status', 'area', 'kategori'));
-    }
+                ->get();
+
+            // Sisanya tetap sama seperti sebelumnya
+            $barang = Barang::where('level', '=', $levelFilter)->where('id_status', '=', '1')->get();
+            $status = Status::get();
+            $area = Area::get();
+            $kategori = Kategori::get();
+
+            return view('export.pengajuanFilter', compact('pengajuan', 'barang', 'status', 'area', 'kategori'));
+        }
 
 
 

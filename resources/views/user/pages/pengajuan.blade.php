@@ -3,7 +3,50 @@
 @section('tittle', 'Pengajuan')
 @section('container')
     <div class="main-content">
-        <div class="container mt-7">
+        <div class="container mt-4">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                                aria-controls="collapseOne">
+                                [V] Peraturan Purchase
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <p class="text-danger font-weight-bold"><b><i>Batas Waktu Pengajuan Hanya Sampai Pukul 11
+                                        WIB,<br>
+                                        Jika Lebih Dari Itu Maka Akan Diproses Pada Esok Hari!<br>
+                                        Untuk Purchase NonUrgent hanya dilayani hari SENIN hingga KAMIS</i></b></p>
+                            <b>1.</b> Sebelum order pemintaan barang, mohon cek terlebih dahulu di kolom search table
+                            barang<br>
+                            <b>2.</b> Permintaan barang non urgent maximum 5 Hari sebelum di pakai <br>
+                            <b>3.</b> Apabila order permintaan barang urgent maka tulis di kolom “note” urgent<br>
+                            <b>4.</b> Apabila order permintaan barang tidak/belum terdsedia di table barang(gudang), maka
+                            input pengajuan barang melalui tombol “New Item” dengan format :
+                            Nama Barang (Satuan)<br>
+                            <b>5.</b> Level wajib diisi : <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<b>Level 1 =</b> Rp.0 – Rp. 1.000.000 <b>(Coordinator of GA)</b><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<b>Level 2 =</b> Rp. 1.000.000-Rp.10.000.000 <b>(Manager of
+                                Operations)</b><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<b>Level 3 =</b> Rp. 10.000.000- Rp.20.000.000 <b>(Director of
+                                Education)</b><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<b>Level 4 =</b> Rp. 20.000.000-Tak terhingga <b>(Yayasan)</b><br>
+                            <b>6.</b> Type Barang : <span class="text-danger">(Selain Type <b>Asset</b>, barang bisa di
+                                Purchase)</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<b>Consumable materials and tools</b> = Bahan dan alat habis pakai
+                            (bolpoin, kertas, lem, sabun, sapu, sulak, tisu, solasi, kardus, dll)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<b>Equipment</b> = Perlengkapan (misal : kursi,meja, tv, sound, dll)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<b>Storage</b> = Penggudangan (barang2 lama yg tersisa d gudng)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<b>Asset</b> = Barang-Barang sudah terpakai<br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
             <!-- Table -->
             <div class="row">
                 <div class="col">
@@ -145,7 +188,7 @@
                 </div>
             </div>
 
-            <!-- Button trigger modal -->
+            {{-- <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" id="openModalButton" data-toggle="modal"
                 data-target="#staticBackdrop" style="display: none;">
                 Launch static backdrop modal
@@ -172,7 +215,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
 
             {{-- Modal Tambah Data --}}
@@ -195,7 +238,8 @@
                                         <option value="">Nama Barang</option>
                                         @foreach ($barang as $items)
                                             <option value="{{ $items->id }}"
-                                                data-kategori-id="{{ $items->id_kategori }}">{{ $items->nama }}</option>
+                                                data-kategori-id="{{ $items->id_kategori }}"
+                                                data-level="{{ $items->level }}">{{ $items->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -204,8 +248,7 @@
                                     <select class="form-control" id="area" name="id_area">
                                         <option value="">Pilih Area</option>
                                         @foreach ($area as $items)
-                                            <option value="{{ $items->id }}">{{ $items->area }}
-                                            </option>
+                                            <option value="{{ $items->id }}">{{ $items->area }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -215,18 +258,17 @@
                                     <select class="form-control" id="lokasi" name="id_lokasi">
                                         <option value="">Pilih Lokasi</option>
                                         @foreach ($lokasi as $items)
-                                            <option value="{{ $items->id }}"
-                                                data-area-id="{{ $items->id_area }}">{{ $items->lokasi }}</option>
+                                            <option value="{{ $items->id }}" data-area-id="{{ $items->id_area }}">
+                                                {{ $items->lokasi }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="area">Type</label>
+                                    <label for="type">Type</label>
                                     <select class="form-control" id="type" name="id_type">
                                         <option value="">Pilih Type</option>
                                         @foreach ($type as $items)
-                                            <option value="{{ $items->id }}">{{ $items->type }}
-                                            </option>
+                                            <option value="{{ $items->id }}">{{ $items->type }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -239,6 +281,17 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label for="level">Level</label>
+                                    <select class="form-control" id="level" name="level">
+                                        <option value="">Pilih Level</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="jumlahBarang">Jumlah</label>
                                     <input type="number" class="form-control" id="jumlahBarang" name="jumlahBarang">
@@ -323,8 +376,8 @@
                                     <select class="form-control" id="lokasi2" name="id_lokasi">
                                         <option value="">Pilih Lokasi</option>
                                         @foreach ($lokasi as $items)
-                                            <option value="{{ $items->id }}"
-                                                data-area-id="{{ $items->id_area }}">{{ $items->lokasi }}</option>
+                                            <option value="{{ $items->id }}" data-area-id="{{ $items->id_area }}">
+                                                {{ $items->lokasi }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -457,13 +510,14 @@
                                 <div class="form-group">
                                     <label for="request_date">Filter Berdasarkan Rentang Tanggal</label>
                                     <div class="input-group">
-                                        <input type="date" class="form-control" id="request_date_start" name="request_date_start"
+                                        <input type="date" class="form-control" id="request_date_start"
+                                            name="request_date_start"
                                             value="{{ request()->input('request_date_start') }}">
                                         <div class="input-group-prepend input-group-append">
                                             <div class="input-group-text">to</div>
                                         </div>
-                                        <input type="date" class="form-control" id="request_date_end" name="request_date_end"
-                                            value="{{ request()->input('request_date_end') }}">
+                                        <input type="date" class="form-control" id="request_date_end"
+                                            name="request_date_end" value="{{ request()->input('request_date_end') }}">
                                     </div>
                                 </div>
                             </div>
@@ -490,11 +544,18 @@
                     $('#namabrg').change(function() {
                         var selectedBarangId = $(this).val();
                         var selectedKategoriId = $('#namabrg option:selected').data('kategori-id');
+                        var selectedLevel = $('#namabrg option:selected').data('level');
 
                         if (selectedBarangId && selectedKategoriId) {
                             $('#kategori').val(selectedKategoriId);
                         } else {
                             $('#kategori').val('');
+                        }
+
+                        if (selectedBarangId && selectedLevel) {
+                            $('#level').val(selectedLevel);
+                        } else {
+                            $('#level').val('');
                         }
                     });
                 });
@@ -559,7 +620,8 @@
 
                     // Tampilkan hanya opsi lokasi yang memiliki data-area-id sesuai dengan area yang dipilih
                     for (var i = 0; i < lokasiOptions2.length; i++) {
-                        if (lokasiOptions2[i].getAttribute('data-area-id') === selectedAreaId2 || lokasiOptions2[i].value ===
+                        if (lokasiOptions2[i].getAttribute('data-area-id') === selectedAreaId2 || lokasiOptions2[i]
+                            .value ===
                             '') {
                             lokasiOptions2[i].style.display = 'block';
                         }

@@ -268,6 +268,16 @@
                                 </button>
                             </div>
                             <div class="modal-body">
+                                 <div class="form-group">
+                                    <label for="namabrg">List Barang</label>
+                                    <select class="form-control" id="namabrg">
+                                        <option value="">Nama Barang</option>
+                                        @foreach ($barang as $items)
+                                            <option value="{{ $items->id }}"
+                                                data-kategori-id="{{ $items->id_kategori }}">{{ $items->nama }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label for="namabrg">Nama Barang</label>
                                     <input type="text" class="form-control" id="new_item" name="new_item">
@@ -419,6 +429,18 @@
                                     <input type="date" class="form-control" id="request_date_end"
                                         name="request_date_end" value="{{ request()->input('request_date_end') }}">
                                 </div>
+
+                                {{-- <div class="form-group">
+                                    <label for="level">Filter Berdasarkan Level:</label>
+                                    <select name="level" id="level" class="form-control">
+                                        <option value="">Select Area</option>
+                                        @foreach ($barang as $brg)
+                                            <option value="{{ $brg->id }}"
+                                                @if (request()->input('level') == $brg->id) selected @endif>{{ $brg->level }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div> --}}
 
                             </div>
                             <div class="modal-footer">

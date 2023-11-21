@@ -139,16 +139,50 @@
                 </td>
             </tr>
         </table>
-        <table cellpadding="0" cellspacing="0">
+        <table>
+            <tr>
+                @php
+                    $dataA = []
+                @endphp
+                <td style="text-align: center; font-weight: Bold;">Area: @foreach ($barang as $a)
+                    @if ($a->area != null)
+                        @php
+                            $dataA[] = $a->area->area
+                        @endphp
+                    @endif
+                    @endforeach
+                    @php
+                        $uniqueA = collect($dataA)->unique()->implode(', ');
+                    @endphp
+                    {{ $uniqueA }}
+                </td>
+            </tr>
+            <tr>
 
+                @php
+                    $dataB = []
+                @endphp
+                <td style="text-align: center; font-weight: Bold;">Lokasi: @foreach ($barang as $b)
+                    @if ($b->lokasi != null)
+                        @php
+                            $dataB[] = $b->lokasi->lokasi
+                        @endphp
+                    @endif
+                    @endforeach
+                    @php
+                        $uniqueB = collect($dataB)->unique()->implode(', ');
+                    @endphp
+                    {{ $uniqueB }}
+                </td>
+            </tr>
+        </table>
+        <table cellpadding="0" cellspacing="0">
             <tr class="heading">
                 <td>No</td>
+                <td>Kode Barang</td>
                 <td>Nama Barang</td>
                 <td>Stock</td>
-                <td>Kategori</td>
-                <td>Tipe</td>
-                <td>Lokasi</td>
-                <td>Area</td>
+                <td>Kondisi Barang</td>
                 <td>Tanggal Masuk</td>
             </tr>
 
@@ -162,22 +196,16 @@
                         </div>
                     </td>
                     <td>
+                        {{ $item->code }}
+                    </td>
+                    <td>
                         {{ $item->nama }}
                     </td>
                     <td>
                         {{ $item->stock }}
                     </td>
                     <td>
-                        {{ $item->kategori->kategori ?? '-' }}
-                    </td>
-                    <td>
-                        {{ $item->type->type ?? '-' }}
-                    </td>
-                    <td>
-                        {{ $item->lokasi->lokasi ?? '-' }}
-                    </td>
-                    <td>
-                        {{ $item->area->area ?? '-' }}
+                        {{ $item->status->status ?? '-' }}
                     </td>
                     <td>
                         {{ $item->tgl_masuk }}

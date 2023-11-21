@@ -51,4 +51,8 @@ class Barang extends Model
     {
         return $this->belongsTo(Type::class, 'id_type');
     }
+    public function pengajuan()
+    {
+        return $this->belongsTo(Pengajuan::class, 'id_barang');
+    }
 }
